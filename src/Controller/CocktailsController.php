@@ -1,22 +1,20 @@
 <?php
 namespace App\Controller;
 
-use Cake\Datasource\ConnectionManager;
 use App\Model\Cocktail\CocktailSearch;
 
-class CocktailController extends AppController
+class CocktailsController extends AppController
 {
 
     /**
-     *
+     * カクテル検索
      * @param $param
      */
     public function search()
     {
-        $conn = ConnectionManager::get('dev');
-        $params = $this->request->params;
+        $params = $this->request->getQueryParams();
 
-        $cocktailQuery = new CocktailSearch($conn, $params);
+        $cocktailQuery = new CocktailSearch($params);
 
         $results = $cocktailQuery->fetchCocktailByKeyword();
 

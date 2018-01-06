@@ -1,15 +1,13 @@
 <?php
 namespace App\Model\Cocktail;
 
+use Cake\ORM\TableRegistry;
+
 class CocktailSearch
 {
-
-    private $conn;
-
     private $params;
 
-    public function __construct($conn, $params){
-        $this->conn = $conn;
+    public function __construct($params){
         $this->params = $params;
     }
 
@@ -18,28 +16,29 @@ class CocktailSearch
      */
     public function fetchCocktailByKeyword(){
 
-        $sql = "SELECT * FROM cocktail";
+        $cocktails = TableRegistry::get('cocktails');
+        $query = $cocktails
+            ->find()
+            ->select(['cocktails.id', 'cocktails.name', 'u.name'])
+            ->leftJoin(['u' => 'users'],['u.id = cocktails.author_id'])
+            ;
 
         // 検索項目に合わせてSQLを作成
         if(!empty($this->params)){
-            $sql .= " WHERE";
+            $idx = 0;
             foreach ($this->params as $key => $value){
-                $sql .= " " . $key . " = :" . $key . " AND";
+                if($idx == 0){
+                    $query->where(['cocktails.' . $key => $value]);
+                }else{
+                    $query->andWhere(['cocktails.' . $key => $value]);
+                }
+                $idx++;
             }
-            // 末尾のANDを削除
-            $sql = substr($sql,0,-3);
+
+            $query->order(['cocktails.name' => 'ASC']);
         }
 
-        $stmt = $this->conn->prepare($sql);
-
-        // 検索項目をセット
-        foreach ($this->params as $key => $value){
-            var_dump($key);
-            var_dump($value);
-            $stmt->bindValue($key, $value);
-        }
-
-        return $stmt->fetchAll();
+        return $query->toArray();
     }
 
 }
