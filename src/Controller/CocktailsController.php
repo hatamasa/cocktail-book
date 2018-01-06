@@ -1,8 +1,6 @@
 <?php
 namespace App\Controller;
 
-use App\Model\Cocktail\CocktailSearch;
-
 class CocktailsController extends AppController
 {
 
@@ -14,9 +12,7 @@ class CocktailsController extends AppController
     {
         $params = $this->request->getQueryParams();
 
-        $cocktailQuery = new CocktailSearch($params);
-
-        $results = $cocktailQuery->fetchCocktailByKeyword();
+        $results = $this->Cocktails->searchCocktails($params);
 
         $this->set('results', $results);
     }

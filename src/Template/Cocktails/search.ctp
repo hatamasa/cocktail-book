@@ -1,18 +1,20 @@
-<table class="type1">
-    <thead>
-	<tr>
-		<th>id</th>
-		<th>name</th>
-		<th>author</th>
-	</tr>
-	</thead>
-    <tbody>
-    <?php foreach ($results as $row): ?>
-    </tr>
-            <td><?php echo $row['id'] ?></td>
-            <td><?php echo $row['name'] ?></td>
-            <td><?php echo $row['u']['name'] ?></td>
-    </tr>
+<?php
+use Cake\Core\Configure;
+
+$glass = Configure::read('glass');
+$percentage = Configure::read('percentage');
+$taste = Configure::read('taste');
+?>
+
+<div class="resultsCol">
+	<?php foreach ($results as $row): ?>
+	<ul>
+		<li>id: <?php echo $row['id']?></li>
+		<li><?php echo $row['name']?></li>
+		<li>グラス：<?php echo $glass[$row['glass']]?></li>
+		<li>強さ： <?php echo $percentage[$row['percentage']]?></li>
+		<li>色： <?php echo $row['color']?></li>
+		<li>味： <?php echo $taste[$row['taste']]?></li>
+	</ul>
     <?php endforeach; ?>
-    </tbody>
-</table>
+</div>

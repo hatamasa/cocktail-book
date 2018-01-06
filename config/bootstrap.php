@@ -77,7 +77,7 @@ try {
  * You can use a file like app_local.php to provide local overrides to your
  * shared configuration.
  */
-//Configure::load('app_local', 'default');
+Configure::load('const');
 
 /*
  * When debug = true the metadata cache should only last
