@@ -1,0 +1,22 @@
+input[type="text"] {
+	hight: auto;
+    width: 60%;
+}
+
+.form-group {
+	width: 100%;
+	margin: 10px;
+	padding: 10px;
+}
+
+.col-label {
+	margin: 10px;
+	width: 10%;
+	text-align: right;
+	float: left;
+}
+
+.col-input {
+	margin: 10px;
+    width: 60%;
+}
