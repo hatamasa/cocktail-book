@@ -1,44 +1,32 @@
 input[type="text"] {
-	hight: auto;
-    width: 60%;
+    width: 400px;
+}
+
+input[type="submit"] {
+	position: relative;
+	left: 30px;
 }
 
 .form-group {
-	width: 100%;
-	margin: 10px;
-	padding: 10px;
+	margin: 20px;
 }
 
 .col-label {
-	margin: 10px;
-	width: 10%;
-	text-align: right;
-	float: left;
+	width: auto;
+	font-size: 150%;
 }
 
 .col-input {
-	margin: 10px;
-    width: 60%;
+	position: relative;
+	left: 30px;
 }
 
-table.type1 {
-	border-collapse: separate;
-	border-spacing: 1px;
-	text-align: center;
-	line-height: 1.5;
+.results_col {
+	position: relative;
+	top:20px;
+	left: 20px;
 }
-table.type1 th {
-	width: 155px;
-	padding: 10px;
-	font-weight: bold;
-	vertical-align: top;
-	color: #fff;
-	background: #036;
-}
-table.type1 td {
-	width: 155px;
-	padding: 10px;
-	vertical-align: top;
-	border-bottom: 1px solid #ccc;
-	background: #eee;
+
+.cocktail_name {
+	font-size: 150%;
 }

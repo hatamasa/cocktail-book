@@ -14,6 +14,7 @@
 namespace App\View;
 
 use Cake\View\View;
+use Cake\Core\Configure;
 
 /**
  * Application View
@@ -36,5 +37,13 @@ class AppView extends View
      */
     public function initialize()
     {
+        // 定数の呼び出し
+        switch ($this->templatePath) {
+            case 'Cocktails':
+                $this->set('glass_list', Configure::read('glass'));
+                $this->set('percentage_list', Configure::read('percentage'));
+                $this->set('taste_list', Configure::read('taste'));
+                break;
+        }
     }
 }
