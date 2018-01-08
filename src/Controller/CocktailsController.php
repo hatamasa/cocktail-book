@@ -3,11 +3,17 @@ namespace App\Controller;
 
 use App\Model\Cocktails\Cocktails;
 
+/**
+ * カクテルコントローラ
+ * /cocktails
+ * @author hatamasa
+ */
 class CocktailsController extends AppController
 {
 
     /**
      * 初期表示
+     * GET /
      */
     public function index()
     {
@@ -16,6 +22,7 @@ class CocktailsController extends AppController
 
     /**
      * カクテル検索
+     * GET /search
      * @param　$param
      */
     public function search()
@@ -29,7 +36,7 @@ class CocktailsController extends AppController
         $errors = $cocktails->validate();
 
         if (! $errors) {
-            $results = $this->Cocktails->searchCocktails($params);
+            $results = $this->Cocktails->fetchAllCocktails($params);
 
             if (count($results) == 0) {
                 $messages[] = "検索結果はありません";
@@ -42,5 +49,19 @@ class CocktailsController extends AppController
         $this->set('errors', $errors);
         $this->set('messages', $messages);
         $this->set('params', $params);
+    }
+
+    /**
+     * カクテル詳細表示
+     * GET /:id
+     */
+    public function show($id)
+    {
+        $cocktails = new Cocktails();
+        $results = $cocktails->fetchCocktailDetail($id);
+
+        $this->set('cocktail', $results['cocktail']);
+        $this->set('elements', $results['elements']);
+
     }
 }

@@ -1,0 +1,37 @@
+<?php
+echo $this->element('cocktails/common');
+?>
+<!-- 検索結果表示 -->
+<?php if(isset($cocktail)): ?>
+<div class="col-label-1"><?php echo $cocktail['name']?></div>
+<table>
+	<tr>
+		<th>グラス</th>
+		<td><?php echo $glass_list[$cocktail['glass']]?></td>
+	</tr>
+	<tr>
+		<th>度数</th>
+		<td><?php echo $percentage_list[$cocktail['percentage']]?></td>
+	</tr>
+	<tr>
+		<th>色</th>
+		<td><?php echo $cocktail['color']?></td>
+	</tr>
+	<tr>
+		<th>味</th>
+		<td><?php echo $taste_list[$cocktail['taste']]?></td>
+	</tr>
+</table>
+<div class="col-label-1">入れるもの</div>
+<table>
+	<?php foreach ($elements as $element): ?>
+    	<tr>
+		<th><?php echo $category_list[$element['category_kbn']]?></th>
+		<td><?php echo $element['name']?></td>
+		<td><?php echo $element['amount']?></td>
+	</tr>
+    <?php endforeach; ?>
+</table>
+<div class="col-label-1">手順</div>
+<div><?php echo $cocktail['processes']?></div>
+<?php endif;?>

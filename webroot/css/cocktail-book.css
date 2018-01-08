@@ -11,7 +11,7 @@ input[type="submit"] {
 	margin: 20px;
 }
 
-.col-label {
+.col-label-1 {
 	width: auto;
 	font-size: 150%;
 }
@@ -27,6 +27,7 @@ input[type="submit"] {
 	left: 20px;
 }
 
-.cocktail_name {
-	font-size: 150%;
+.cocktail_block {
+	float: left;
+	margin: 20px;
 }

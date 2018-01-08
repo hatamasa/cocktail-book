@@ -43,6 +43,7 @@ class AppView extends View
                 $this->set('glass_list', Configure::read('glass'));
                 $this->set('percentage_list', Configure::read('percentage'));
                 $this->set('taste_list', Configure::read('taste'));
+                $this->set('category_list', Configure::read('category_kbn'));
                 break;
         }
     }

@@ -3,15 +3,16 @@ namespace App\Model\Table;
 
 use Cake\ORM\Table;
 use App\Model\Cocktails\CocktailsUtil;
+use Cake\Database\Expression\OrderByExpression;
 
 class CocktailsTable extends Table
 {
     /**
-     * カクテル一覧検索
+     * カクテル一覧を検索する
      * @param  $params
      * @return array
      */
-    public function searchCocktails($params){
+    public function fetchAllCocktails($params){
 
         $query = $this->query();
 
@@ -34,4 +35,5 @@ class CocktailsTable extends Table
 
         return $query->toArray();
     }
+
 }

@@ -6,13 +6,13 @@ echo $this->element('cocktails/common');
 <form action="./search" method="get">
 	<div class="cocktailSearchForm__block">
 		<div class="form-group">
-			<div class="col-label">名前</div>
+			<div class="col-label-1">名前</div>
 			<div class="col-input">
 				<input type="text" name="name" value="<?php if(isset($params['name'])): ?><?php echo $params['name'] ?><?php endif;?>" />
 			</div>
 		</div>
 		<div class="form-group">
-			<div class="col-label">グラス</div>
+			<div class="col-label-1">グラス</div>
 			<div class="col-input">
 			<?php foreach ($glass_list as $key => $value):?>
 				<input type=checkbox name="glass[]" value="<?php echo $key?>"
@@ -21,7 +21,7 @@ echo $this->element('cocktails/common');
 			</div>
 		</div>
 		<div class="form-group">
-			<div class="col-label">強さ</div>
+			<div class="col-label-1">強さ</div>
 			<div class="col-input">
 			<?php foreach ($percentage_list as $key => $value):?>
 				<input type=checkbox name="percentage[]" value="<?php echo $key?>"
@@ -30,7 +30,7 @@ echo $this->element('cocktails/common');
 			</div>
 		</div>
 		<div class="form-group">
-			<div class="col-label">味</div>
+			<div class="col-label-1">味</div>
 			<div class="col-input">
 			<?php foreach ($taste_list as $key => $value):?>
 				<input type=checkbox name="taste[]" value="<?php echo $key?>"
@@ -47,8 +47,8 @@ echo $this->element('cocktails/common');
 <div class="results_col">
 <?php echo $this->element('messages', ['messages' => $messages]);?>
     	<?php foreach ($results as $row): ?>
-     <ul>
-        	<li class="cocktail_name"><?php echo $row['name']?></li>
+     <ul class="cocktail_block">
+        	<li class="cocktail_name"><a href="./<?php echo $row['id']?>"><?php echo $row['name']?></a></li>
         	<li>グラス：<?php echo $glass_list[$row['glass']]?></li>
         	<li>強さ： <?php echo $percentage_list[$row['percentage']]?></li>
         	<li>色： <?php echo $row['color']?></li>
