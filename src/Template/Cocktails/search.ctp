@@ -3,20 +3,20 @@ echo $this->element('cocktails/common');
 ?>
 
 <!-- 検索フォーム -->
-<form action="./search" method="get">
+<form action="<?= $this->Url->build('/cocktails/search') ?>" method="get">
 	<div class="cocktailSearchForm__block">
 		<div class="form-group">
 			<div class="col-label-1">名前</div>
 			<div class="col-input">
-				<input type="text" name="name" value="<?php if(isset($params['name'])): ?><?php echo $params['name'] ?><?php endif;?>" />
+				<input type="text" name="name" value="<?php if(isset($params['name'])): ?><?= $params['name'] ?><?php endif;?>" />
 			</div>
 		</div>
 		<div class="form-group">
 			<div class="col-label-1">グラス</div>
 			<div class="col-input">
 			<?php foreach ($glass_list as $key => $value):?>
-				<input type=checkbox name="glass[]" value="<?php echo $key?>"
-				<?php if(isset($params['glass']) && in_array($key, $params['glass'])): ?>checked="checked"<?php endif; ?> /><?php echo $value?>
+				<input type=checkbox name="glass[]" value="<?= $key?>"
+				<?php if(isset($params['glass']) && in_array($key, $params['glass'])): ?>checked="checked"<?php endif; ?> /><?= $value?>
 			<?php endforeach; ?>
 			</div>
 		</div>
@@ -24,8 +24,8 @@ echo $this->element('cocktails/common');
 			<div class="col-label-1">強さ</div>
 			<div class="col-input">
 			<?php foreach ($percentage_list as $key => $value):?>
-				<input type=checkbox name="percentage[]" value="<?php echo $key?>"
-				<?php if(isset($params['percentage']) && in_array($key, $params['percentage'])): ?>checked="checked"<?php endif; ?> /><?php echo $value?>
+				<input type=checkbox name="percentage[]" value="<?= $key?>"
+				<?php if(isset($params['percentage']) && in_array($key, $params['percentage'])): ?>checked="checked"<?php endif; ?> /><?= $value?>
 			<?php endforeach; ?>
 			</div>
 		</div>
@@ -33,8 +33,8 @@ echo $this->element('cocktails/common');
 			<div class="col-label-1">味</div>
 			<div class="col-input">
 			<?php foreach ($taste_list as $key => $value):?>
-				<input type=checkbox name="taste[]" value="<?php echo $key?>"
-				<?php if(isset($params['taste']) && in_array($key, $params['taste'])): ?>checked="checked"<?php endif; ?> /><?php echo $value?>
+				<input type=checkbox name="taste[]" value="<?= $key?>"
+				<?php if(isset($params['taste']) && in_array($key, $params['taste'])): ?>checked="checked"<?php endif; ?> /><?= $value?>
 			<?php endforeach; ?>
 			</div>
 		</div>
@@ -45,16 +45,16 @@ echo $this->element('cocktails/common');
 <!-- 検索結果表示 -->
 <?php if(isset($results)): ?>
 <div class="results_col">
-<?php echo $this->element('messages', ['messages' => $messages]);?>
+<?= $this->element('messages', ['messages' => $messages]);?>
     	<?php foreach ($results as $row): ?>
      <ul class="cocktail_block">
-        	<li class="cocktail_name"><a href="./<?php echo $row['id']?>"><?php echo $row['name']?></a></li>
-        	<li>グラス：<?php echo $glass_list[$row['glass']]?></li>
-        	<li>強さ： <?php echo $percentage_list[$row['percentage']]?></li>
-        	<li>色： <?php echo $row['color']?></li>
-        	<li>味： <?php echo $taste_list[$row['taste']]?></li>
+        	<li class="cocktail_name"><a href="<?= $this->Url->build('/cocktails/') ?><?= $row['id']?>"><?= $row['name']?></a></li>
+        	<li>グラス：<?= $glass_list[$row['glass']]?></li>
+        	<li>強さ： <?= $percentage_list[$row['percentage']]?></li>
+        	<li>色： <?= $row['color']?></li>
+        	<li>味： <?= $taste_list[$row['taste']]?></li>
      </ul>
-     <input type="hidden" name="id" value=<?php echo $row['id']?> />
+     <input type="hidden" name="id" value=<?= $row['id']?> />
     <?php endforeach; ?>
 </div>
 <?php endif;?>
