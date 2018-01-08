@@ -19,7 +19,7 @@ class CocktailsTable extends Table
         // 検索項目に合わせてSQLを作成
         $query->where(['1' => 1]);
         if(isset($params['name']) && !empty(trim($params['name']))){
-            $query->andWhere(['name LIKE' => '%' . CocktailsUtil::escapeString($params['name']) . '% ESCAPE #']);
+            $query->andWhere(['name LIKE' => CocktailsUtil::escapeString($params['name'])]);
         }
         if(isset($params['glass'])){
             $query->andWhere(['glass IN' => $params['glass']]);
