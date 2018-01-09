@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Model\Cocktails\Cocktails;
+use Symfony\Component\VarDumper\Tests\Fixture\DumbFoo;
 
 /**
  * カクテルコントローラ
@@ -33,7 +34,7 @@ class CocktailsController extends AppController
         $params = $this->request->getQueryParams();
 
         $cocktails = new Cocktails($params);
-        $errors = $cocktails->validate();
+        $errors = $cocktails->validateForSearch();
 
         if (! $errors) {
             $results = $this->Cocktails->fetchAllCocktails($params);
@@ -62,6 +63,41 @@ class CocktailsController extends AppController
 
         $this->set('cocktail', $results['cocktail']);
         $this->set('elements', $results['elements']);
+    }
 
+    /**
+     * カクテル登録
+     * GET|POST /create
+     */
+    public function create()
+    {
+        $errors = [];
+        $messages = [];
+        $params = [];
+
+        if ($this->request->is('get')){
+            return ;
+        }
+
+        if($this->request->is('post')){
+
+            $params = $this->request->getData();
+
+            $cocktails = new Cocktails($params);
+            $errors = $cocktails->valudateForCreate();
+
+            if(! $errors){
+                try{
+                    $cocktails->createCocktail();
+                    $messages[] = '登録が完了しました';
+                }catch (\Exception $e){
+                    $messages[] = '登録中にエラーが発生しました';
+                }
+            }
+        }
+
+        $this->set('errors', $errors);
+        $this->set('messages', $messages);
+        $this->set('params', $params);
     }
 }

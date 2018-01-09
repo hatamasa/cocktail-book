@@ -1,4 +1,5 @@
-AuthUserFile /opt/lampp/htdocs/cocktail-book/.htpasswd
+#AuthUserFile /opt/lampp/htdocs/cocktail-book/.htpasswd
+AuthUserFile /Users/hatamasa/program/cocktail-book/.htpasswd
 AuthGroupFile /dev/null
 AuthName "Please enter your ID and password"
 AuthType Basic

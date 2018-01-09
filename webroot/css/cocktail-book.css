@@ -2,6 +2,18 @@ input[type="text"] {
     width: 400px;
 }
 
+.element-table {
+	width: 500px;
+}
+
+.element-table tr th {
+	width: 60px;
+}
+
+.element-table tr td input {
+	width: auto;
+}
+
 input[type="submit"] {
 	position: relative;
 	left: 30px;
@@ -16,7 +28,29 @@ input[type="submit"] {
 	font-size: 150%;
 }
 
-.col-input {
+.col-input-1 {
+	position: relative;
+	left: 30px;
+}
+
+.col-label-2 {
+	width: 65px;
+	float: left;
+	font-size: 100%;
+}
+
+.col-input-2 {
+	position: relative;
+	left: 30px;
+}
+
+.col-label-3 {
+	width: 50px;
+	float: left;
+	font-size: 100%;
+}
+
+.col-input-3 {
 	position: relative;
 	left: 30px;
 }
@@ -30,4 +64,12 @@ input[type="submit"] {
 .cocktail_block {
 	float: left;
 	margin: 20px;
+}
+
+.errors-form p {
+	color: #ff0000;
+}
+
+.messages-form p {
+	color: #02d410;
 }

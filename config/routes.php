@@ -49,13 +49,16 @@ Router::scope('/', function (RouteBuilder $routes) {
      * its action called 'display', and we pass a param to select the view file
      * to use (in this case, src/Template/Pages/home.ctp)...
      */
-    $routes->connect('/cocktails', ['controller' => 'Cocktails', 'action' => 'index']);
+    $routes->get('/cocktails', ['controller' => 'Cocktails', 'action' => 'index']);
 
-    $routes->connect('/cocktails/search', ['controller' => 'Cocktails', 'action' => 'search']);
+    $routes->get('/cocktails/search', ['controller' => 'Cocktails', 'action' => 'search']);
 
-    $routes->connect('/cocktails/:id', ['controller' => 'Cocktails', 'action' => 'show'])
+    $routes->get('/cocktails/:id', ['controller' => 'Cocktails', 'action' => 'show'])
         ->setPatterns(['id' => '\d+'])
         ->setPass(['id']);
+
+    $routes->connect('/cocktails/create', ['controller' => 'Cocktails', 'action' => 'create'])
+        ->setMethods(['GET', 'POST']);
 
     /**
      * Connect catchall routes for all controllers.

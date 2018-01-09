@@ -2,6 +2,7 @@
 create table cocktails (
   id int(4) not null auto_increment,
   name varchar(64),
+  search_name varchar(64),
   glass varchar(2) comment '1:ショート 2:ロング 3:ロックグラス 4:ビールグラス 5:ワイングラス 6:その他',
   percentage varchar(2) comment '1:弱い 2:普通 3:強い',
   color varchar(20),
@@ -12,10 +13,10 @@ create table cocktails (
   dt_update datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   primary key (id)
 );
-insert into cocktails(id, name, glass, percentage, taste, author_id) values(1, 'ジントニック', 2, 1, 3, 1);
-insert into cocktails(id, name, glass, percentage, taste, author_id) values(2, 'モスコミュール', 2, 1, 2, 1);
-insert into cocktails(id, name, glass, percentage, taste, author_id) values(3, 'カルーアミルク', 3, 1, 1, 1);
-insert into cocktails(id, name, glass, percentage, taste, author_id) values(4, 'カシスオレンジ', 2, 1, 1, 1);
+insert into cocktails(id, name, search_name, glass, percentage, taste, author_id) values(1, 'ジントニック', 'ｼﾞﾝﾄﾆｯｸ', 2, 1, 3, 1);
+insert into cocktails(id, name, search_name, glass, percentage, taste, author_id) values(2, 'モスコミュール', 'ﾓｽｺﾐｭｰﾙ', 2, 1, 2, 1);
+insert into cocktails(id, name, search_name, glass, percentage, taste, author_id) values(3, 'カルーアミルク', 'ｶﾙｰｱﾐﾙｸ', 3, 1, 1, 1);
+insert into cocktails(id, name, search_name, glass, percentage, taste, author_id) values(4, 'カシスオレンジ', 'ｶｼｽｵﾚﾝｼﾞ', 2, 1, 1, 1);
 
 
 // カクテル要素
