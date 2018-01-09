@@ -4,6 +4,12 @@
 #    RequestHeader unset Proxy
 #</IfModule>
 
+AuthUserFile cocktail-book.herokuapp.com/.htpasswd
+AuthGroupFile /dev/null
+AuthName "Please enter your ID and password"
+AuthType Basic
+require valid-user
+
 <IfModule mod_rewrite.c>
     RewriteEngine on
     RewriteRule    ^(\.well-known/.*)$ $1 [L]
