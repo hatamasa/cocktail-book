@@ -90,6 +90,7 @@ class CocktailsController extends AppController
                 try{
                     $cocktails->createCocktail();
                     $messages[] = '登録が完了しました';
+                    $params = [];
                 }catch (\Exception $e){
                     $messages[] = '登録中にエラーが発生しました';
                 }

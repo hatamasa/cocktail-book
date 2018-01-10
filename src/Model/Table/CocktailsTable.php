@@ -6,6 +6,11 @@ use App\Model\Cocktails\CocktailsUtil;
 
 class CocktailsTable extends Table
 {
+    public function initialize(array $config){
+        $this->hasMany('CocktailElements')
+        ->setForeignKey('cocktails_id');
+    }
+
     /**
      * カクテル一覧を検索する
      * @param  $params

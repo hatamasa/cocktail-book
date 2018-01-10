@@ -2,8 +2,6 @@
 namespace App\Model\Cocktails;
 
 use Cake\ORM\TableRegistry;
-use App\Model\Entity\Cocktail;
-use App\Model\Entity\CocktailElement;
 
 class Cocktails
 {
@@ -44,14 +42,14 @@ class Cocktails
      * @param $id
      * @return array
      */
-    public function fetchCocktailDetail($cocktail_id){
+    public function fetchCocktailDetail($cocktails_id){
         $results = [];
 
         $cocktailsTable = TableRegistry::get('Cocktails');
-        $results['cocktail'] = $cocktailsTable->get($cocktail_id)->toArray();
+        $results['cocktail'] = $cocktailsTable->get($cocktails_id)->toArray();
 
         $cocktailElementsTable = TableRegistry::get('CocktailElements');
-        $results['elements'] = $cocktailElementsTable->fetchElementsByCocktailId($cocktail_id);
+        $results['elements'] = $cocktailElementsTable->fetchElementsByCocktailId($cocktails_id);
 
         return $results;
     }
@@ -77,9 +75,9 @@ class Cocktails
         // カクテル要素の配列作成
         $cocktail_elements = [];
 
-        for ($i = 0 ; $i < count($this->params['element_id']); $i++) {
+        for ($i = 0 ; $i < count($this->params['elements_id']); $i++) {
             $cocktail_elements[] = [
-                'element_id' => $this->params["element_id"][$i],
+                'elements_id' => $this->params["elements_id"][$i],
                 'amount' => $this->params["amount"][$i],
             ];
         }
@@ -89,8 +87,9 @@ class Cocktails
         // エンティティとアソシエーションを作成
         $cocktailsTable = TableRegistry::get('Cocktails');
         $cocktail = $cocktailsTable->newEntity($data, [
-            'associated' => ['CocktailElements']
+            'associated' => ['CocktailElements'],
         ]);
+
         // 登録
         return $cocktailsTable->save($cocktail);
     }
