@@ -62,8 +62,8 @@ class Cocktails
      */
     public function createCocktail(){
 
-        // カクテルエンティティ作成
-        $cocktail = new Cocktail([
+        // カクテルの配列作成
+        $data = [
             'name' => $this->params['name'],
             'search_name' => CocktailsUtil::convertTohalfString($this->params['name']),
             'glass' => $this->params['glass'],
@@ -72,27 +72,26 @@ class Cocktails
             'taste' => $this->params['taste'],
             'processes' => $this->params['processes'],
             'author_id' => $this->params['author_id']
-        ]);
+        ];
 
-        // カクテル要素エンティティ生成
+        // カクテル要素の配列作成
         $cocktail_elements = [];
 
         for ($i = 0 ; $i < count($this->params['element_id']); $i++) {
-            $cocktail_elements[] = new CocktailElement([
+            $cocktail_elements[] = [
                 'element_id' => $this->params["element_id"][$i],
                 'amount' => $this->params["amount"][$i],
-            ]);
+            ];
         }
 
-        // アソシエーションを作成
-        $cocktail->CocktailElements = $cocktail_elements;
+        $data['cocktail_elements'] = $cocktail_elements;
 
-        echo("<pre>");
-        var_dump($cocktail);
-        echo("</pre>");
-        // 登録
+        // エンティティとアソシエーションを作成
         $cocktailsTable = TableRegistry::get('Cocktails');
-        // TODO elementsへ登録されない
+        $cocktail = $cocktailsTable->newEntity($data, [
+            'associated' => ['CocktailElements']
+        ]);
+        // 登録
         return $cocktailsTable->save($cocktail);
     }
 
