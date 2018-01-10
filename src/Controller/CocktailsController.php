@@ -3,6 +3,7 @@ namespace App\Controller;
 
 use App\Model\Cocktails\Cocktails;
 use Symfony\Component\VarDumper\Tests\Fixture\DumbFoo;
+use App\Model\Table\ElementsTable;
 
 /**
  * カクテルコントローラ
@@ -74,21 +75,20 @@ class CocktailsController extends AppController
         $errors = [];
         $messages = [];
         $params = [];
+        $results = [];
+        $params = $this->request->getData();
 
         if ($this->request->is('get')){
-            return ;
-        }
-
-        if($this->request->is('post')){
-
-            $params = $this->request->getData();
-
+            // 表示時は空で遷移
+            $this->render();
+        } else if($this->request->is('post')){
+            // 登録時処理
             $cocktails = new Cocktails($params);
             $errors = $cocktails->valudateForCreate();
 
             if(! $errors){
                 try{
-                    $cocktails->createCocktail();
+                    $results = $cocktails->createCocktail();
                     $messages[] = '登録が完了しました';
                     $params = [];
                 }catch (\Exception $e){
@@ -100,5 +100,20 @@ class CocktailsController extends AppController
         $this->set('errors', $errors);
         $this->set('messages', $messages);
         $this->set('params', $params);
+        $this->set('results', $results);
+    }
+
+    /**
+     * エレメントのプルダウン制御用
+     * @param $category_kbn
+     * GET /getElementsOptions/:id
+     */
+    public function getElementsOptions($category_kbn)
+    {
+        $cocktails = new Cocktails();
+        $elements_options = $cocktails->getElementsOptions($category_kbn);
+
+        $this->set('elements_options', $elements_options);
+        $this->layout = false;
     }
 }

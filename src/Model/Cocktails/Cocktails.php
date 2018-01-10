@@ -61,6 +61,7 @@ class Cocktails
     public function createCocktail(){
 
         // カクテルの配列作成
+        // TODO ログインしているユーザのIDを設定する
         $data = [
             'name' => $this->params['name'],
             'search_name' => CocktailsUtil::convertTohalfString($this->params['name']),
@@ -69,7 +70,7 @@ class Cocktails
             'color' => $this->params['color'],
             'taste' => $this->params['taste'],
             'processes' => $this->params['processes'],
-            'author_id' => $this->params['author_id']
+            'author_id' => null
         ];
 
         // カクテル要素の配列作成
@@ -92,6 +93,16 @@ class Cocktails
 
         // 登録
         return $cocktailsTable->save($cocktail);
+    }
+
+    /**
+     * カテゴリでエレメントを取得する
+     * @param $category_kbn
+     * @return array
+     */
+    public function getElementsOptions($category_kbn){
+        $elementsRepository = TableRegistry::get('Elements');
+        return $elementsRepository->findByCategoryKbn($category_kbn)->toArray();
     }
 
 }

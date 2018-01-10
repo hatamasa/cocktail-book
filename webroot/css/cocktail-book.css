@@ -1,13 +1,17 @@
-input[type="text"] {
-    width: 400px;
+#name-search-input {
+	width: 400px;
+}
+
+#input-text-1 {
+	width: 300px;
 }
 
 .element-table {
-	width: 500px;
+	width: 700px;
 }
 
 .element-table tr th {
-	width: 60px;
+	width: 80px;
 }
 
 .element-table tr td input {
@@ -17,6 +21,10 @@ input[type="text"] {
 input[type="submit"] {
 	position: relative;
 	left: 30px;
+}
+
+h3 {
+	margin: 20px;
 }
 
 .form-group {

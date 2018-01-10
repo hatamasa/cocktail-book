@@ -8,9 +8,8 @@ echo $this->element('cocktails/common');
 <form action="<?= $this->Url->build('/cocktails/search') ?>" method="get">
 	<div class="cocktailSearchForm__block">
 		<div class="form-group">
-			<div class="col-label-1">名前</div>
 			<div class="col-input-1">
-				<input type="text" name="name" value="<?php if(isset($params['name'])): ?><?= $params['name'] ?><?php endif;?>" />
+				<input type="text" id="name-search-input" name="name" value="<?php if(isset($params['name'])): ?><?= $params['name'] ?><?php endif;?>" placeholder="カクテルの名前を入力..." />
 			</div>
 		</div>
 		<div class="form-group">
@@ -56,7 +55,6 @@ echo $this->element('cocktails/common');
         	<li>色： <?= $row['color']?></li>
         	<li>味： <?= $taste_list[$row['taste']]?></li>
      </ul>
-     <input type="hidden" name="id" value=<?= $row['id']?> />
     <?php endforeach; ?>
 </div>
 <?php endif;?>

@@ -60,6 +60,10 @@ Router::scope('/', function (RouteBuilder $routes) {
     $routes->connect('/cocktails/create', ['controller' => 'Cocktails', 'action' => 'create'])
         ->setMethods(['GET', 'POST']);
 
+    $routes->get('/cocktails/getElementsOptions/:id', ['controller' => 'Cocktails', 'action' => 'getElementsOptions'])
+        ->setPatterns(['id' => '\d+'])
+        ->setPass(['id']);
+
     /**
      * Connect catchall routes for all controllers.
      *

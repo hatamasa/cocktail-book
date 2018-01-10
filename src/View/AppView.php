@@ -40,6 +40,7 @@ class AppView extends View
         // 定数の呼び出し
         switch ($this->templatePath) {
             case 'Cocktails':
+                // 表示に必要は区分値
                 $this->set('glass_list', Configure::read('glass'));
                 $this->set('percentage_list', Configure::read('percentage'));
                 $this->set('taste_list', Configure::read('taste'));
