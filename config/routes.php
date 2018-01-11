@@ -49,7 +49,7 @@ Router::scope('/', function (RouteBuilder $routes) {
      * its action called 'display', and we pass a param to select the view file
      * to use (in this case, src/Template/Pages/home.ctp)...
      */
-    $routes->get('/cocktails', ['controller' => 'Cocktails', 'action' => 'index']);
+    $routes->get('/', ['controller' => 'Cocktails', 'action' => 'index']);
 
     $routes->get('/cocktails/search', ['controller' => 'Cocktails', 'action' => 'search']);
 
@@ -63,6 +63,8 @@ Router::scope('/', function (RouteBuilder $routes) {
     $routes->get('/cocktails/getElementOptions/:id', ['controller' => 'Cocktails', 'action' => 'getElementOptions'])
         ->setPatterns(['id' => '\d+'])
         ->setPass(['id']);
+
+    $routes->post('/cocktails/mergeElementTable', ['controller' => 'Cocktails', 'action' => 'mergeElementTable']);
 
     /**
      * Connect catchall routes for all controllers.

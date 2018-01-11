@@ -1,5 +1,3 @@
-<?= $this->element('cocktails/common'); ?>
-
 <div><a href="<?= $this->Url->build('/cocktails/create') ?>" >カクテルを登録する</a></div>
 
 <!-- 検索フォーム -->
@@ -46,7 +44,7 @@
     <div class="results_col">
     <?= $this->element('messages', ['messages' => $messages, 'errors' => $errors]);?>
     <?php foreach ($results as $row): ?>
-    		<?= $this->element('cocktail', ['results' => $row]);?>
+    		<?= $this->element('cocktails/cocktail', ['results' => $row]);?>
     <?php endforeach; ?>
     </div>
 <?php endif;?>

@@ -1,24 +1,28 @@
-<?= $this->element('cocktails/common'); ?>
-
 <script>
 
 $(function(){
 	// selectボックスの変更イベント
-    $('.category').on("change", function() {
-        var id = $(".category").val();
-        $(".element").load( "/cocktails//getElementOptions/"+id);
+    $('.category').on('change keyup', function() {
+        var id = $('.category').val();
+        $('.element').load( '/cocktails/getElementOptions/'+id);
     });
 
     // submitの押下イベント
-    $('.submit-elements').on("click", function() {
-        var data = { };
-        data['element_list_selected'] = $(".element_list_selected").val;
-        data['element_id'] = $(".element").val();
-        data['amount'] = $(".amount").val();
-        $(".element-table").load( "/cocktails/getElementTable/", data);
+    $('.submit-elements').on('click', function() {
+        var obj = new Object();
+        obj['category_kbn'] = $('.category').val();
+        obj['elements_id'] = $('.element').val();
+        obj['amount'] = $('.amount-input').val();
+
+        $('.element-table').load( '/cocktails/mergeElementTable/', obj);
     });
 
-}
+    // セレクトボックスを未選択状態にする
+    $('.category').each(function(obj){
+        this.selectedIndex  = 0;
+    });
+
+});
 
 // 予備
 function selectChange(){
@@ -91,32 +95,16 @@ function selectChange(){
 	</div>
 	<h3>材料を選択する</h3>
 	<div class="cocktail-element__block">
-        	<div class="select-category">
-        		<select class="category" name="category">
-        		<?php foreach ($category_list as $key => $value):?>
-        			<option value="<?=$key?>" <?php if (isset($params['category']) && $params['category'] == $key):?>selected<?php endif;?> ><?=$value?></option>
-        		<?php endforeach;?>
-        		</select>
-        	</div>
-		<div class="select-element">
-        		<select class="element" name="element"><!-- Ajaxでooptionを生成 --></select>
-		</div>
-		<div class="col-label-2">量</div>
-		<div class="col-input-2">
-			<input type="text" class="amount" name="amount" value="<?php if(isset($params['amount'][0])){ echo $params['amount'][0];} ?>" placeholder="量を入力..."/>
-		</div>
+        	<select class="category" name="category" size="5">
+        	<?php foreach ($category_list as $key => $value):?>
+        		<option value="<?=$key?>" <?php if (isset($params['category']) && $params['category'] == $key):?>selected<?php endif;?> ><?=$value?></option>
+        	<?php endforeach;?>
+        	</select>
+        	<select class="element" name="element" size="5"><!-- Ajaxで生成 --></select>
+		<input type="text" class="amount-input" name="amount" value="<?php if(isset($params['amount'][0])){ echo $params['amount'][0];} ?>" placeholder="量を入力..."/>
 		<input type="button" class="submit-elements" value="材料を追加"/>
-		<div class="col-label-2">材料一覧</div><!-- TODO $elements_list_selectedをAjaxで作成して表示したい -->
-		<input type="hidden" class="element_list_selected" name="element_list_selected" value="<?=$element_list_selected?>" />
-		<table class="element-table">
-			<?php foreach ($elements_list_selected as $key => $value):?>
-			<tr>
-				<th><?=$key ?></th>
-				<in><?=$value['name']?></td>
-				<td><?=$value['amount']?></td>
-			</tr>
-			<?php endforeach;?>
-		</table>
+		<div class="submit-elements-label">材料一覧</div>
+		<table class="element-table"><!-- Ajaxで生成 --></table>
 	</div>
 	<div class="cacktail-processes__block">
 		<div class="form-group">
@@ -133,6 +121,6 @@ function selectChange(){
 <?php if(isset($results)): ?>
     <div class="results_col">
     <?= $this->element('messages', ['messages' => $messages, 'errors' => $errors]);?>
-    <?= $this->element('cocktail', ['results' => $results]);?>
+    <?= $this->element('cocktails/cocktail', ['results' => $results]);?>
     </div>
 <?php endif;?>

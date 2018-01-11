@@ -1,7 +1,6 @@
 <?php
 namespace App\Model\Cocktails;
 
-use Cake\Core\Configure;
 use Cake\ORM\TableRegistry;
 
 class Cocktails
@@ -105,6 +104,15 @@ class Cocktails
     {
         $elementsRepository = TableRegistry::get('Elements');
         return $elementsRepository->findByCategoryKbn($category_kbn)->toArray();
+    }
+
+    /**
+     * IDからエレメントを取得する
+     * @return elements
+     */
+    public function getElementsById(){
+        $elementsRepository = TableRegistry::get('Elements');
+        return $elementsRepository->findById($this->params['elements_id'])->first();
     }
 
 }

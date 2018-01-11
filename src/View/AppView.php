@@ -39,6 +39,8 @@ class AppView extends View
     {
         parent::initialize();
 
+        $this->assign('title', 'カクテル.com');
+
         // 定数の呼び出し
         switch ($this->templatePath) {
             case 'Cocktails':

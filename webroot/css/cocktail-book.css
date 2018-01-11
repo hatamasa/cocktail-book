@@ -27,6 +27,33 @@ h3 {
 	margin: 20px;
 }
 
+.category {
+	margin-left: 20px;
+	width: 150px;
+	height: 130px;
+	float: left;
+}
+
+.element {
+	margin-left: 20px;
+	width: 200px;
+	height: 130px;
+	float: left;
+}
+
+.amount-input {
+	margin-left: 20px;
+	width: 100px;
+}
+
+.submit-elements {
+	height: 35px;
+}
+
+.submit-elements-label {
+	clear: both;
+}
+
 .form-group {
 	margin: 20px;
 }
