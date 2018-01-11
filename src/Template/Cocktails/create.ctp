@@ -1,11 +1,48 @@
 <?= $this->element('cocktails/common'); ?>
 
-<script type="text/javascript" src="jquery-2.1.1.min.js"></script>
 <script>
-$('#category1-select').bind("change keyup", function() {
-    var id = $("#category1-select").val();
-    $("#elements1_select").load( "./getElementOptions/"+id);
-});
+
+$(function(){
+	// selectボックスの変更イベント
+    $('.category').on("change", function() {
+        var id = $(".category").val();
+        $(".element").load( "/cocktails//getElementOptions/"+id);
+    });
+
+    // submitの押下イベント
+    $('.submit-elements').on("click", function() {
+        var data = { };
+        data['element_list_selected'] = $(".element_list_selected").val;
+        data['element_id'] = $(".element").val();
+        data['amount'] = $(".amount").val();
+        $(".element-table").load( "/cocktails/getElementTable/", data);
+    });
+
+}
+
+// 予備
+function selectChange(){
+    //selectタグ（親） が変更された場合
+    $('[name=category]').on('change', function(){
+      var category_val = $(this).val();
+      var url = "/cocktails/getElementOptions/"+category_val;
+
+      //category_val値 を サーバ へ渡す
+      $.get(url).done(function(data){
+        //selectタグ（子） の option値 を一旦削除
+        $('.element option').remove();
+        //select.php から戻って来た data の値をそれそれ optionタグ として生成し、
+        // .car_model に optionタグ を追加する
+        $.each(data, function(id, name){
+          $('.element').append($('<option>').text(name).attr('value', id));
+        });
+      })
+      .fail(function(){
+        console.log("失敗");
+      });
+
+    });
+}
 
 </script>
 <!-- フォーム -->
@@ -55,26 +92,22 @@ $('#category1-select').bind("change keyup", function() {
 	<h3>材料を選択する</h3>
 	<div class="cocktail-element__block">
         	<div class="select-category">
-        		<select name="category">
+        		<select class="category" name="category">
         		<?php foreach ($category_list as $key => $value):?>
         			<option value="<?=$key?>" <?php if (isset($params['category']) && $params['category'] == $key):?>selected<?php endif;?> ><?=$value?></option>
         		<?php endforeach;?>
         		</select>
         	</div>
 		<div class="select-element">
-        		<select name="element"><!--  TODO $element_listをAjaxで作成したい -->
-        		<?php foreach ($element_list as $key => $value):?>
-        			<option value="<?=$value['id']?>" <?php if (isset($params['element']) && $params['element'] == $value['id']):?>selected<?php endif;?> ><?=$value['name']?></option>
-        		<?php endforeach;?>
-        		</select>
+        		<select class="element" name="element"><!-- Ajaxでooptionを生成 --></select>
 		</div>
 		<div class="col-label-2">量</div>
 		<div class="col-input-2">
-			<input type="text" name="amount" value="<?php if(isset($params['amount'][0])){ echo $params['amount'][0];} ?>" placeholder="量を入力..."/>
+			<input type="text" class="amount" name="amount" value="<?php if(isset($params['amount'][0])){ echo $params['amount'][0];} ?>" placeholder="量を入力..."/>
 		</div>
-		<input type="button" value="材料を追加"/>
+		<input type="button" class="submit-elements" value="材料を追加"/>
 		<div class="col-label-2">材料一覧</div><!-- TODO $elements_list_selectedをAjaxで作成して表示したい -->
-		<input type="hidden" name="element_list_selected" value="<?=$element_list_selected?>" />
+		<input type="hidden" class="element_list_selected" name="element_list_selected" value="<?=$element_list_selected?>" />
 		<table class="element-table">
 			<?php foreach ($elements_list_selected as $key => $value):?>
 			<tr>

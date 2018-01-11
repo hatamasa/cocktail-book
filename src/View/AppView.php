@@ -37,6 +37,8 @@ class AppView extends View
      */
     public function initialize()
     {
+        parent::initialize();
+
         // 定数の呼び出し
         switch ($this->templatePath) {
             case 'Cocktails':

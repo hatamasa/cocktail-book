@@ -104,16 +104,40 @@ class CocktailsController extends AppController
     }
 
     /**
-     * エレメントのプルダウン制御用
+     * (Ajax用)エレメントのプルダウン制御用
      * @param $category_kbn
      * GET /getElementOptions/:id
      */
     public function getElementOptions($category_kbn)
     {
+        if (!$this->RequestHandler->isAjax()) {
+            $this->cakeError('error404');
+        }
+
         $cocktails = new Cocktails();
         $element_list = $cocktails->getElementList($category_kbn);
 
-        $this->set('element_list', $element_list);
         $this->layout = false;
+        $this->set('element_list', $element_list);
+    }
+
+    /**
+     * (Ajax用)選択済み材料制御用
+     * @param $params
+     */
+    public function getElementTable($params)
+    {
+        if (!$this->RequestHandler->isAjax()) {
+            $this->cakeError('error404');
+        }
+        // すでに選択している材料＋追加した材料
+        $element_list_selected = $params['element_list_selected'];
+        $element_list_selected[] = [
+            'name' => $params['name'],
+            'amount' => $params['amount'],
+        ];
+
+        $this->layout = false;
+        $this->set('element_list_selected', $element_list_selected);
     }
 }
