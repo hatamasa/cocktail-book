@@ -1,6 +1,7 @@
 <?php
 namespace App\Model\Cocktails;
 
+use Cake\Core\Configure;
 use Cake\ORM\TableRegistry;
 
 class Cocktails
@@ -76,10 +77,10 @@ class Cocktails
         // カクテル要素の配列作成
         $cocktail_elements = [];
 
-        for ($i = 0 ; $i < count($this->params['elements_id']); $i++) {
+        foreach ($this->params['element_list_selected'] as $element) {
             $cocktail_elements[] = [
-                'elements_id' => $this->params["elements_id"][$i],
-                'amount' => $this->params["amount"][$i],
+                'elements_id' => $element['elements_id'],
+                'amount' => $element['amount'],
             ];
         }
 
@@ -96,11 +97,12 @@ class Cocktails
     }
 
     /**
-     * カテゴリでエレメントを取得する
+     * カテゴリごとのエレメントのリストを取得する
      * @param $category_kbn
-     * @return array
+     * GET /getElementsOptions/:id
      */
-    public function getElementsOptions($category_kbn){
+    public function getElementList($category_kbn)
+    {
         $elementsRepository = TableRegistry::get('Elements');
         return $elementsRepository->findByCategoryKbn($category_kbn)->toArray();
     }

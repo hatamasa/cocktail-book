@@ -1,6 +1,4 @@
-<?php
-echo $this->element('cocktails/common');
-?>
+<?= $this->element('cocktails/common'); ?>
 <!-- 検索結果表示 -->
 <?php if(isset($cocktail)): ?>
 <div class="col-label-1"><?= $cocktail['name']?></div>

@@ -106,14 +106,14 @@ class CocktailsController extends AppController
     /**
      * エレメントのプルダウン制御用
      * @param $category_kbn
-     * GET /getElementsOptions/:id
+     * GET /getElementOptions/:id
      */
-    public function getElementsOptions($category_kbn)
+    public function getElementOptions($category_kbn)
     {
         $cocktails = new Cocktails();
-        $elements_options = $cocktails->getElementsOptions($category_kbn);
+        $element_list = $cocktails->getElementList($category_kbn);
 
-        $this->set('elements_options', $elements_options);
+        $this->set('element_list', $element_list);
         $this->layout = false;
     }
 }

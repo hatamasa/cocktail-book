@@ -1,6 +1,4 @@
-<?php
-echo $this->element('cocktails/common');
-?>
+<?= $this->element('cocktails/common'); ?>
 
 <div><a href="<?= $this->Url->build('/cocktails/create') ?>" >カクテルを登録する</a></div>
 
@@ -9,7 +7,7 @@ echo $this->element('cocktails/common');
 	<div class="cocktailSearchForm__block">
 		<div class="form-group">
 			<div class="col-input-1">
-				<input type="text" id="name-search-input" name="name" value="<?php if(isset($params['name'])): ?><?= $params['name'] ?><?php endif;?>" placeholder="カクテルの名前を入力..." />
+				<input type="text" id="name-search-input" name="name" value="<?php if(isset($params['name'])){ echo $params['name'];} ?>" placeholder="カクテルの名前を入力..." />
 			</div>
 		</div>
 		<div class="form-group">
@@ -45,16 +43,10 @@ echo $this->element('cocktails/common');
 
 <!-- 検索結果表示 -->
 <?php if(isset($results)): ?>
-<div class="results_col">
-<?= $this->element('messages', ['messages' => $messages, 'errors' => $errors]);?>
-    	<?php foreach ($results as $row): ?>
-     <ul class="cocktail_block">
-        	<li class="cocktail_name"><a href="<?= $this->Url->build('/cocktails/') ?><?= $row['id']?>"><?= $row['name']?></a></li>
-        	<li>グラス：<?= $glass_list[$row['glass']]?></li>
-        	<li>強さ： <?= $percentage_list[$row['percentage']]?></li>
-        	<li>色： <?= $row['color']?></li>
-        	<li>味： <?= $taste_list[$row['taste']]?></li>
-     </ul>
+    <div class="results_col">
+    <?= $this->element('messages', ['messages' => $messages, 'errors' => $errors]);?>
+    <?php foreach ($results as $row): ?>
+    		<?= $this->element('cocktail', ['results' => $row]);?>
     <?php endforeach; ?>
-</div>
+    </div>
 <?php endif;?>

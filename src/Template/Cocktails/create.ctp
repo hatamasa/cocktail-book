@@ -1,12 +1,10 @@
-<?php
-echo $this->element('cocktails/common');
-?>
+<?= $this->element('cocktails/common'); ?>
 
 <script type="text/javascript" src="jquery-2.1.1.min.js"></script>
 <script>
 $('#category1-select').bind("change keyup", function() {
     var id = $("#category1-select").val();
-    $("#elements1_select").load( "./getElementsOptions/"+id);
+    $("#elements1_select").load( "./getElementOptions/"+id);
 });
 
 </script>
@@ -17,7 +15,7 @@ $('#category1-select').bind("change keyup", function() {
 		<div class="form-group">
 			<div class="col-label-2">名前</div>
 			<div class="col-input-2">
-				<input type="text" name="name" id="input-text-1" value="<?php if(isset($params['name'])): ?><?= $params['name'] ?><?php endif;?>" />
+				<input type="text" name="name" id="input-text-1" value="<?php if(isset($params['name'])){ echo $params['name'];} ?>" />
 			</div>
 		</div>
 		<div class="form-group">
@@ -41,7 +39,7 @@ $('#category1-select').bind("change keyup", function() {
 		<div class="form-group">
 			<div class="col-label-2">色</div>
 			<div class="col-input-2">
-				<input type="text" name="color" id="input-text-1" value="<?php if(isset($params['color'])): ?><?= $params['color']?><?php endif; ?>" />
+				<input type="text" name="color" id="input-text-1" value="<?php if(isset($params['color'])){ echo $params['color'];} ?>" />
 			</div>
 		</div>
 		<div class="form-group">
@@ -56,34 +54,42 @@ $('#category1-select').bind("change keyup", function() {
 	</div>
 	<h3>材料を選択する</h3>
 	<div class="cocktail-element__block">
-		<table class="element-table"><!--  TODO 可変と入力保持にしたい -->
+        	<div class="select-category">
+        		<select name="category">
+        		<?php foreach ($category_list as $key => $value):?>
+        			<option value="<?=$key?>" <?php if (isset($params['category']) && $params['category'] == $key):?>selected<?php endif;?> ><?=$value?></option>
+        		<?php endforeach;?>
+        		</select>
+        	</div>
+		<div class="select-element">
+        		<select name="element"><!--  TODO $element_listをAjaxで作成したい -->
+        		<?php foreach ($element_list as $key => $value):?>
+        			<option value="<?=$value['id']?>" <?php if (isset($params['element']) && $params['element'] == $value['id']):?>selected<?php endif;?> ><?=$value['name']?></option>
+        		<?php endforeach;?>
+        		</select>
+		</div>
+		<div class="col-label-2">量</div>
+		<div class="col-input-2">
+			<input type="text" name="amount" value="<?php if(isset($params['amount'][0])){ echo $params['amount'][0];} ?>" placeholder="量を入力..."/>
+		</div>
+		<input type="button" value="材料を追加"/>
+		<div class="col-label-2">材料一覧</div><!-- TODO $elements_list_selectedをAjaxで作成して表示したい -->
+		<input type="hidden" name="element_list_selected" value="<?=$element_list_selected?>" />
+		<table class="element-table">
+			<?php foreach ($elements_list_selected as $key => $value):?>
 			<tr>
-				<th>カテゴリ</th>
-				<td>
-					<select name="category[]" id="category1_select">
-					<?php foreach ($category_list as $key => $value):?>
-						<option value="<?=$key?>" <?php if (isset($params['category'][0]) && $params['category'][0] == $key):?>selected<?php endif;?> ><?=$value?></option>
-					<?php endforeach;?>
-					</select>
-				</td>
-				<th>材料</th>
-				<td>
-					<select name="elements_id[]" id="elements1_select">
-					<?php foreach ($elements_options as $elements):?>
-						<option value="<?=$key?>" <?php if (isset($params['elements_id'][0]) && $params['elements_id'][0] == $elements['id']):?>selected<?php endif;?> ><?=$elements['name']?></option>
-					<?php endforeach;?>
-					</select>
-				</td>
-				<th>量</th>
-				<td><input type="text" name="amount[]" value="<?php if(isset($params['amount'][0])): ?><?= $params['amount'][0]?><?php endif; ?>" /></td>
+				<th><?=$key ?></th>
+				<in><?=$value['name']?></td>
+				<td><?=$value['amount']?></td>
 			</tr>
+			<?php endforeach;?>
 		</table>
 	</div>
 	<div class="cacktail-processes__block">
 		<div class="form-group">
 			<div class="col-label-2">作成手順</div>
 			<div class="col-input-large">
-				<textarea name="processes" cols="70" rows="5" ><?php if(isset($params['processes'])): ?><?= $params['processes']?><?php endif; ?></textarea>
+				<textarea name="processes" cols="70" rows="5" ><?php if(isset($params['processes'])){ echo $params['processes'];} ?></textarea>
 			</div>
 		</div>
 	</div>
@@ -92,14 +98,8 @@ $('#category1-select').bind("change keyup", function() {
 
 <!-- 登録結果表示 -->
 <?php if(isset($results)): ?>
-<div class="results_col">
-<?= $this->element('messages', ['messages' => $messages, 'errors' => $errors]);?>
-     <ul class="cocktail_block">
-        	<li class="cocktail_name"><a href="<?= $this->Url->build('/cocktails/') ?><?= $results['id']?>"><?= $results['name']?></a></li>
-        	<li>グラス：<?= $glass_list[$results['glass']]?></li>
-        	<li>強さ： <?= $percentage_list[$results['percentage']]?></li>
-        	<li>色： <?= $results['color']?></li>
-        	<li>味： <?= $taste_list[$results['taste']]?></li>
-     </ul>
-</div>
+    <div class="results_col">
+    <?= $this->element('messages', ['messages' => $messages, 'errors' => $errors]);?>
+    <?= $this->element('cocktail', ['results' => $results]);?>
+    </div>
 <?php endif;?>
