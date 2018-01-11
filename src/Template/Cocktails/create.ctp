@@ -10,9 +10,12 @@ $(function(){
     // submitの押下イベント
     $('.submit-elements').on('click', function() {
         var obj = new Object();
+        // 新しく追加する材料
         obj['category_kbn'] = $('.category').val();
         obj['elements_id'] = $('.element').val();
         obj['amount'] = $('.amount-input').val();
+
+        // すでに追加されている材料をどう保持、取得するか。。。
 
         $('.element-table').load( '/cocktails/mergeElementTable/', obj);
     });

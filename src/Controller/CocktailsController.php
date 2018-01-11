@@ -145,6 +145,7 @@ class CocktailsController extends AppController
         ];
 
         // TODO 追加済みの材料に追加する方法を検討する
+        // テキストにして編集していく？
         $this->set('element_list_selected', $element_list_selected);
         $this->render('/Element/cocktails/ajax_element_table','');
     }
