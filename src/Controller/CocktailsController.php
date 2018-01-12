@@ -66,6 +66,7 @@ class CocktailsController extends AppController
 
     /**
      * カクテル登録
+     * memo: newは予約語のため表示と作成を一括にした
      * GET|POST /create
      */
     public function create()
@@ -76,10 +77,8 @@ class CocktailsController extends AppController
         $results = [];
         $params = $this->request->getData();
 
-        if ($this->request->is('get')){
-            // 表示時は空で遷移
-            $this->render();
-        } else if($this->request->is('post')){
+        // getの時は表示のみ、postの時は登録処理を行う
+        if($this->request->is('post')){
             // 登録時処理
             $cocktails = new Cocktails($params);
             $errors = $cocktails->valudateForCreate();

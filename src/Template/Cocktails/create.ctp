@@ -107,7 +107,7 @@ $(function(){
 </form>
 
 <!-- 登録結果表示 -->
-<?php if(isset($results)): ?>
+<?php if(isset($results) && count($results) > 0): ?>
     <div class="results_col">
     <?= $this->element('messages', ['messages' => $messages, 'errors' => $errors]);?>
     <?= $this->element('cocktails/cocktail', ['results' => $results]);?>
