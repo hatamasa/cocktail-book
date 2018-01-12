@@ -1,3 +1,18 @@
+// DB作成
+CREATE DATABASE cocktail;
+
+// ユーザ作成
+CREATE USER cocktail@localhost IDENTIFIED BY 'cocktail';
+CREATE USER cocktail@'127.0.0.1' IDENTIFIED BY 'cocktail';
+// 権限付与
+GRANT ALL ON cocktail.* TO cocktail@localhost;
+GRANT ALL ON cocktail.* TO cocktail@'127.0.0.1';
+
+// 確認
+select user, host from mysql.user;
+
+
+
 // カクテル
 create table cocktails (
   id int(4) not null auto_increment,

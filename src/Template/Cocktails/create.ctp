@@ -21,35 +21,9 @@ $(function(){
     });
 
     // セレクトボックスを未選択状態にする
-    $('.category').each(function(obj){
-        this.selectedIndex  = 0;
-    });
+    $('.category').prop('selectedIndex', -1);
 
 });
-
-// 予備
-function selectChange(){
-    //selectタグ（親） が変更された場合
-    $('[name=category]').on('change', function(){
-      var category_val = $(this).val();
-      var url = "/cocktails/getElementOptions/"+category_val;
-
-      //category_val値 を サーバ へ渡す
-      $.get(url).done(function(data){
-        //selectタグ（子） の option値 を一旦削除
-        $('.element option').remove();
-        //select.php から戻って来た data の値をそれそれ optionタグ として生成し、
-        // .car_model に optionタグ を追加する
-        $.each(data, function(id, name){
-          $('.element').append($('<option>').text(name).attr('value', id));
-        });
-      })
-      .fail(function(){
-        console.log("失敗");
-      });
-
-    });
-}
 
 </script>
 <!-- フォーム -->
