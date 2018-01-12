@@ -76,10 +76,10 @@ class Cocktails
         // カクテル要素の配列作成
         $cocktail_elements = [];
 
-        foreach ($this->params['elements_list_selected'] as $elements) {
+        for ($i = 0; $i < count($this->params['elements_id_selected']); $i++){
             $cocktail_elements[] = [
-                'elements_id' => $elements['elements_id'],
-                'amount' => $elements['amount'],
+                'elements_id' => $this->params['elements_id_selected'][$i],
+                'amount' => $this->params['amount_selected'][$i],
             ];
         }
 

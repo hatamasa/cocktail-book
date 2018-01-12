@@ -145,9 +145,6 @@ class CocktailsController extends AppController
 
         $cocktail = new Cocktails($elements_list_selected);
         $new_elements_list = $cocktail->makeElementsList();
-        echo("<pre>");
-        var_dump($new_elements_list);
-        echo("</pre>");
 
         $this->set('elements_list_selected', $new_elements_list);
         $this->render('/Element/cocktails/ajax_elements_table','');
