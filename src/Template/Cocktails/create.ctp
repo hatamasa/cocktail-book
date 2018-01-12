@@ -11,12 +11,24 @@ $(function(){
     $('.submit-elements').on('click', function() {
         var obj = new Object();
         // 新しく追加する材料
-        obj['category_kbn'] = $('.category').val();
         obj['elements_id'] = $('.elements').val();
         obj['amount'] = $('.amount-input').val();
 
-        // すでに追加されている材料をどう保持、取得するか。。。
+        // すでに追加されているelements_idを取得
+        var obj_elements_list = new Object;
+        $('.elements-table').find('.elements_id_selected').each(function(i){
+            obj_elements_list[i] = $(this).val();
+        });
+        obj['elements_id_selected'] = obj_elements_list;
 
+        // すでに追加されているamountを取得
+        var obj_amount_list = new Object;
+        $('.elements-table').find('.amount_selected').each(function(i){
+            obj_amount_list[i] = $(this).val();
+        });
+        obj['amount_selected'] = obj_amount_list;
+
+        console.log(obj);
         $('.elements-table').load( '/cocktails/mergeElementsTable/', obj);
     });
 

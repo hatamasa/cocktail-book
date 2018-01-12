@@ -106,12 +106,17 @@ class Cocktails
     }
 
     /**
-     * IDからエレメントを取得する
-     * @return $elements
+     * IDからエレメントを取得して表示用リストを作成する
+     * @return array $elements
      */
-    public function getElementsById(){
+    public function makeElementsList(){
         $elementsRepository = TableRegistry::get('Elements');
-        return $elementsRepository->findById($this->params['elements_id'])->first();
+        $elements_list = [];
+        for ($i = 0; $i < count($this->params['elements_id_selected']); $i++){
+            $elements_list[$i] = $elementsRepository->findById($this->params['elements_id_selected'][$i])->first();
+            $elements_list[$i]['amount'] = $this->params['amount_selected'][$i];
+        }
+        return $elements_list;
     }
 
 }

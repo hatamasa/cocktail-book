@@ -130,22 +130,26 @@ class CocktailsController extends AppController
             $this->redirect('/');
         }
 
+        // 追加されている材料 elements_id_selected[], amount_selected[]
+        // 追加される材料 elements_id, amount
         $params = $this->request->getData();
-        $cocktail = new Cocktails($params);
-        $elements = $cocktail->getElementsById();
         $elements_list_selected = [];
 
-        // すでに選択している材料＋追加した材料
-        $elements_list_selected[] = [
-            'category_kbn' => $params['category_kbn'],
-            'elements_id' => $params['elements_id'],
-            'name' => $elements['name'],
-            'amount' => $params['amount'],
-        ];
+        // 追加されている材料リストに、追加される材料を追加
+        if(isset($params['elements_id_selected'])){
+            $elements_list_selected['elements_id_selected'] = $params['elements_id_selected'];
+            $elements_list_selected['amount_selected'] = $params['amount_selected'];
+        }
+        $elements_list_selected['elements_id_selected'][] = $params['elements_id'];
+        $elements_list_selected['amount_selected'][] = $params['amount'];
 
-        // TODO 追加済みの材料に追加する方法を検討する
-        // テキストにして編集していく？
-        $this->set('elements_list_selected', $elements_list_selected);
+        $cocktail = new Cocktails($elements_list_selected);
+        $new_elements_list = $cocktail->makeElementsList();
+        echo("<pre>");
+        var_dump($new_elements_list);
+        echo("</pre>");
+
+        $this->set('elements_list_selected', $new_elements_list);
         $this->render('/Element/cocktails/ajax_elements_table','');
     }
 }
