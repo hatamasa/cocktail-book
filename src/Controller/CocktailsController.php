@@ -2,7 +2,6 @@
 namespace App\Controller;
 
 use App\Model\Cocktails\Cocktails;
-use WyriHaximus\TwigView\Lib\Twig\Node\Element;
 
 /**
  * カクテルコントローラ
@@ -104,28 +103,28 @@ class CocktailsController extends AppController
 
     /**
      * (Ajax用)エレメントのプルダウン制御用
-     * GET /getElementOptions/:id
+     * GET /getElementsOptions/:id
      * @param $category_kbn
      */
-    public function getElementOptions($category_kbn)
+    public function getElementsOptions($category_kbn)
     {
         if (!$this->request->is('ajax')) {
             $this->redirect('/');
         }
 
         $cocktails = new Cocktails();
-        $element_list = $cocktails->getElementList($category_kbn);
+        $elements_list = $cocktails->getElementsList($category_kbn);
 
-        $this->set('element_list', $element_list);
-        $this->render('/Element/cocktails/ajax_element_options','');
+        $this->set('elements_list', $elements_list);
+        $this->render('/Element/cocktails/ajax_elements_options','');
     }
 
     /**
      * (Ajax用)選択済み材料制御用
-     * POST /mergeElementTable
+     * POST /mergeElementsTable
      * @param $params
      */
-    public function mergeElementTable()
+    public function mergeElementsTable()
     {
         if (!$this->request->is('ajax')) {
             $this->redirect('/');
@@ -134,10 +133,10 @@ class CocktailsController extends AppController
         $params = $this->request->getData();
         $cocktail = new Cocktails($params);
         $elements = $cocktail->getElementsById();
-        $element_list_selected = [];
+        $elements_list_selected = [];
 
         // すでに選択している材料＋追加した材料
-        $element_list_selected[] = [
+        $elements_list_selected[] = [
             'category_kbn' => $params['category_kbn'],
             'elements_id' => $params['elements_id'],
             'name' => $elements['name'],
@@ -146,7 +145,7 @@ class CocktailsController extends AppController
 
         // TODO 追加済みの材料に追加する方法を検討する
         // テキストにして編集していく？
-        $this->set('element_list_selected', $element_list_selected);
-        $this->render('/Element/cocktails/ajax_element_table','');
+        $this->set('elements_list_selected', $elements_list_selected);
+        $this->render('/Element/cocktails/ajax_elements_table','');
     }
 }

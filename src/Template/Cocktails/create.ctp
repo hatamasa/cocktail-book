@@ -4,7 +4,7 @@ $(function(){
 	// selectボックスの変更イベント
     $('.category').on('change keyup', function() {
         var id = $('.category').val();
-        $('.element').load( '/cocktails/getElementOptions/'+id);
+        $('.elements').load( '/cocktails/getElementsOptions/'+id);
     });
 
     // submitの押下イベント
@@ -12,12 +12,12 @@ $(function(){
         var obj = new Object();
         // 新しく追加する材料
         obj['category_kbn'] = $('.category').val();
-        obj['elements_id'] = $('.element').val();
+        obj['elements_id'] = $('.elements').val();
         obj['amount'] = $('.amount-input').val();
 
         // すでに追加されている材料をどう保持、取得するか。。。
 
-        $('.element-table').load( '/cocktails/mergeElementTable/', obj);
+        $('.elements-table').load( '/cocktails/mergeElementsTable/', obj);
     });
 
     // セレクトボックスを未選択状態にする
@@ -71,17 +71,17 @@ $(function(){
 		</div>
 	</div>
 	<h3>材料を選択する</h3>
-	<div class="cocktail-element__block">
+	<div class="cocktail-elements__block">
         	<select class="category" name="category" size="5">
         	<?php foreach ($category_list as $key => $value):?>
         		<option value="<?=$key?>" <?php if (isset($params['category']) && $params['category'] == $key):?>selected<?php endif;?> ><?=$value?></option>
         	<?php endforeach;?>
         	</select>
-        	<select class="element" name="element" size="5"><!-- Ajaxで生成 --></select>
+        	<select class="elements" name="elements" size="5"><!-- Ajaxで生成 --></select>
 		<input type="text" class="amount-input" name="amount" value="<?php if(isset($params['amount'][0])){ echo $params['amount'][0];} ?>" placeholder="量を入力..."/>
 		<input type="button" class="submit-elements" value="材料を追加"/>
 		<div class="submit-elements-label">材料一覧</div>
-		<table class="element-table"><!-- Ajaxで生成 --></table>
+		<table class="elements-table"><!-- Ajaxで生成 --></table>
 	</div>
 	<div class="cacktail-processes__block">
 		<div class="form-group">

@@ -6,15 +6,15 @@
 	width: 300px;
 }
 
-.element-table {
+.elements-table {
 	width: 700px;
 }
 
-.element-table tr th {
+.elements-table tr th {
 	width: 80px;
 }
 
-.element-table tr td input {
+.elements-table tr td input {
 	width: auto;
 }
 
@@ -34,7 +34,7 @@ h3 {
 	float: left;
 }
 
-.element {
+.elements {
 	margin-left: 20px;
 	width: 200px;
 	height: 130px;

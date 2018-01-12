@@ -76,10 +76,10 @@ class Cocktails
         // カクテル要素の配列作成
         $cocktail_elements = [];
 
-        foreach ($this->params['element_list_selected'] as $element) {
+        foreach ($this->params['elements_list_selected'] as $elements) {
             $cocktail_elements[] = [
-                'elements_id' => $element['elements_id'],
-                'amount' => $element['amount'],
+                'elements_id' => $elements['elements_id'],
+                'amount' => $elements['amount'],
             ];
         }
 
@@ -98,9 +98,8 @@ class Cocktails
     /**
      * カテゴリごとのエレメントのリストを取得する
      * @param $category_kbn
-     * GET /getElementsOptions/:id
      */
-    public function getElementList($category_kbn)
+    public function getElementsList($category_kbn)
     {
         $elementsRepository = TableRegistry::get('Elements');
         return $elementsRepository->findByCategoryKbn($category_kbn)->toArray();
@@ -108,7 +107,7 @@ class Cocktails
 
     /**
      * IDからエレメントを取得する
-     * @return elements
+     * @return $elements
      */
     public function getElementsById(){
         $elementsRepository = TableRegistry::get('Elements');
