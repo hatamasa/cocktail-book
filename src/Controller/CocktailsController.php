@@ -28,7 +28,6 @@ class CocktailsController extends AppController
     public function search()
     {
         $results = [];
-        $errors = [];
         $messages = [];
         $params = $this->request->getQueryParams();
 
@@ -73,7 +72,6 @@ class CocktailsController extends AppController
     {
         $errors = [];
         $messages = [];
-        $params = [];
         $results = [];
         $params = $this->request->getData();
 
@@ -83,13 +81,15 @@ class CocktailsController extends AppController
             $cocktails = new Cocktails($params);
             $errors = $cocktails->valudateForCreate();
 
-            if(! $errors){
+            if(!$errors){
                 try{
-                    $results = $cocktails->createCocktail();
-                    $messages[] = '登録が完了しました';
-                    $params = [];
+                    list($results, $errors) = $cocktails->createCocktail();
+                    if(!$errors){
+                        $messages[] = '登録が完了しました';
+                        $params = [];
+                    }
                 }catch (\Exception $e){
-                    $messages[] = '登録中にエラーが発生しました';
+                    $errors[] = '登録中にエラーが発生しました';
                 }
             }
         }

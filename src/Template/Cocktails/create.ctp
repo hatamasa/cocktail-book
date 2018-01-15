@@ -41,6 +41,7 @@ $(function(){
 <!-- フォーム -->
 <form action="<?= $this->Url->build('/cocktails/create') ?>" method="post">
 	<h3>カクテルを作成する</h3>
+	<?= $this->element('messages', ['messages' => $messages, 'errors' => $errors]);?>
 	<div class="cocktail__block">
 		<div class="form-group">
 			<div class="col-label-2">名前</div>
@@ -109,7 +110,6 @@ $(function(){
 <!-- 登録結果表示 -->
 <?php if(isset($results) && count($results) > 0): ?>
     <div class="results_col">
-    <?= $this->element('messages', ['messages' => $messages, 'errors' => $errors]);?>
     <?= $this->element('cocktails/cocktail', ['results' => $results]);?>
     </div>
 <?php endif;?>

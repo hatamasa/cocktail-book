@@ -1,7 +1,9 @@
 <?php
 namespace App\Model\Table;
 
+use Cake\Datasource\RulesChecker;
 use Cake\ORM\Table;
+use Cake\Validation\Validator;
 use App\Model\Cocktails\CocktailsUtil;
 
 class CocktailsTable extends Table
@@ -9,6 +11,14 @@ class CocktailsTable extends Table
     public function initialize(array $config){
         $this->hasMany('CocktailElements')
         ->setForeignKey('cocktails_id');
+    }
+
+    public function buildRules(RulesChecker $rules)
+    {
+        $rules->add($rules->validCount('CocktailElements', 10, '<=', '材料は 10 つ以下にしてください'));
+        $rules->add($rules->validCount('CocktailElements', 1, '>=', '材料は 1 つ以上必要です'));
+
+        return $rules;
     }
 
     /**

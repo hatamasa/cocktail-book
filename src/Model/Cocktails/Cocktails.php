@@ -2,6 +2,7 @@
 namespace App\Model\Cocktails;
 
 use Cake\ORM\TableRegistry;
+use Cake\Validation\Validator;
 
 class Cocktails
 {
@@ -33,8 +34,32 @@ class Cocktails
      */
     public function valudateForCreate()
     {
-        // TODO 実装
-        return $this->errors;
+        $validator = new Validator();
+        $validator
+            ->requirePresence('name', true, 'グラスの入力は必須です')
+            ->notEmpty('name', '名前の入力は必須です')
+            ->add('name', 'length', [
+                'rule' => ['maxLength', 30],
+                'message' => '名前は30文字以内で入力ください'])
+
+            ->requirePresence('glass', true, 'グラスの入力は必須です')
+
+            ->requirePresence('percentage', true, '度数の入力は必須です')
+
+            ->allowEmpty('color')
+            ->add('color', 'length', [
+                'rule' => ['maxLength', 10],
+                'message' => '色は10文字以内で入力ください'])
+
+            ->requirePresence('taste', true, '味の入力は必須です')
+
+            ->allowEmpty('processes')
+            ->add('processes', 'length', [
+                    'rule' => ['maxLength', 250],
+                    'message' => '作成手順は250文字以内で入力ください'])
+                ;
+
+        return $validator->errors($this->params);
     }
 
     /**
@@ -91,8 +116,7 @@ class Cocktails
             'associated' => ['CocktailElements'],
         ]);
 
-        // 登録
-        return $cocktailsTable->save($cocktail);
+        return [$cocktailsTable->save($cocktail), $cocktail->getErrors()];
     }
 
     /**
