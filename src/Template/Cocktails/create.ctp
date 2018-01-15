@@ -1,14 +1,23 @@
 <script>
 
 $(function(){
-	// selectボックスの変更イベント
+  // selectボックスの変更イベント
     $('.category').on('change keyup', function() {
         var id = $('.category').val();
         $('.elements').load( '/cocktails/getElementsOptions/'+id);
     });
 
+    // セレクトボックスを未選択状態にする
+    $('.category').prop('selectedIndex', -1);
+
     // submitの押下イベント
     $('.submit-elements').on('click', function() {
+
+        validate();
+        if(!$('.cocktail__form').valid()){
+            return;
+        };
+
         var obj = new Object();
         // 新しく追加する材料
         obj['elements_id'] = $('.elements').val();
@@ -32,79 +41,102 @@ $(function(){
         $('.elements-table').load( '/cocktails/mergeElementsTable/', obj);
     });
 
-    // セレクトボックスを未選択状態にする
-    $('.category').prop('selectedIndex', -1);
-
 });
 
+function validate(){
+  $('.cocktail__form').validate({
+        rules:  {
+            elements: {required: true},
+            amount: {required: true}
+        },
+        messages: {
+            elements: {
+                required: "材料を選択してください"
+            },
+            amount: {
+                required: "量を入力してください"
+            }
+        },
+
+        //エラーメッセージ出力箇所調整
+        errorPlacement: function(error, element){
+            error.appendTo('.elements-title');
+            },
+    });
+}
 </script>
 <!-- フォーム -->
-<form action="<?= $this->Url->build('/cocktails/create') ?>" method="post">
-	<h3>カクテルを作成する</h3>
-	<?= $this->element('messages', ['messages' => $messages, 'errors' => $errors]);?>
-	<div class="cocktail__block">
-		<div class="form-group">
-			<div class="col-label-2">名前</div>
-			<div class="col-input-2">
-				<input type="text" name="name" id="input-text-1" value="<?php if(isset($params['name'])){ echo $params['name'];} ?>" />
-			</div>
-		</div>
-		<div class="form-group">
-			<div class="col-label-2">グラス</div>
-			<div class="col-input-2">
-			<?php foreach ($glass_list as $key => $value):?>
-				<input type="radio" name="glass" value="<?= $key?>"
-				<?php if(isset($params['glass']) && $params['glass'] == $key): ?>checked="checked"<?php endif; ?> /><?= $value?>
-			<?php endforeach; ?>
-			</div>
-		</div>
-		<div class="form-group">
-			<div class="col-label-2">強さ</div>
-			<div class="col-input-2">
-			<?php foreach ($percentage_list as $key => $value):?>
-				<input type="radio" name="percentage" value="<?= $key?>"
-				<?php if(isset($params['percentage']) && $params['percentage'] == $key): ?>checked="checked"<?php endif; ?> /><?= $value?>
-			<?php endforeach; ?>
-			</div>
-		</div>
-		<div class="form-group">
-			<div class="col-label-2">色</div>
-			<div class="col-input-2">
-				<input type="text" name="color" id="input-text-1" value="<?php if(isset($params['color'])){ echo $params['color'];} ?>" />
-			</div>
-		</div>
-		<div class="form-group">
-			<div class="col-label-2">味</div>
-			<div class="col-input-2">
-			<?php foreach ($taste_list as $key => $value):?>
-				<input type="radio" name="taste" value="<?= $key?>"
-				<?php if(isset($params['taste']) && $params['taste'] == $key): ?>checked="checked"<?php endif; ?> /><?= $value?>
-			<?php endforeach; ?>
-			</div>
-		</div>
-	</div>
-	<h3>材料を選択する</h3>
-	<div class="cocktail-elements__block">
-        	<select class="category" name="category" size="5">
-        	<?php foreach ($category_list as $key => $value):?>
-        		<option value="<?=$key?>" <?php if (isset($params['category']) && $params['category'] == $key):?>selected<?php endif;?> ><?=$value?></option>
-        	<?php endforeach;?>
-        	</select>
-        	<select class="elements" name="elements" size="5"><!-- Ajaxで生成 --></select>
-		<input type="text" class="amount-input" name="amount" value="<?php if(isset($params['amount'][0])){ echo $params['amount'][0];} ?>" placeholder="量を入力..."/>
-		<input type="button" class="submit-elements" value="材料を追加"/>
-		<div class="submit-elements-label">材料一覧</div>
-		<table class="elements-table"><!-- Ajaxで生成 --></table>
-	</div>
-	<div class="cacktail-processes__block">
-		<div class="form-group">
-			<div class="col-label-2">作成手順</div>
-			<div class="col-input-large">
-				<textarea name="processes" cols="70" rows="5" ><?php if(isset($params['processes'])){ echo $params['processes'];} ?></textarea>
-			</div>
-		</div>
-	</div>
-	<input type="submit" value="登録" />
+<form action="<?= $this->Url->build('/cocktails/create') ?>" class="cocktail__form" method="post">
+  <h3>カクテルを作成する</h3>
+  <?= $this->element('create_messages', ['messages' => $messages]); ?>
+  <div class="cocktail__block">
+    <div class="form-group">
+      <?= $this->element('input_errors', ['name' => 'name']); ?>
+      <div class="col-label-2">名前</div>
+      <div class="col-input-2">
+        <input type="text" name="name" id="input-text-1" value="<?php if(isset($params['name'])){ echo $params['name'];} ?>" />
+      </div>
+    </div>
+    <div class="form-group">
+      <?= $this->element('input_errors', ['name' => 'glass']); ?>
+      <div class="col-label-2">グラス</div>
+      <div class="col-input-2">
+      <?php foreach ($glass_list as $key => $value):?>
+        <input type="radio" name="glass" value="<?= $key?>"
+        <?php if(isset($params['glass']) && $params['glass'] == $key): ?>checked="checked"<?php endif; ?> /><?= $value?>
+      <?php endforeach; ?>
+      </div>
+    </div>
+    <div class="form-group">
+      <?= $this->element('input_errors', ['name' => 'percentage']); ?>
+      <div class="col-label-2">強さ</div>
+      <div class="col-input-2">
+      <?php foreach ($percentage_list as $key => $value):?>
+        <input type="radio" name="percentage" value="<?= $key?>"
+        <?php if(isset($params['percentage']) && $params['percentage'] == $key): ?>checked="checked"<?php endif; ?> /><?= $value?>
+      <?php endforeach; ?>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-label-2">色</div>
+      <div class="col-input-2">
+        <input type="text" name="color" id="input-text-1" value="<?php if(isset($params['color'])){ echo $params['color'];} ?>" />
+      </div>
+    </div>
+    <div class="form-group">
+      <?= $this->element('input_errors', ['name' => 'taste']); ?>
+      <div class="col-label-2">味</div>
+      <div class="col-input-2">
+      <?php foreach ($taste_list as $key => $value):?>
+        <input type="radio" name="taste" value="<?= $key?>"
+        <?php if(isset($params['taste']) && $params['taste'] == $key): ?>checked="checked"<?php endif; ?> /><?= $value?>
+      <?php endforeach; ?>
+      </div>
+    </div>
+  </div>
+  <h4 class="elements-title">材料を選択する</h4>
+  <div class="cocktail-elements__block">
+          <select class="category" name="category" size="5">
+          <?php foreach ($category_list as $key => $value):?>
+            <option value="<?=$key?>" <?php if (isset($params['category']) && $params['category'] == $key):?>selected<?php endif;?> ><?=$value?></option>
+          <?php endforeach;?>
+          </select>
+          <select class="elements" name="elements" size="5"><!-- Ajaxで生成 --></select>
+    <input type="text" class="amount-input" name="amount" value="<?php if(isset($params['amount'][0])){ echo $params['amount'][0];} ?>" placeholder="量を入力..." />
+    <input type="button" class="submit-elements" value="材料を追加"/>
+    <h4>材料一覧</h4>
+    <?= $this->element('input_errors', ['name' => 'elements_id_selected']); ?>
+    <table class="elements-table"><!-- Ajaxで生成 --></table>
+  </div>
+  <div class="cacktail-processes__block">
+    <div class="form-group">
+      <div class="col-label-2">作成手順</div>
+      <div class="col-input-large">
+        <textarea name="processes" cols="70" rows="5" ><?php if(isset($params['processes'])){ echo $params['processes'];} ?></textarea>
+      </div>
+    </div>
+  </div>
+  <input type="submit" value="登録" />
 </form>
 
 <!-- 登録結果表示 -->

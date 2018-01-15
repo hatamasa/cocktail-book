@@ -1,110 +1,120 @@
 #name-search-input {
-	width: 400px;
+  width: 400px;
 }
 
 #input-text-1 {
-	width: 300px;
+  width: 300px;
 }
 
 .elements-table {
-	width: 700px;
+  width: 700px;
 }
 
 .elements-table tr th {
-	width: 80px;
+  width: 80px;
 }
 
 .elements-table tr td input {
-	width: auto;
+  width: auto;
 }
 
 input[type="submit"] {
-	position: relative;
-	left: 30px;
+  position: relative;
+  left: 30px;
 }
 
-h3 {
-	margin: 20px;
+h4 {
+  margin-left: 20px;
+  clear: both;
 }
 
 .category {
-	margin-left: 20px;
-	width: 150px;
-	height: 130px;
-	float: left;
+  margin-left: 20px;
+  width: 150px;
+  height: 130px;
+  float: left;
 }
 
 .elements {
-	margin-left: 20px;
-	width: 200px;
-	height: 130px;
-	float: left;
+  margin-left: 20px;
+  width: 200px;
+  height: 130px;
+  float: left;
 }
 
 .amount-input {
-	margin-left: 20px;
-	width: 100px;
+  margin-left: 20px;
+  width: 100px;
 }
 
 .submit-elements {
-	height: 35px;
+  height: 35px;
 }
 
 .submit-elements-label {
-	clear: both;
+  clear: both;
 }
 
 .form-group {
-	margin: 20px;
+  margin: 20px;
 }
 
 .col-label-1 {
-	width: auto;
-	font-size: 150%;
+  width: auto;
+  font-size: 150%;
 }
 
 .col-input-1 {
-	position: relative;
-	left: 30px;
+  position: relative;
+  left: 30px;
 }
 
 .col-label-2 {
-	width: 65px;
-	float: left;
-	font-size: 100%;
+  width: 65px;
+  float: left;
+  font-size: 100%;
 }
 
 .col-input-2 {
-	position: relative;
-	left: 30px;
+  position: relative;
+  left: 30px;
 }
 
 .col-label-3 {
-	width: 50px;
-	float: left;
-	font-size: 100%;
+  width: 50px;
+  float: left;
+  font-size: 100%;
 }
 
 .col-input-3 {
-	position: relative;
-	left: 30px;
+  position: relative;
+  left: 30px;
 }
 
 .results_col {
-	position: relative;
-	top:20px;
-	left: 20px;
+  position: relative;
+  top:20px;
+  left: 20px;
 }
 
 .cocktail_block {
-	float: left;
-	margin: 20px;
+  float: left;
+  margin-left: 50px;
 }
 
 .errors-form p {
-	color: #ff0000;
+  color: #ff0000;
+}
+
+.input-errors div {
+  color: #ff0000;
+  margin-left: 95px;
+}
+
+.messages-form {
+  margin-bottom: 10px;
 }
 
 .messages-form p {
-	color: #02d410;
+  color: #02d410;
 }

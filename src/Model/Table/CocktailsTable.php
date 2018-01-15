@@ -13,14 +13,6 @@ class CocktailsTable extends Table
         ->setForeignKey('cocktails_id');
     }
 
-    public function buildRules(RulesChecker $rules)
-    {
-        $rules->add($rules->validCount('CocktailElements', 10, '<=', '材料は 10 つ以下にしてください'));
-        $rules->add($rules->validCount('CocktailElements', 1, '>=', '材料は 1 つ以上必要です'));
-
-        return $rules;
-    }
-
     /**
      * カクテル一覧を検索する
      * @param  $params

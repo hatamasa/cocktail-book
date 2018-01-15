@@ -24,6 +24,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
         <?= $this->fetch('title') ?>
     </title>
     <script type="text/javascript" src="/js/jquery-3.2.0.min.js"></script>
+    <script type="text/javascript" src="/js/jquery.validate.min.js"></script>
     <?= $this->Html->meta('icon') ?>
 
     <?= $this->Html->css('base.css') ?>

@@ -57,6 +57,8 @@ class Cocktails
             ->add('processes', 'length', [
                     'rule' => ['maxLength', 250],
                     'message' => '作成手順は250文字以内で入力ください'])
+
+            ->requirePresence('elements_id_selected', true, '材料の入力は必須です')
                 ;
 
         return $validator->errors($this->params);
