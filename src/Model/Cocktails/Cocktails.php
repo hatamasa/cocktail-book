@@ -135,7 +135,7 @@ class Cocktails
      * IDからエレメントを取得して表示用リストを作成する
      * @return array $elements
      */
-    public function makeElementsList(){
+    public function makeElementsTableList(){
         $elementsRepository = TableRegistry::get('Elements');
         $elements_list = [];
         for ($i = 0; $i < count($this->params['elements_id_selected']); $i++){

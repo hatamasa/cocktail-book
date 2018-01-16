@@ -74,6 +74,7 @@ class CocktailsController extends AppController
         $messages = [];
         $results = [];
         $params = $this->request->getData();
+        $new_elements_list = [];
 
         // getの時は表示のみ、postの時は登録処理を行う
         if($this->request->is('post')){
@@ -95,15 +96,13 @@ class CocktailsController extends AppController
                 }
 
             } else if(isset($params['elements_id_selected'])){
-                $elements_list_selected = [];
 
+                $elements_list_selected = [];
                 $elements_list_selected['elements_id_selected'] = $params['elements_id_selected'];
                 $elements_list_selected['amount_selected'] = $params['amount_selected'];
 
                 $cocktail = new Cocktails($elements_list_selected);
                 $new_elements_list = $cocktail->makeElementsList();
-
-                $this->set('elements_list_selected', $new_elements_list);
             }
         }
 
@@ -111,6 +110,7 @@ class CocktailsController extends AppController
         $this->set('messages', $messages);
         $this->set('params', $params);
         $this->set('results', $results);
+        $this->set('elements_list_selected', $new_elements_list);
     }
 
     /**
@@ -155,7 +155,7 @@ class CocktailsController extends AppController
         $elements_list_selected['amount_selected'][] = $params['amount'];
 
         $cocktail = new Cocktails($elements_list_selected);
-        $new_elements_list = $cocktail->makeElementsList();
+        $new_elements_list = $cocktail->makeElementsTableList();
 
         $this->set('elements_list_selected', $new_elements_list);
         $this->render('/Element/cocktails/ajax_elements_table','');
@@ -183,7 +183,7 @@ class CocktailsController extends AppController
         array_splice($elements_list_selected['amount_selected'], $params['del_index'], 1);
 
         $cocktail = new Cocktails($elements_list_selected);
-        $new_elements_list = $cocktail->makeElementsList();
+        $new_elements_list = $cocktail->makeElementsTableList();
 
         $this->set('elements_list_selected', $new_elements_list);
         $this->render('/Element/cocktails/ajax_elements_table','');

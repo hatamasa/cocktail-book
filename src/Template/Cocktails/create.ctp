@@ -83,7 +83,8 @@ function validate(){
             },
             amount: {
                 required: "量を入力してください"
-            }
+            },
+            onsubmit: false
         },
 
         //エラーメッセージ出力箇所調整
@@ -154,7 +155,7 @@ function validate(){
     <input type="button" class="submit-elements" value="材料を追加"/>
     <h4>材料一覧</h4>
     <?= $this->element('input_errors', ['name' => 'elements_id_selected']); ?>
-    <table class="elements-table"><!-- Ajaxで生成 --></table>
+    <table class="elements-table"><?= $this->element('cocktails/ajax_elements_table', ['elements_list_selected' => $elements_list_selected]); ?><!-- Ajaxで生成 --></table>
   </div>
   <div class="cacktail-processes__block">
     <div class="form-group">
@@ -164,7 +165,7 @@ function validate(){
       </div>
     </div>
   </div>
-  <input type="submit" value="登録" />
+  <input type="submit" class="cancel" value="登録" />
 </form>
 
 <!-- 登録結果表示 -->
