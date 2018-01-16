@@ -76,7 +76,7 @@ class Cocktails
         $results['cocktail'] = $cocktailsTable->get($cocktails_id)->toArray();
 
         $cocktailElementsTable = TableRegistry::get('CocktailElements');
-        $results['elements'] = $cocktailElementsTable->fetchElementsByCocktailId($cocktails_id);
+        $results['cocktail_elements'] = $cocktailElementsTable->fetchElementsByCocktailId($cocktails_id);
 
         return $results;
     }
@@ -85,11 +85,12 @@ class Cocktails
      * カクテルを登録する
      * @param $params
      */
-    public function createCocktail(){
+    public function createCocktail($edit_flg = null){
 
         // カクテルの配列作成
         // TODO ログインしているユーザのIDを設定する
         $data = [
+            'id' => $this->params['id']??'',
             'name' => $this->params['name'],
             'search_name' => CocktailsUtil::convertTohalfString($this->params['name']),
             'glass' => $this->params['glass'],
@@ -105,6 +106,7 @@ class Cocktails
 
         for ($i = 0; $i < count($this->params['elements_id_selected']); $i++){
             $cocktail_elements[] = [
+                'id' => $this->params['saved_id'][$i]??'',
                 'elements_id' => $this->params['elements_id_selected'][$i],
                 'amount' => $this->params['amount_selected'][$i],
             ];
@@ -114,9 +116,17 @@ class Cocktails
 
         // エンティティとアソシエーションを作成
         $cocktailsTable = TableRegistry::get('Cocktails');
-        $cocktail = $cocktailsTable->newEntity($data, [
-            'associated' => ['CocktailElements'],
-        ]);
+
+        if($edit_flg){
+            $cocktail = $cocktailsTable->get($this->params['id'], ['contain' => 'CocktailElements']);
+            $cocktail = $cocktailsTable->patchEntity($cocktail, $data, [
+                'associated' => ['CocktailElements'],
+            ]);
+        }else{
+            $cocktail = $cocktailsTable->newEntity($data, [
+                'associated' => ['CocktailElements'],
+            ]);
+        }
 
         return [$cocktailsTable->save($cocktail), $cocktail->getErrors()];
     }
@@ -140,6 +150,7 @@ class Cocktails
         $elements_list = [];
         for ($i = 0; $i < count($this->params['elements_id_selected']); $i++){
             $elements_list[$i] = $elementsRepository->findById($this->params['elements_id_selected'][$i])->first();
+            $elements_list[$i]['saved_id'] = $this->params['saved_id'][$i]??'';
             $elements_list[$i]['amount'] = $this->params['amount_selected'][$i];
         }
         return $elements_list;

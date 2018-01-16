@@ -61,7 +61,7 @@ class CocktailsController extends AppController
         $results = $cocktails->fetchCocktailDetail($id);
 
         $this->set('cocktail', $results['cocktail']);
-        $this->set('elements', $results['elements']);
+        $this->set('cocktail_elements', $results['cocktail_elements']);
     }
 
     /**
@@ -75,15 +75,23 @@ class CocktailsController extends AppController
         $results = $cocktails->fetchCocktailDetail($id);
 
         $this->set('params', $results['cocktail']);
-        $this->set('elements_list_selected', $results['elements']);
+        $this->set('elements_list_selected', $results['cocktail_elements']);
 
         $this->render('save');
     }
 
     /**
+     * カクテル作成画面表示
+     *  GET /add
+     */
+    public function add()
+    {
+        $this->render('save');
+    }
+
+    /**
      * カクテル登録/更新
-     * memo: newは予約語のため表示と作成を一括にした
-     * GET|POST /save
+     * POST /save
      */
     public function save()
     {
@@ -91,43 +99,47 @@ class CocktailsController extends AppController
         $messages = [];
         $results = [];
         $params = $this->request->getData();
+        $edit_flg = $this->request->getData('edit');
         $new_elements_list = [];
 
-        // getの時は表示のみ、postの時は登録処理を行う
-        if($this->request->is('post')){
-            // 登録時処理
-            $cocktails = new Cocktails($params);
-            $errors = $cocktails->valudateForCreate();
+        // 登録時処理
+        $cocktails = new Cocktails($params);
+        $errors = $cocktails->valudateForCreate();
 
-            // バリデエラーがない場合、登録を行う
-            // バリデエラーがある場合、かつ追加されている材料リストがある場合、入力保持のため材料リストを作成する
-            if(!$errors){
-                try{
-                    list($results, $errors) = $cocktails->createCocktail();
-                    if(!$errors){
-                        $messages[] = '登録が完了しました';
-                        $params = [];
-                    }
-                }catch (\Exception $e){
-                    $errors[] = '登録中にエラーが発生しました';
+        // バリデエラーがない場合、登録を行う
+        // バリデエラーがある場合、かつ追加されている材料リストがある場合、入力保持のため材料リストを作成する
+        if (! $errors) {
+            try {
+                list ($results, $errors) = $cocktails->createCocktail($edit_flg);
+                if (! $errors) {
+                    $messages[] = '保存しました';
+                    $params = [];
                 }
-
-            } else if(isset($params['elements_id_selected'])){
-
-                $elements_list_selected = [];
-                $elements_list_selected['elements_id_selected'] = $params['elements_id_selected'];
-                $elements_list_selected['amount_selected'] = $params['amount_selected'];
-
-                $cocktail = new Cocktails($elements_list_selected);
-                $new_elements_list = $cocktail->makeElementsTableList();
+            } catch (\Exception $e) {
+                $errors[] = '保存中にエラーが発生しました';
             }
+        } else if (isset($params['elements_id_selected'])) {
+
+            $elements_list_selected = [];
+            $elements_list_selected['saved_id'] = $params['saved_id'];
+            $elements_list_selected['elements_id_selected'] = $params['elements_id_selected'];
+            $elements_list_selected['amount_selected'] = $params['amount_selected'];
+
+            $cocktail = new Cocktails($elements_list_selected);
+            $new_elements_list = $cocktail->makeElementsTableList();
         }
+
 
         $this->set('errors', $errors);
         $this->set('messages', $messages);
         $this->set('params', $params);
         $this->set('results', $results);
         $this->set('elements_list_selected', $new_elements_list);
+
+        // 編集の場合は保存後に詳細画面へ遷移する
+        if($edit_flg && !$errors){
+            $this->redirect('cocktails/' . $results['id']);
+        }
     }
 
     /**
@@ -165,6 +177,7 @@ class CocktailsController extends AppController
 
         // 追加されている材料リストに、追加される材料を追加
         if(isset($params['elements_id_selected'])){
+            $elements_list_selected['saved_id'] = $params['saved_id']??[];
             $elements_list_selected['elements_id_selected'] = $params['elements_id_selected'];
             $elements_list_selected['amount_selected'] = $params['amount_selected'];
         }
@@ -194,8 +207,10 @@ class CocktailsController extends AppController
         $elements_list_selected = [];
 
         // 追加されている材料リストから、削除される材料を削除
+        $elements_list_selected['saved_id'] = $params['saved_id']??[];
         $elements_list_selected['elements_id_selected'] = $params['elements_id_selected'];
         $elements_list_selected['amount_selected'] = $params['amount_selected'];
+        array_splice($elements_list_selected['saved_id'], $params['del_index'], 1);
         array_splice($elements_list_selected['elements_id_selected'], $params['del_index'], 1);
         array_splice($elements_list_selected['amount_selected'], $params['del_index'], 1);
 

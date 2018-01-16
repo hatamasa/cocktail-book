@@ -12,8 +12,8 @@ class CocktailElementsTable extends Table
 
         $query
             ->select([
-                'cocktails_id' => 'CocktailElements.cocktails_id',
-                'elements_id' => 'CocktailElements.elements_id',
+                'saved_id' => 'CocktailElements.id',
+                'id' => 'me.id',
                 'amount' => 'CocktailElements.amount',
                 'category_kbn' => 'me.category_kbn',
                 'name' => 'me.name'

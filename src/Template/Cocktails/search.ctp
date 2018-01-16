@@ -1,4 +1,4 @@
-<div><a href="<?= $this->Url->build('/cocktails/save') ?>" >カクテルを<?php if (strpos($this->request->env('PATH_INFO'),'edit')):?>編集<?php else:?>登録<?php endif;?>する</a></div>
+<div><a href="<?= $this->Url->build('/cocktails/add') ?>" >カクテルを作成する</a></div>
 
 <!-- 検索フォーム -->
 <form action="<?= $this->Url->build('/cocktails/search') ?>" method="get">

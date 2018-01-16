@@ -44,33 +44,33 @@ use Cake\Routing\Route\DashedRoute;
 Router::defaultRouteClass(DashedRoute::class);
 
 Router::scope('/', function (RouteBuilder $routes) {
-    /**
-     * Here, we are connecting '/' (base path) to a controller called 'Pages',
-     * its action called 'display', and we pass a param to select the view file
-     * to use (in this case, src/Template/Pages/home.ctp)...
-     */
+
+    // 初期表示、検索画面表示
     $routes->get('/', ['controller' => 'Cocktails', 'action' => 'index']);
-
+    // 検索
     $routes->get('/cocktails/search', ['controller' => 'Cocktails', 'action' => 'search']);
-
+    // 詳細表示
     $routes->get('/cocktails/:id', ['controller' => 'Cocktails', 'action' => 'show'])
         ->setPatterns(['id' => '\d+'])
         ->setPass(['id']);
-
+    // 編集画面表示
     $routes->get('/cocktails/:id/edit', ['controller' => 'Cocktails', 'action' => 'edit'])
         ->setPatterns(['id' => '\d+'])
         ->setPass(['id']);
+    // 編集
+    $routes->patch('/cocktails/save', ['controller' => 'Cocktails', 'action' => 'save']);
+    // 新規作成画面表示
+    $routes->get('/cocktails/add', ['controller' => 'Cocktails', 'action' => 'add']);
+    // 新規作成
+    $routes->post('/cocktails/save', ['controller' => 'Cocktails', 'action' => 'save']);
 
-
-    $routes->connect('/cocktails/save', ['controller' => 'Cocktails', 'action' => 'save'])
-        ->setMethods(['GET', 'POST']);
-
+    // ajax材料セレクトボックス取得
     $routes->get('/cocktails/getElementsOptions/:id', ['controller' => 'Cocktails', 'action' => 'getElementsOptions'])
         ->setPatterns(['id' => '\d+'])
         ->setPass(['id']);
-
+    // ajax材料テーブルを追加する
     $routes->post('/cocktails/mergeElementsTable', ['controller' => 'Cocktails', 'action' => 'mergeElementsTable']);
-
+    // ajax材料テーブルから削除する
     $routes->post('/cocktails/deleteElementsTable', ['controller' => 'Cocktails', 'action' => 'deleteElementsTable']);
 
     /**

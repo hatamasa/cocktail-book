@@ -24,6 +24,13 @@ $(function(){
         obj['elements_id'] = $('.elements').val();
         obj['amount'] = $('.amount-input').val();
 
+        // すでに追加されているidを取得
+        var obj_id_list = new Object;
+        $('.elements-table').find('.saved_id').each(function(i){
+            obj_id_list[i] = $(this).val();
+        });
+        obj['saved_id'] = obj_id_list;
+
         // すでに追加されているelements_idを取得
         var obj_elements_list = new Object;
         $('.elements-table').find('.elements_id_selected').each(function(i){
@@ -49,6 +56,13 @@ $(function(){
         var obj = new Object();
         // 新しく削除する材料
         obj['del_index'] = $(this).closest('tr').find('.index').val();
+
+        // すでに追加されているidを取得
+        var obj_id_list = new Object;
+        $('.elements-table').find('.id_selected').each(function(i){
+            obj_id_list[i] = $(this).val();
+        });
+        obj['id_selected'] = obj_id_list;
 
         // すでに追加されているelements_idを取得
         var obj_elements_list = new Object;
@@ -96,8 +110,15 @@ function validate(){
 </script>
 <!-- フォーム -->
 <form action="<?= $this->Url->build('/cocktails/save') ?>" class="cocktail__form" method="post">
+
+<?php if (!strpos($this->request->env('REQUEST_URI'),'edit')):?>
   <h3>カクテルを作成する</h3>
+<?php else:?>
+  <h3>カクテルを編集する</h3>
+  <input type="hidden" name="edit" value="1" />
+<?php endif;?>
   <?= $this->element('messages', ['messages' => $messages??[] ]); ?>
+  <input type="hidden" name="id" value="<?= $params['id']??'' ?>" />
   <div class="cocktail__block">
     <div class="form-group">
       <?= $this->element('input_errors', ['name' => 'name']); ?>
@@ -112,7 +133,7 @@ function validate(){
       <div class="col-input-2">
       <?php foreach ($glass_list as $key => $value):?>
         <input type="radio" name="glass" value="<?= $key?>"
-        <?php if($params['glass']??'' == $key): ?>checked="checked"<?php endif; ?> /><?= $value?>
+        <?php if(($params['glass']??'') == $key): ?>checked="checked"<?php endif; ?> /><?= $value?>
       <?php endforeach; ?>
       </div>
     </div>
@@ -122,7 +143,7 @@ function validate(){
       <div class="col-input-2">
       <?php foreach ($percentage_list as $key => $value):?>
         <input type="radio" name="percentage" value="<?= $key?>"
-        <?php if($params['percentage']??'' == $key): ?>checked="checked"<?php endif; ?> /><?= $value?>
+        <?php if(($params['percentage']??'') == $key): ?>checked="checked"<?php endif; ?> /><?= $value?>
       <?php endforeach; ?>
       </div>
     </div>
@@ -138,7 +159,7 @@ function validate(){
       <div class="col-input-2">
       <?php foreach ($taste_list as $key => $value):?>
         <input type="radio" name="taste" value="<?= $key?>"
-        <?php if($params['taste']??'' == $key): ?>checked="checked"<?php endif; ?> /><?= $value?>
+        <?php if(($params['taste']??'') == $key): ?>checked="checked"<?php endif; ?> /><?= $value?>
       <?php endforeach; ?>
       </div>
     </div>
@@ -147,7 +168,7 @@ function validate(){
   <div class="cocktail-elements__block">
           <select class="category" name="category" size="5">
           <?php foreach ($category_list as $key => $value):?>
-            <option value="<?=$key?>" <?php if ($params['category']??'' == $key):?>selected<?php endif;?> ><?=$value?></option>
+            <option value="<?=$key?>" <?php if (($params['category']??'') == $key):?>selected<?php endif;?> ><?=$value?></option>
           <?php endforeach;?>
           </select>
           <select class="elements" name="elements" size="5"><!-- Ajaxで生成 --></select>
@@ -155,7 +176,7 @@ function validate(){
     <input type="button" class="submit-elements" value="材料を追加"/>
     <h4>材料一覧</h4>
     <?= $this->element('input_errors', ['name' => 'elements_id_selected']); ?>
-    <table class="elements-table"><?= $this->element('cocktails/ajax_elements_table', ['elements_list_selected' => $elements_list_selected]); ?><!-- Ajaxで生成 --></table>
+    <table class="elements-table"><?= $this->element('cocktails/ajax_elements_table', ['elements_list_selected' => $elements_list_selected??[]]); ?><!-- Ajaxで生成 --></table>
   </div>
   <div class="cacktail-processes__block">
     <div class="form-group">
@@ -165,7 +186,7 @@ function validate(){
       </div>
     </div>
   </div>
-  <input type="submit" class="cancel" value="登録" />
+  <input type="submit" class="cancel" value="保存する" />
 </form>
 
 <!-- 登録結果表示 -->
