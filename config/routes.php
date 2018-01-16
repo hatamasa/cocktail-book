@@ -62,7 +62,7 @@ Router::scope('/', function (RouteBuilder $routes) {
         ->setPass(['id']);
 
 
-    $routes->connect('/cocktails/create', ['controller' => 'Cocktails', 'action' => 'create'])
+    $routes->connect('/cocktails/save', ['controller' => 'Cocktails', 'action' => 'save'])
         ->setMethods(['GET', 'POST']);
 
     $routes->get('/cocktails/getElementsOptions/:id', ['controller' => 'Cocktails', 'action' => 'getElementsOptions'])

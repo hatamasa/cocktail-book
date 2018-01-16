@@ -77,15 +77,15 @@ class CocktailsController extends AppController
         $this->set('params', $results['cocktail']);
         $this->set('elements_list_selected', $results['elements']);
 
-        $this->render('create');
+        $this->render('save');
     }
 
     /**
-     * カクテル登録
+     * カクテル登録/更新
      * memo: newは予約語のため表示と作成を一括にした
-     * GET|POST /create
+     * GET|POST /save
      */
-    public function create()
+    public function save()
     {
         $errors = [];
         $messages = [];

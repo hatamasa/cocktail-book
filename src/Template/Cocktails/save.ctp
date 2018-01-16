@@ -95,7 +95,7 @@ function validate(){
 }
 </script>
 <!-- フォーム -->
-<form action="<?= $this->Url->build('/cocktails/create') ?>" class="cocktail__form" method="post">
+<form action="<?= $this->Url->build('/cocktails/save') ?>" class="cocktail__form" method="post">
   <h3>カクテルを作成する</h3>
   <?= $this->element('messages', ['messages' => $messages??[] ]); ?>
   <div class="cocktail__block">
