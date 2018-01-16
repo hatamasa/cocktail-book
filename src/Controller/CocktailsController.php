@@ -81,6 +81,8 @@ class CocktailsController extends AppController
             $cocktails = new Cocktails($params);
             $errors = $cocktails->valudateForCreate();
 
+            // バリデエラーがない場合、登録を行う
+            // バリデエラーがある場合、かつ追加されている材料リストがある場合、入力保持のため材料リストを作成する
             if(!$errors){
                 try{
                     list($results, $errors) = $cocktails->createCocktail();
@@ -91,6 +93,17 @@ class CocktailsController extends AppController
                 }catch (\Exception $e){
                     $errors[] = '登録中にエラーが発生しました';
                 }
+
+            } else if(isset($params['elements_id_selected'])){
+                $elements_list_selected = [];
+
+                $elements_list_selected['elements_id_selected'] = $params['elements_id_selected'];
+                $elements_list_selected['amount_selected'] = $params['amount_selected'];
+
+                $cocktail = new Cocktails($elements_list_selected);
+                $new_elements_list = $cocktail->makeElementsList();
+
+                $this->set('elements_list_selected', $new_elements_list);
             }
         }
 
@@ -119,9 +132,8 @@ class CocktailsController extends AppController
     }
 
     /**
-     * (Ajax用)選択済み材料制御用
+     * (Ajax用)選択済み材料追加用
      * POST /mergeElementsTable
-     * @param $params
      */
     public function mergeElementsTable()
     {
@@ -141,6 +153,34 @@ class CocktailsController extends AppController
         }
         $elements_list_selected['elements_id_selected'][] = $params['elements_id'];
         $elements_list_selected['amount_selected'][] = $params['amount'];
+
+        $cocktail = new Cocktails($elements_list_selected);
+        $new_elements_list = $cocktail->makeElementsList();
+
+        $this->set('elements_list_selected', $new_elements_list);
+        $this->render('/Element/cocktails/ajax_elements_table','');
+    }
+
+    /**
+     * (Ajax用)選択済み材料削除用
+     * POST /deleteElementsTable
+     */
+    public function deleteElementsTable(){
+
+        if (!$this->request->is('ajax')) {
+            $this->redirect('/');
+        }
+
+        // 追加されている材料 elements_id_selected[], amount_selected[]
+        // 削除される材料 elements_id
+        $params = $this->request->getData();
+        $elements_list_selected = [];
+
+        // 追加されている材料リストから、削除される材料を削除
+        $elements_list_selected['elements_id_selected'] = $params['elements_id_selected'];
+        $elements_list_selected['amount_selected'] = $params['amount_selected'];
+        array_splice($elements_list_selected['elements_id_selected'], $params['del_index'], 1);
+        array_splice($elements_list_selected['amount_selected'], $params['del_index'], 1);
 
         $cocktail = new Cocktails($elements_list_selected);
         $new_elements_list = $cocktail->makeElementsList();

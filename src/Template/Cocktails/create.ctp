@@ -1,7 +1,8 @@
 <script>
 
 $(function(){
-  // selectボックスの変更イベント
+
+    // selectボックスの変更イベント
     $('.category').on('change keyup', function() {
         var id = $('.category').val();
         $('.elements').load( '/cocktails/getElementsOptions/'+id);
@@ -10,7 +11,7 @@ $(function(){
     // セレクトボックスを未選択状態にする
     $('.category').prop('selectedIndex', -1);
 
-    // submitの押下イベント
+    // 材料追加ボタン押下イベント
     $('.submit-elements').on('click', function() {
 
         validate();
@@ -41,8 +42,35 @@ $(function(){
         $('.elements-table').load( '/cocktails/mergeElementsTable/', obj);
     });
 
+    // 材料削除ボタン押下イベント
+    // .elements-table自体を監視対象にしておいて、第二引数で指定した要素にhitしたら関数が呼ばれる仕組み。
+    $('.elements-table').on('click', '.delete-elements', function(){
+
+        var obj = new Object();
+        // 新しく削除する材料
+        obj['del_index'] = $(this).closest('tr').find('.index').val();
+
+        // すでに追加されているelements_idを取得
+        var obj_elements_list = new Object;
+        $('.elements-table').find('.elements_id_selected').each(function(i){
+            obj_elements_list[i] = $(this).val();
+        });
+        obj['elements_id_selected'] = obj_elements_list;
+
+        // すでに追加されているamountを取得
+        var obj_amount_list = new Object;
+        $('.elements-table').find('.amount_selected').each(function(i){
+            obj_amount_list[i] = $(this).val();
+        });
+        obj['amount_selected'] = obj_amount_list;
+
+        console.log(obj);
+        $('.elements-table').load( '/cocktails/deleteElementsTable/', obj);
+    });
+
 });
 
+// 材料追加ボタンのバリデーション
 function validate(){
   $('.cocktail__form').validate({
         rules:  {
@@ -68,7 +96,7 @@ function validate(){
 <!-- フォーム -->
 <form action="<?= $this->Url->build('/cocktails/create') ?>" class="cocktail__form" method="post">
   <h3>カクテルを作成する</h3>
-  <?= $this->element('create_messages', ['messages' => $messages]); ?>
+  <?= $this->element('messages', ['messages' => $messages]); ?>
   <div class="cocktail__block">
     <div class="form-group">
       <?= $this->element('input_errors', ['name' => 'name']); ?>

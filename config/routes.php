@@ -66,6 +66,8 @@ Router::scope('/', function (RouteBuilder $routes) {
 
     $routes->post('/cocktails/mergeElementsTable', ['controller' => 'Cocktails', 'action' => 'mergeElementsTable']);
 
+    $routes->post('/cocktails/deleteElementsTable', ['controller' => 'Cocktails', 'action' => 'deleteElementsTable']);
+
     /**
      * Connect catchall routes for all controllers.
      *
