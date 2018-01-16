@@ -97,13 +97,13 @@ function validate(){
 <!-- フォーム -->
 <form action="<?= $this->Url->build('/cocktails/create') ?>" class="cocktail__form" method="post">
   <h3>カクテルを作成する</h3>
-  <?= $this->element('messages', ['messages' => $messages]); ?>
+  <?= $this->element('messages', ['messages' => $messages??[] ]); ?>
   <div class="cocktail__block">
     <div class="form-group">
       <?= $this->element('input_errors', ['name' => 'name']); ?>
       <div class="col-label-2">名前</div>
       <div class="col-input-2">
-        <input type="text" name="name" id="input-text-1" value="<?php if(isset($params['name'])){ echo $params['name'];} ?>" />
+        <input type="text" name="name" id="input-text-1" value="<?= $params['name']??'' ?>" />
       </div>
     </div>
     <div class="form-group">
@@ -112,7 +112,7 @@ function validate(){
       <div class="col-input-2">
       <?php foreach ($glass_list as $key => $value):?>
         <input type="radio" name="glass" value="<?= $key?>"
-        <?php if(isset($params['glass']) && $params['glass'] == $key): ?>checked="checked"<?php endif; ?> /><?= $value?>
+        <?php if($params['glass']??'' == $key): ?>checked="checked"<?php endif; ?> /><?= $value?>
       <?php endforeach; ?>
       </div>
     </div>
@@ -122,14 +122,14 @@ function validate(){
       <div class="col-input-2">
       <?php foreach ($percentage_list as $key => $value):?>
         <input type="radio" name="percentage" value="<?= $key?>"
-        <?php if(isset($params['percentage']) && $params['percentage'] == $key): ?>checked="checked"<?php endif; ?> /><?= $value?>
+        <?php if($params['percentage']??'' == $key): ?>checked="checked"<?php endif; ?> /><?= $value?>
       <?php endforeach; ?>
       </div>
     </div>
     <div class="form-group">
       <div class="col-label-2">色</div>
       <div class="col-input-2">
-        <input type="text" name="color" id="input-text-1" value="<?php if(isset($params['color'])){ echo $params['color'];} ?>" />
+        <input type="text" name="color" id="input-text-1" value="<?= $params['color']??'' ?>" />
       </div>
     </div>
     <div class="form-group">
@@ -138,7 +138,7 @@ function validate(){
       <div class="col-input-2">
       <?php foreach ($taste_list as $key => $value):?>
         <input type="radio" name="taste" value="<?= $key?>"
-        <?php if(isset($params['taste']) && $params['taste'] == $key): ?>checked="checked"<?php endif; ?> /><?= $value?>
+        <?php if($params['taste']??'' == $key): ?>checked="checked"<?php endif; ?> /><?= $value?>
       <?php endforeach; ?>
       </div>
     </div>
@@ -147,11 +147,11 @@ function validate(){
   <div class="cocktail-elements__block">
           <select class="category" name="category" size="5">
           <?php foreach ($category_list as $key => $value):?>
-            <option value="<?=$key?>" <?php if (isset($params['category']) && $params['category'] == $key):?>selected<?php endif;?> ><?=$value?></option>
+            <option value="<?=$key?>" <?php if ($params['category']??'' == $key):?>selected<?php endif;?> ><?=$value?></option>
           <?php endforeach;?>
           </select>
           <select class="elements" name="elements" size="5"><!-- Ajaxで生成 --></select>
-    <input type="text" class="amount-input" name="amount" value="<?php if(isset($params['amount'][0])){ echo $params['amount'][0];} ?>" placeholder="量を入力..." />
+    <input type="text" class="amount-input" name="amount" value="<?= $params['amount'][0]??'' ?>" placeholder="量を入力..." />
     <input type="button" class="submit-elements" value="材料を追加"/>
     <h4>材料一覧</h4>
     <?= $this->element('input_errors', ['name' => 'elements_id_selected']); ?>
@@ -161,7 +161,7 @@ function validate(){
     <div class="form-group">
       <div class="col-label-2">作成手順</div>
       <div class="col-input-large">
-        <textarea name="processes" cols="70" rows="5" ><?php if(isset($params['processes'])){ echo $params['processes'];} ?></textarea>
+        <textarea name="processes" cols="70" rows="5" ><?= $params['processes']??'' ?></textarea>
       </div>
     </div>
   </div>

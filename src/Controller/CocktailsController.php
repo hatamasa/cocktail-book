@@ -53,6 +53,7 @@ class CocktailsController extends AppController
     /**
      * カクテル詳細表示
      * GET /:id
+     * @param  $id
      */
     public function show($id)
     {
@@ -61,6 +62,22 @@ class CocktailsController extends AppController
 
         $this->set('cocktail', $results['cocktail']);
         $this->set('elements', $results['elements']);
+    }
+
+    /**
+     * カクテル編集画面表示
+     * GET /:id/edit
+     * @param  $id
+     */
+    public function edit($id)
+    {
+        $cocktails = new Cocktails();
+        $results = $cocktails->fetchCocktailDetail($id);
+
+        $this->set('params', $results['cocktail']);
+        $this->set('elements_list_selected', $results['elements']);
+
+        $this->render('create');
     }
 
     /**
@@ -102,7 +119,7 @@ class CocktailsController extends AppController
                 $elements_list_selected['amount_selected'] = $params['amount_selected'];
 
                 $cocktail = new Cocktails($elements_list_selected);
-                $new_elements_list = $cocktail->makeElementsList();
+                $new_elements_list = $cocktail->makeElementsTableList();
             }
         }
 

@@ -1,5 +1,4 @@
 <!-- 検索結果表示 -->
-<?php if(isset($cocktail)): ?>
 <div class="col-label-1"><?= $cocktail['name']?></div>
 <table>
 	<tr>
@@ -31,4 +30,5 @@
 </table>
 <div class="col-label-1">手順</div>
 <div><?= $cocktail['processes']?></div>
-<?php endif;?>
+<div><a href="/cocktails/<?=$cocktail['id']?>/edit" >編集する</a></div>
+

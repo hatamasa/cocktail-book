@@ -57,6 +57,11 @@ Router::scope('/', function (RouteBuilder $routes) {
         ->setPatterns(['id' => '\d+'])
         ->setPass(['id']);
 
+    $routes->get('/cocktails/:id/edit', ['controller' => 'Cocktails', 'action' => 'edit'])
+        ->setPatterns(['id' => '\d+'])
+        ->setPass(['id']);
+
+
     $routes->connect('/cocktails/create', ['controller' => 'Cocktails', 'action' => 'create'])
         ->setMethods(['GET', 'POST']);
 

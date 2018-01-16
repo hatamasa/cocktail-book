@@ -5,7 +5,7 @@
   <div class="cocktailSearchForm__block">
     <div class="form-group">
       <div class="col-input-1">
-        <input type="text" id="name-search-input" name="name" value="<?php if(isset($params['name'])){ echo $params['name'];} ?>" placeholder="カクテルの名前を入力..." />
+        <input type="text" id="name-search-input" name="name" value="<?= $params['name']??'' ?>" placeholder="カクテルの名前を入力..." />
       </div>
     </div>
     <div class="form-group">
@@ -13,7 +13,7 @@
       <div class="col-input-1">
       <?php foreach ($glass_list as $key => $value):?>
         <input type="checkbox" name="glass[]" value="<?= $key?>"
-        <?php if(isset($params['glass']) && in_array($key, $params['glass'])): ?>checked="checked"<?php endif; ?> /><?= $value?>
+        <?php if(in_array($key, $params['glass']??[])): ?>checked="checked"<?php endif; ?> /><?= $value?>
       <?php endforeach; ?>
       </div>
     </div>
@@ -22,7 +22,7 @@
       <div class="col-input-1">
       <?php foreach ($percentage_list as $key => $value):?>
         <input type="checkbox" name="percentage[]" value="<?= $key?>"
-        <?php if(isset($params['percentage']) && in_array($key, $params['percentage'])): ?>checked="checked"<?php endif; ?> /><?= $value?>
+        <?php if(in_array($key, $params['percentage']??[])): ?>checked="checked"<?php endif; ?> /><?= $value?>
       <?php endforeach; ?>
       </div>
     </div>
@@ -31,7 +31,7 @@
       <div class="col-input-1">
       <?php foreach ($taste_list as $key => $value):?>
         <input type="checkbox" name="taste[]" value="<?= $key?>"
-        <?php if(isset($params['taste']) && in_array($key, $params['taste'])): ?>checked="checked"<?php endif; ?> /><?= $value?>
+        <?php if(in_array($key, $params['taste']??[])): ?>checked="checked"<?php endif; ?> /><?= $value?>
       <?php endforeach; ?>
       </div>
     </div>

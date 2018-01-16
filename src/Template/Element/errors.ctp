@@ -1,3 +1,4 @@
+<?php if(isset($errors)):?>
 <div class="errors-form">
 <?php foreach ($errors as $error):?>
     <?php if(is_array($error)):?>
@@ -9,3 +10,4 @@
     <?php endif; ?>
 <?php endforeach;?>
 </div>
+<?php endif; ?>
