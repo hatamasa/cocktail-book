@@ -31,7 +31,7 @@ class Cocktails
     }
 
     /**
-     * 未完成 カクテル登録用のバリデーションを実行する
+     * カクテル登録用のバリデーションを実行する
      */
     public function valudateForCreate()
     {
@@ -123,7 +123,7 @@ class Cocktails
         $connection->begin();
         try{
 
-            if($edit){
+            if($edit == 'edit'){
                 // patchEntityのみではCocktailElementsがUPDATEされないで新規追加されてしまう
                 // そのためCocktailElementsを全削除して入れ直す
                 $cocktailElementsTable->deleteAll(['cocktails_id' => $this->params['id']]);
@@ -142,11 +142,11 @@ class Cocktails
 
         } catch (\Exception $e){
 
-            $connection->rollback(); //ロールバック
+            $connection->rollback();
             throw new \Exception($e->getMessage());
         }
 
-        return [$result, $cocktail->getErrors()];
+        return $result;
     }
 
     /**

@@ -42,8 +42,6 @@
 <!-- 検索結果表示 -->
 <?php if(isset($results)): ?>
     <div class="results_col">
-    <?= $this->element('messages', ['messages' => $messages]);?>
-    <?= $this->element('errors', ['errors' => $errors]);?>
     <?php foreach ($results as $row): ?>
         <?= $this->element('cocktails/cocktail', ['results' => $row]);?>
     <?php endforeach; ?>

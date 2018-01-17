@@ -28,7 +28,6 @@ class CocktailsController extends AppController
     public function search()
     {
         $results = [];
-        $messages = [];
         $params = $this->request->getQueryParams();
 
         $cocktails = new Cocktails($params);
@@ -38,15 +37,17 @@ class CocktailsController extends AppController
             $results = $this->Cocktails->fetchAllCocktails($params);
 
             if (count($results) == 0) {
-                $messages[] = "検索結果はありません";
+                $this->Flash->set("検索結果はありません");
             } else {
-                $messages[] = count($results) . "件ヒットしました";
+                $this->Flash->set(count($results) . "件ヒットしました");
+            }
+        } else {
+            foreach ($errors as $error){
+                $this->Flash->error($error);
             }
         }
 
         $this->set('results', $results);
-        $this->set('errors', $errors);
-        $this->set('messages', $messages);
         $this->set('params', $params);
     }
 
@@ -97,10 +98,9 @@ class CocktailsController extends AppController
     public function save()
     {
         $errors = [];
-        $messages = [];
         $results = [];
         $params = $this->request->getData();
-        $params['edit'] = $this->request->getData('edit');
+        $edit = $this->request->getData('edit');
         $new_elements_list = [];
 
         // 登録時処理
@@ -111,30 +111,29 @@ class CocktailsController extends AppController
         // バリデエラーがある場合、かつ材料リストがある場合、入力保持のため材料テーブルを作成する
         if (! $errors) {
             try {
-                list ($results, $errors) = $cocktails->createCocktail($params['edit']);
-                if (! $errors) {
-                    $messages[] = '保存しました';
-                    $params = [];
-                }
+                $results = $cocktails->createCocktail($edit);
+                $this->Flash->success('保存しました');
+                $params = [];
             } catch (\Exception $e) {
-                $errors[] = '保存中にエラーが発生しました: ' . $e->getMessage();
+                $errors[] = $e->getMessage();
+                $this->Flash->error('保存中にエラーが発生しました');
             }
         } else if (isset($params['elements_id_selected'])) {
 
-            $cocktail = new Cocktails($params);
-            $new_elements_list = $cocktail->makeElementsTableList();
+            $new_elements_list = $cocktails->makeElementsTableList();
         }
-
-        $this->set('errors', $errors);
-        $this->set('messages', $messages);
-        $this->set('params', $params);
-        $this->set('results', $results);
-        $this->set('elements_list_selected', $new_elements_list);
 
         // 編集からの遷移、かつエラーがない場合は詳細画面を表示する
-        if(isset($params['edit']) && !$errors){
+        if(($edit??'' == 'edit') && !$errors){
             $this->redirect('cocktails/' . $results['id']);
         }
+
+        // バリデエラー、Exception、作成からの遷移の場合は登録画面を表示する
+        $this->set('errors', $errors);
+        $this->set('results', $results);
+        $this->set('params', $params);
+        $this->set('edit', $edit??'');
+        $this->set('elements_list_selected', $new_elements_list);
     }
 
     /**

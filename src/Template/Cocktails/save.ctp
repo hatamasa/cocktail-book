@@ -98,14 +98,12 @@ function makeSelectedList(obj){
 </script>
 <!-- フォーム -->
 <form action="<?= $this->Url->build('/cocktails/save') ?>" class="cocktail__form" method="post">
-
-<?php if (isset($edit) || isset($params['edit'])):?>
+<?php if (($edit??'' == 'edit') || isset($params['edit'])):?>
   <h3>カクテルを編集する</h3>
   <input type="hidden" name="edit" value="edit" />
 <?php else:?>
   <h3>カクテルを作成する</h3>
 <?php endif;?>
-  <?= $this->element('messages', ['messages' => $messages??[] ]); ?>
   <input type="hidden" name="id" value="<?= $params['id']??'' ?>" />
   <div class="cocktail__block">
     <div class="form-group">
@@ -164,7 +162,9 @@ function makeSelectedList(obj){
     <input type="button" class="submit-elements" value="材料を追加"/>
     <h4>材料一覧</h4>
     <?= $this->element('input_errors', ['name' => 'elements_id_selected']); ?>
-    <table class="elements-table"><?= $this->element('cocktails/ajax_elements_table', ['elements_list_selected' => $elements_list_selected??[]]); ?><!-- Ajaxで生成 --></table>
+    <table class="elements-table"><!-- Ajaxで生成 -->
+        <?= $this->element('cocktails/ajax_elements_table', ['elements_list_selected' => $elements_list_selected??[]]); ?>
+    </table>
   </div>
   <div class="cacktail-processes__block">
     <div class="form-group">

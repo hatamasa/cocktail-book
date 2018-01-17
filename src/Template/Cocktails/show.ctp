@@ -1,5 +1,4 @@
 <!-- 検索結果表示 -->
-<?= $this->element('messages', ['messages' => $messages??[] ]); ?>
 <div class="col-label-1"><?= $cocktail['name']?></div>
 <table>
   <tr>
