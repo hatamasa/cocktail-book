@@ -319,11 +319,11 @@ pre {
 }
 
 .top-bar.expanded .title-area {
-    background: #01545b;
+    background: #737373;
 }
 
 .top-bar.expanded, .top-bar,.top-bar-section ul li,.top-bar-section li:not(.has-form) a:not(.button) {
-    background: #116d76;
+    background: #989898;
 }
 
 .top-bar-section li:not(.has-form) a:not(.button):hover {
@@ -355,7 +355,6 @@ table {
     margin-bottom: 1.25rem;
     border: none;
     table-layout: fixed;
-    width: 100%;
 }
 
 table thead {

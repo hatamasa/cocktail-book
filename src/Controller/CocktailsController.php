@@ -108,7 +108,6 @@ class CocktailsController extends AppController
         $errors = $cocktails->valudateForCreate();
 
         // バリデエラーがない場合、登録を行う
-        // バリデエラーがある場合、かつ材料リストがある場合、入力保持のため材料テーブルを作成する
         if (! $errors) {
             try {
                 $results = $cocktails->createCocktail($edit);
@@ -118,8 +117,10 @@ class CocktailsController extends AppController
                 $errors[] = $e->getMessage();
                 $this->Flash->error('保存中にエラーが発生しました');
             }
-        } else if (isset($params['elements_id_selected'])) {
+        }
 
+        // バリデエラー、登録エラーがある場合、かつ材料リストがある場合、入力保持のため材料テーブルを作成する
+        if ($errors && isset($params['elements_id_selected'])) {
             $new_elements_list = $cocktails->makeElementsTableList();
         }
 

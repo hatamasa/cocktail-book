@@ -1,3 +1,44 @@
+
+.title__block {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.title__block ul {
+  margin-left: 50px;
+  list-style: none;
+}
+
+.title__block, .cocktailSearchForm__block, .cocktail__block, .cocktailElements__block {
+  margin-left: 20px;
+}
+
+.detail-table tr th {
+  width: 130px;
+}
+
+.detail-table tr td {
+  width: 200px;
+}
+
+.detail-elements-table {
+  margin-left: 20px;
+}
+
+.detail-elements-table tr th {
+  width: 130px;
+}
+
+.detail-elements-table tr td {
+  width: 200px;
+}
+
+.cocktailElements__block p {
+  margin-left: 20px;
+}
+
+/*  */
 #name-search-input {
   width: 400px;
 }
@@ -6,9 +47,11 @@
   width: 300px;
 }
 
+
 .elements-table {
   width: 700px;
 }
+
 
 .elements-table tr th {
   width: 80px;
@@ -16,11 +59,6 @@
 
 .elements-table tr td input {
   width: auto;
-}
-
-input[type="submit"] {
-  position: relative;
-  left: 30px;
 }
 
 h4 {
@@ -56,17 +94,12 @@ h4 {
 }
 
 .form-group {
-  margin: 20px;
-}
-
-.col-label-1 {
-  width: auto;
-  font-size: 150%;
+  margin-top: 15px;
+  margin-bottom: 15px;
 }
 
 .col-input-1 {
-  position: relative;
-  left: 30px;
+  margin-left: 30px;
 }
 
 .col-label-2 {
@@ -91,15 +124,19 @@ h4 {
   left: 30px;
 }
 
-.results_col {
-  position: relative;
-  top:20px;
-  left: 20px;
+.results__block {
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 15px;
+  margin-left: 20px;
+  flex-wrap: wrap;
 }
 
-.cocktail_block {
-  float: left;
-  margin-left: 50px;
+.results__block ul {
+  width: 130px;
+  margin: 5px;
+  list-style: none;
+  font-size: 80%;
 }
 
 .errors-form p {

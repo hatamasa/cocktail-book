@@ -44,6 +44,9 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
         </ul>
         <div class="top-bar-section">
             <ul class="right">
+                <li><a href="<?= $this->Url->build('/') ?>">カクテルを検索</a></li>
+                <li><a href="<?= $this->Url->build('/cocktails/add') ?>">カクテルを作成</a></li>
+                <li><a href="<?= $this->Url->build('') ?>">材料を管理</a></li>
             </ul>
         </div>
     </nav>

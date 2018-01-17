@@ -1,15 +1,14 @@
-<div><a href="<?= $this->Url->build('/cocktails/add') ?>" >カクテルを作成する</a></div>
-
 <!-- 検索フォーム -->
+<div class="title__block">
+  <h1>カクテルを検索する</h1>
+</div>
+<div class="cocktailSearchForm__block">
 <form action="<?= $this->Url->build('/cocktails/search') ?>" method="get">
-  <div class="cocktailSearchForm__block">
     <div class="form-group">
-      <div class="col-input-1">
         <input type="text" id="name-search-input" name="name" value="<?= $params['name']??'' ?>" placeholder="カクテルの名前を入力..." />
-      </div>
     </div>
     <div class="form-group">
-      <div class="col-label-1">グラス</div>
+      <h2>グラス</h2>
       <div class="col-input-1">
       <?php foreach ($glass_list as $key => $value):?>
         <input type="checkbox" name="glass[]" value="<?= $key?>"
@@ -18,7 +17,7 @@
       </div>
     </div>
     <div class="form-group">
-      <div class="col-label-1">強さ</div>
+      <h2>強さ</h2>
       <div class="col-input-1">
       <?php foreach ($percentage_list as $key => $value):?>
         <input type="checkbox" name="percentage[]" value="<?= $key?>"
@@ -27,7 +26,7 @@
       </div>
     </div>
     <div class="form-group">
-      <div class="col-label-1">味</div>
+      <h2>味</h2>
       <div class="col-input-1">
       <?php foreach ($taste_list as $key => $value):?>
         <input type="checkbox" name="taste[]" value="<?= $key?>"
@@ -35,15 +34,14 @@
       <?php endforeach; ?>
       </div>
     </div>
-  </div>
   <input type="submit" value="検索" />
 </form>
-
+</div>
 <!-- 検索結果表示 -->
+<div class="results__block">
 <?php if(isset($results)): ?>
-    <div class="results_col">
     <?php foreach ($results as $row): ?>
-        <?= $this->element('cocktails/cocktail', ['results' => $row]);?>
+    <?= $this->element('cocktails/cocktail', ['results' => $row]);?>
     <?php endforeach; ?>
-    </div>
 <?php endif;?>
+</div>
