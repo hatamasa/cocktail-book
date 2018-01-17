@@ -107,7 +107,7 @@ class CocktailsController extends AppController
         $errors = $cocktails->valudateForCreate();
 
         // バリデエラーがない場合、登録を行う
-        // バリデエラーがある場合、かつ追加されている材料リストがある場合、入力保持のため材料リストを作成する
+        // バリデエラーがある場合、かつ材料リストがある場合、入力保持のため材料テーブルを作成する
         if (! $errors) {
             try {
                 list ($results, $errors) = $cocktails->createCocktail($edit_flg);
@@ -119,11 +119,7 @@ class CocktailsController extends AppController
                 $errors[] = '保存中にエラーが発生しました';
             }
         } else if (isset($params['elements_id_selected'])) {
-
-            $elements_list_selected = [];
-            $elements_list_selected['saved_id'] = $params['saved_id'];
-            $elements_list_selected['elements_id_selected'] = $params['elements_id_selected'];
-            $elements_list_selected['amount_selected'] = $params['amount_selected'];
+            $elements_list_selected = $this->getSelectedList($params);
 
             $cocktail = new Cocktails($elements_list_selected);
             $new_elements_list = $cocktail->makeElementsTableList();
@@ -161,7 +157,7 @@ class CocktailsController extends AppController
     }
 
     /**
-     * (Ajax用)選択済み材料追加用
+     * (Ajax用)材料追加用
      * POST /mergeElementsTable
      */
     public function mergeElementsTable()
@@ -169,17 +165,12 @@ class CocktailsController extends AppController
         if (!$this->request->is('ajax')) {
             $this->redirect('/');
         }
-
-        // 追加されている材料 elements_id_selected[], amount_selected[]
-        // 追加される材料 elements_id, amount
         $params = $this->request->getData();
         $elements_list_selected = [];
 
-        // 追加されている材料リストに、追加される材料を追加
+        // 材料リストに、追加される材料を追加
         if(isset($params['elements_id_selected'])){
-            $elements_list_selected['saved_id'] = $params['saved_id']??[];
-            $elements_list_selected['elements_id_selected'] = $params['elements_id_selected'];
-            $elements_list_selected['amount_selected'] = $params['amount_selected'];
+            $elements_list_selected = $this->getSelectedList($params);
         }
         $elements_list_selected['elements_id_selected'][] = $params['elements_id'];
         $elements_list_selected['amount_selected'][] = $params['amount'];
@@ -192,7 +183,7 @@ class CocktailsController extends AppController
     }
 
     /**
-     * (Ajax用)選択済み材料削除用
+     * (Ajax用)材料削除用
      * POST /deleteElementsTable
      */
     public function deleteElementsTable(){
@@ -200,16 +191,12 @@ class CocktailsController extends AppController
         if (!$this->request->is('ajax')) {
             $this->redirect('/');
         }
-
-        // 追加されている材料 elements_id_selected[], amount_selected[]
-        // 削除される材料 elements_id
         $params = $this->request->getData();
-        $elements_list_selected = [];
 
-        // 追加されている材料リストから、削除される材料を削除
-        $elements_list_selected['saved_id'] = $params['saved_id']??[];
-        $elements_list_selected['elements_id_selected'] = $params['elements_id_selected'];
-        $elements_list_selected['amount_selected'] = $params['amount_selected'];
+        // 材料リストを取得
+        $elements_list_selected = $this->getSelectedList($params);
+
+        // 材料リストから、削除される材料を削除
         array_splice($elements_list_selected['saved_id'], $params['del_index'], 1);
         array_splice($elements_list_selected['elements_id_selected'], $params['del_index'], 1);
         array_splice($elements_list_selected['amount_selected'], $params['del_index'], 1);
@@ -219,5 +206,20 @@ class CocktailsController extends AppController
 
         $this->set('elements_list_selected', $new_elements_list);
         $this->render('/Element/cocktails/ajax_elements_table','');
+    }
+
+    /**
+     * 材料リストを配列にして返却する
+     * [ saved_id[], elements_id_selected[], amount_selected[] ]
+     * @param $params
+     * @return array
+     */
+    private function getSelectedList($params){
+        $elements_list_selected = [];
+        $elements_list_selected['saved_id'] = $params['saved_id']??[];
+        $elements_list_selected['elements_id_selected'] = $params['elements_id_selected'];
+        $elements_list_selected['amount_selected'] = $params['amount_selected'];
+
+        return $elements_list_selected;
     }
 }

@@ -119,6 +119,7 @@ class Cocktails
 
         if($edit_flg){
             $cocktail = $cocktailsTable->get($this->params['id'], ['contain' => 'CocktailElements']);
+            // TODO CocktailElementsがUPDATEされないで新規追加されてしまう
             $cocktail = $cocktailsTable->patchEntity($cocktail, $data, [
                 'associated' => ['CocktailElements'],
             ]);
