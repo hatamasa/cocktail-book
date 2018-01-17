@@ -39,9 +39,9 @@
 </div>
 <!-- 検索結果表示 -->
 <div class="results__block">
-<?php if(isset($results)): ?>
+<?php if(isset($results)):?>
     <?php foreach ($results as $row): ?>
-    <?= $this->element('cocktails/cocktail', ['results' => $row]);?>
+    <?= $this->element('cocktails/cocktail', ['row' => $row]);?>
     <?php endforeach; ?>
 <?php endif;?>
 </div>

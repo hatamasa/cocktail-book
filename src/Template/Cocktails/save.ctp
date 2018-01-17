@@ -71,7 +71,7 @@ function validate(){
 }
 // 選択済みの材料リストを取得
 function makeSelectedList(obj){
-	// すでに追加されているidを取得
+    // すでに追加されているidを取得
     var obj_id_list = new Object();
     $('.elements-table').find('.saved_id').each(function(i){
         obj_id_list[i] = $(this).val();
@@ -178,8 +178,8 @@ function makeSelectedList(obj){
 </form>
 
 <!-- 登録結果表示 -->
-<?php if(isset($results) && count($results) > 0): ?>
-    <div class="results_col">
-    <?= $this->element('cocktails/cocktail', ['results' => $results]);?>
-    </div>
+<div class="results__block">
+<?php if(isset($results) && count($results) > 0):?>
+    <?= $this->element('cocktails/cocktail', ['row' => $results]);?>
 <?php endif;?>
+</div>
