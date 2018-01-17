@@ -1,6 +1,6 @@
 <?php if(isset($elements_list_selected)):?>
 <?php foreach ($elements_list_selected as $key => $value):?>
-<tr>
+<tr><!-- 'saved_id' => 'CocktailElements.id', 'id' => 'me.id' -->
   <input type="hidden" class="saved_id" name="saved_id[]" value="<?= $value['saved_id']??'' ?>" />
   <input type="hidden" class="elements_id_selected" name="elements_id_selected[]" value="<?= $value['id'] ?>" />
   <input type="hidden" class="amount_selected" name="amount_selected[]" value="<?=$value['amount']?>" />

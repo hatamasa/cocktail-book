@@ -119,9 +119,8 @@ class CocktailsController extends AppController
                 $errors[] = '保存中にエラーが発生しました';
             }
         } else if (isset($params['elements_id_selected'])) {
-            $elements_list_selected = $this->getSelectedList($params);
 
-            $cocktail = new Cocktails($elements_list_selected);
+            $cocktail = new Cocktails($params);
             $new_elements_list = $cocktail->makeElementsTableList();
         }
 
@@ -166,16 +165,12 @@ class CocktailsController extends AppController
             $this->redirect('/');
         }
         $params = $this->request->getData();
-        $elements_list_selected = [];
 
         // 材料リストに、追加される材料を追加
-        if(isset($params['elements_id_selected'])){
-            $elements_list_selected = $this->getSelectedList($params);
-        }
-        $elements_list_selected['elements_id_selected'][] = $params['elements_id'];
-        $elements_list_selected['amount_selected'][] = $params['amount'];
+        $params['elements_id_selected'][] = $params['elements_id'];
+        $params['amount_selected'][] = $params['amount'];
 
-        $cocktail = new Cocktails($elements_list_selected);
+        $cocktail = new Cocktails($params);
         $new_elements_list = $cocktail->makeElementsTableList();
 
         $this->set('elements_list_selected', $new_elements_list);
@@ -193,33 +188,16 @@ class CocktailsController extends AppController
         }
         $params = $this->request->getData();
 
-        // 材料リストを取得
-        $elements_list_selected = $this->getSelectedList($params);
-
         // 材料リストから、削除される材料を削除
-        array_splice($elements_list_selected['saved_id'], $params['del_index'], 1);
-        array_splice($elements_list_selected['elements_id_selected'], $params['del_index'], 1);
-        array_splice($elements_list_selected['amount_selected'], $params['del_index'], 1);
+        array_splice($params['saved_id'], $params['del_index'], 1);
+        array_splice($params['elements_id_selected'], $params['del_index'], 1);
+        array_splice($params['amount_selected'], $params['del_index'], 1);
 
-        $cocktail = new Cocktails($elements_list_selected);
+        $cocktail = new Cocktails($params);
         $new_elements_list = $cocktail->makeElementsTableList();
 
         $this->set('elements_list_selected', $new_elements_list);
         $this->render('/Element/cocktails/ajax_elements_table','');
     }
 
-    /**
-     * 材料リストを配列にして返却する
-     * [ saved_id[], elements_id_selected[], amount_selected[] ]
-     * @param $params
-     * @return array
-     */
-    private function getSelectedList($params){
-        $elements_list_selected = [];
-        $elements_list_selected['saved_id'] = $params['saved_id']??[];
-        $elements_list_selected['elements_id_selected'] = $params['elements_id_selected'];
-        $elements_list_selected['amount_selected'] = $params['amount_selected'];
-
-        return $elements_list_selected;
-    }
 }

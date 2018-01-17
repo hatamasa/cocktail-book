@@ -20,30 +20,11 @@ $(function(){
         };
 
         var obj = new Object();
-        // 新しく追加する材料
+        // 選択済み材料を取得
+        obj = makeSelectedList(obj);
+        // 新しく追加する材料を追加
         obj['elements_id'] = $('.elements').val();
         obj['amount'] = $('.amount-input').val();
-
-        // すでに追加されているidを取得
-        var obj_id_list = new Object;
-        $('.elements-table').find('.saved_id').each(function(i){
-            obj_id_list[i] = $(this).val();
-        });
-        obj['saved_id'] = obj_id_list;
-
-        // すでに追加されているelements_idを取得
-        var obj_elements_list = new Object;
-        $('.elements-table').find('.elements_id_selected').each(function(i){
-            obj_elements_list[i] = $(this).val();
-        });
-        obj['elements_id_selected'] = obj_elements_list;
-
-        // すでに追加されているamountを取得
-        var obj_amount_list = new Object;
-        $('.elements-table').find('.amount_selected').each(function(i){
-            obj_amount_list[i] = $(this).val();
-        });
-        obj['amount_selected'] = obj_amount_list;
 
         console.log(obj);
         $('.elements-table').load( '/cocktails/mergeElementsTable/', obj);
@@ -54,29 +35,10 @@ $(function(){
     $('.elements-table').on('click', '.delete-elements', function(){
 
         var obj = new Object();
-        // 新しく削除する材料
+        // 選択済み材料を取得
+        obj = makeSelectedList(obj);
+        // 削除する材料
         obj['del_index'] = $(this).closest('tr').find('.index').val();
-
-        // すでに追加されているidを取得
-        var obj_id_list = new Object;
-        $('.elements-table').find('.id_selected').each(function(i){
-            obj_id_list[i] = $(this).val();
-        });
-        obj['id_selected'] = obj_id_list;
-
-        // すでに追加されているelements_idを取得
-        var obj_elements_list = new Object;
-        $('.elements-table').find('.elements_id_selected').each(function(i){
-            obj_elements_list[i] = $(this).val();
-        });
-        obj['elements_id_selected'] = obj_elements_list;
-
-        // すでに追加されているamountを取得
-        var obj_amount_list = new Object;
-        $('.elements-table').find('.amount_selected').each(function(i){
-            obj_amount_list[i] = $(this).val();
-        });
-        obj['amount_selected'] = obj_amount_list;
 
         console.log(obj);
         $('.elements-table').load( '/cocktails/deleteElementsTable/', obj);
@@ -107,6 +69,32 @@ function validate(){
             },
     });
 }
+// 選択済みの材料リストを取得
+function makeSelectedList(obj){
+	// すでに追加されているidを取得
+    var obj_id_list = new Object();
+    $('.elements-table').find('.saved_id').each(function(i){
+        obj_id_list[i] = $(this).val();
+    });
+    obj['saved_id'] = obj_id_list;
+
+    // すでに追加されているelements_idを取得
+    var obj_elements_list = new Object();
+    $('.elements-table').find('.elements_id_selected').each(function(i){
+        obj_elements_list[i] = $(this).val();
+    });
+    obj['elements_id_selected'] = obj_elements_list;
+
+    // すでに追加されているamountを取得
+    var obj_amount_list = new Object();
+    $('.elements-table').find('.amount_selected').each(function(i){
+        obj_amount_list[i] = $(this).val();
+    });
+    obj['amount_selected'] = obj_amount_list;
+
+    return obj;
+}
+
 </script>
 <!-- フォーム -->
 <form action="<?= $this->Url->build('/cocktails/save') ?>" class="cocktail__form" method="post">
