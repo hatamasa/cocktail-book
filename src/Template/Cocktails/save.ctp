@@ -99,11 +99,11 @@ function makeSelectedList(obj){
 <!-- フォーム -->
 <form action="<?= $this->Url->build('/cocktails/save') ?>" class="cocktail__form" method="post">
 
-<?php if (!strpos($this->request->env('REQUEST_URI'),'edit')):?>
-  <h3>カクテルを作成する</h3>
-<?php else:?>
+<?php if (isset($edit) || isset($params['edit'])):?>
   <h3>カクテルを編集する</h3>
-  <input type="hidden" name="edit" value="1" />
+  <input type="hidden" name="edit" value="edit" />
+<?php else:?>
+  <h3>カクテルを作成する</h3>
 <?php endif;?>
   <?= $this->element('messages', ['messages' => $messages??[] ]); ?>
   <input type="hidden" name="id" value="<?= $params['id']??'' ?>" />

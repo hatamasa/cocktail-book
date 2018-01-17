@@ -1,6 +1,7 @@
 <?php
 namespace App\Model\Cocktails;
 
+use Cake\Datasource\ConnectionManager;
 use Cake\ORM\TableRegistry;
 use Cake\Validation\Validator;
 
@@ -85,7 +86,7 @@ class Cocktails
      * カクテルを登録する
      * @param $params
      */
-    public function createCocktail($edit_flg = null){
+    public function createCocktail($edit = null){
 
         // カクテルの配列作成
         // TODO ログインしているユーザのIDを設定する
@@ -116,20 +117,36 @@ class Cocktails
 
         // エンティティとアソシエーションを作成
         $cocktailsTable = TableRegistry::get('Cocktails');
+        $cocktailElementsTable = TableRegistry::get('CocktailElements');
 
-        if($edit_flg){
-            $cocktail = $cocktailsTable->get($this->params['id'], ['contain' => 'CocktailElements']);
-            // TODO CocktailElementsがUPDATEされないで新規追加されてしまう
-            $cocktail = $cocktailsTable->patchEntity($cocktail, $data, [
-                'associated' => ['CocktailElements'],
-            ]);
-        }else{
-            $cocktail = $cocktailsTable->newEntity($data, [
-                'associated' => ['CocktailElements'],
-            ]);
+        $connection = ConnectionManager::get('default');
+        $connection->begin();
+        try{
+
+            if($edit){
+                // patchEntityのみではCocktailElementsがUPDATEされないで新規追加されてしまう
+                // そのためCocktailElementsを全削除して入れ直す
+                $cocktailElementsTable->deleteAll(['cocktails_id' => $this->params['id']]);
+
+                $cocktail = $cocktailsTable->get($this->params['id'], ['contain' => 'CocktailElements']);
+                $cocktail = $cocktailsTable->patchEntity($cocktail, $data, [
+                    'associated' => ['CocktailElements'],
+                ]);
+            }else{
+                $cocktail = $cocktailsTable->newEntity($data, [
+                    'associated' => ['CocktailElements'],
+                ]);
+            }
+            $result = $cocktailsTable->save($cocktail);
+            $connection->commit();
+
+        } catch (\Exception $e){
+
+            $connection->rollback(); //ロールバック
+            throw new \Exception($e->getMessage());
         }
 
-        return [$cocktailsTable->save($cocktail), $cocktail->getErrors()];
+        return [$result, $cocktail->getErrors()];
     }
 
     /**
