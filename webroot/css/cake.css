@@ -327,8 +327,8 @@ pre {
 }
 
 .top-bar-section li:not(.has-form) a:not(.button):hover {
-    background-color: #308e97;
-    background: #308e97;
+    background-color: #737373;
+    background: #737373;
 }
 
 .side-nav li.heading {
