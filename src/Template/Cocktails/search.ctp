@@ -8,28 +8,43 @@
             <input type="text" class="name-search-input" name="name" value="<?= $params['name']??'' ?>" placeholder="カクテルの名前を入力..." />
         </div>
         <div class="form-group">
-            <h2>グラス</h2>
-            <div class="form-input-check">
-              <?php foreach ($glass_list as $key => $value):?>
-                <input type="checkbox" name="glass[]" value="<?= $key?>" <?php if(in_array($key, $params['glass']??[])): ?> checked="checked" <?php endif; ?> /><?= $value?>
-              <?php endforeach; ?>
-            </div>
+            <h2>グラスタイプ</h2>
+            <ul class="form-input-check display-inline">
+                <?php foreach ($glass_list as $key => $value):?>
+                <li class="line-style-none float-left">
+                    <label>
+                        <input type="checkbox" class="checkbox-input" name="glass[]" value="<?= $key?>" <?php if(in_array($key, $params['glass']??[])): ?> checked="checked" <?php endif; ?> />
+                        <span class="checkbox-span"><?= $value?></span>
+                    </label>
+                </li>
+                <?php endforeach; ?>
+            </ul>
         </div>
         <div class="form-group">
             <h2>強さ</h2>
-            <div class="form-input-check">
-            <?php foreach ($percentage_list as $key => $value):?>
-                <input type="checkbox" name="percentage[]" value="<?= $key?>" <?php if(in_array($key, $params['percentage']??[])): ?> checked="checked" <?php endif; ?> /><?= $value?>
-            <?php endforeach; ?>
-            </div>
+            <ul class="form-input-check display-inline">
+                <?php foreach ($percentage_list as $key => $value):?>
+                <li class="line-style-none float-left">
+                    <label>
+                        <input type="checkbox" class="checkbox-input" name="percentage[]" value="<?= $key?>" <?php if(in_array($key, $params['percentage']??[])): ?> checked="checked" <?php endif; ?> />
+                        <span class="checkbox-span"><?= $value?></span>
+                    </label>
+                </li>
+                <?php endforeach; ?>
+            </ul>
         </div>
         <div class="form-group">
-            <h2>味</h2>
-            <div class="form-input-check">
-            <?php foreach ($taste_list as $key => $value):?>
-                <input type="checkbox" name="taste[]" value="<?= $key?>" <?php if(in_array($key, $params['taste']??[])): ?> checked="checked" <?php endif; ?> /><?= $value?>
-            <?php endforeach; ?>
-            </div>
+            <h2>テイスト</h2>
+            <ul class="form-input-check display-inline">
+                <?php foreach ($taste_list as $key => $value):?>
+                <li class="line-style-none float-left">
+                    <label>
+                        <input type="checkbox" class="checkbox-input" name="taste[]" value="<?= $key?>" <?php if(in_array($key, $params['taste']??[])): ?> checked="checked" <?php endif; ?> />
+                        <span class="checkbox-span"><?= $value?></span>
+                    </label>
+                </li>
+                <?php endforeach; ?>
+            </ul>
         </div>
         <input type="submit" value="検索" />
     </form>

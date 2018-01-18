@@ -46,9 +46,9 @@
 /* inner */
 /* 材料を選択するインナー */
 .elements-select__inner {
-    display: flex;
+    /* display: flex;
     justify-content: flex-start;
-    align-items: flex-start;
+    align-items: flex-start; */
 }
 
 .category {
@@ -108,7 +108,7 @@
 
 
 /* 要素 */
-input[type=radio] {
+input[type=radio], input[type=checkbox] {
     display: none;
 }
 
@@ -139,33 +139,75 @@ input[type="radio"]:checked + label {
     font-size: 0.5rem;
 }
 
+.checkbox-span{
+  padding-left: 20px;
+  position:relative;
+  margin-right: 20px;
+  color: #989898;
+}
+
+.checkbox-span::before{
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 15px;
+  height: 15px;
+  border: 1px solid #999;
+  border-radius: 4px;
+}
+
+.checkbox-input:checked + .checkbox-span{
+    color: inherit;
+}
+
+.checkbox-input:checked + .checkbox-span::after{
+  content: "";
+  display: block;
+  position: absolute;
+  top: -5px;
+  left: 5px;
+  width: 7px;
+  height: 14px;
+  transform: rotate(40deg);
+  border-bottom: 3px solid #737373;
+  border-right: 3px solid #737373;
+}
+
 .form-group {
     margin-top: 15px;
     margin-bottom: 15px;
 }
 
-.display-flex {
-    display: flex;
-    justify-content: flex-start;
-    align-items: flex-start;
+.display-inline {
+    display: inline-block;
 }
 
-.form-label-inline {
-    width: 100px;
+.display-flex {
+    display: inline-flex;
+    position: absolute;
 }
 
 .name-search-input {
-    width: 400px;
+    width: 300px;
 }
 
 .input-text-1 {
-    width: 300px;
+    width: 100%;
 }
 
 .form-input-check {
     margin-left: 30px;
 }
 
+.line-style-none {
+    list-style: none;
+}
+
+.float-left {
+    float: left;
+}
 
 .input-errors div {
   color: #ff0000;

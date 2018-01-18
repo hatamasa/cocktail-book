@@ -109,52 +109,63 @@ function makeSelectedList(obj){
     <form action="<?= $this->Url->build('/cocktails/save') ?>" class="cocktail-form" method="post">
         <input type="hidden" name="id" value="<?= $params['id']??'' ?>" />
         <div class="createCocktail__block">
-            <div class="form-group display-flex">
-                <?= $this->element('input_errors', ['name' => 'name']); ?>
-                <div class="form-label-inline">名前</div>
-                <input type="text" class="input-text-1" name="name" value="<?= $params['name']??'' ?>" />
-            </div>
-            <div class="form-group display-flex">
-                <?= $this->element('input_errors', ['name' => 'glass']); ?>
-                <div class="form-label-inline">グラス</div>
-                <?php foreach ($glass_list as $key => $value):?>
-                    <input type="radio" id="<?= $key?>" name="glass" value="<?= $key?>"
-                    <?php if(($params['glass']??'') == $key): ?>checked="checked"<?php endif; ?> />
-                    <label for="<?= $key?>" class="radio-label"><?= $value?></label>
-                <?php endforeach; ?>
-            </div>
-            <div class="form-group display-flex">
-                <?= $this->element('input_errors', ['name' => 'percentage']); ?>
-                <div class="form-label-inline">強さ</div>
-                <?php foreach ($percentage_list as $key => $value):?>
-                    <input type="radio" name="percentage" value="<?= $key?>"
-                    <?php if(($params['percentage']??'') == $key): ?>checked="checked"<?php endif; ?> /><?= $value?>
-                <?php endforeach; ?>
-            </div>
-            <div class="form-group display-flex">
-                <div class="form-label-inline">色</div>
-                <input type="text" class="input-text-1" name="color" value="<?= $params['color']??'' ?>" />
-            </div>
-            <div class="form-group display-flex">
-                <?= $this->element('input_errors', ['name' => 'taste']); ?>
-                <div class="form-label-inline">味</div>
-                <?php foreach ($taste_list as $key => $value):?>
-                    <input type="radio" name="taste" value="<?= $key?>"
-                    <?php if(($params['taste']??'') == $key): ?>checked="checked"<?php endif; ?> /><?= $value?>
-                <?php endforeach; ?>
-            </div>
+            <table>
+                <tr>
+                    <?= $this->element('input_errors', ['name' => 'name']); ?>
+                    <th>名前</th>
+                    <td><input type="text" class="input-text-1" name="name" value="<?= $params['name']??'' ?>" /></td>
+                </tr>
+                <tr>
+                    <?= $this->element('input_errors', ['name' => 'glass']); ?>
+                    <th>グラスタイプ</th>
+                    <td class="display-inline">
+                        <?php foreach ($glass_list as $key => $value):?>
+                        <input type="radio" id="glass<?=$key ?>" name="glass" value="<?= $key?>" <?php if(($params['glass']??'') == $key): ?>checked="checked"<?php endif; ?> />
+                        <label for="glass<?= $key?>" class="radio-label"><?= $value?></label>
+                        <?php endforeach; ?>
+                    </td>
+                </tr>
+                <tr>
+                    <th>強さ</th>
+                    <td>
+                        <?php foreach ($percentage_list as $key => $value):?>
+                        <input type="radio" id="percentage<?=$key ?>" name="percentage" value="<?= $key?>" <?php if(($params['percentage']??'') == $key): ?>checked="checked"<?php endif; ?> />
+                        <label for="percentage<?=$key ?>" class="radio-label"><?= $value?></label>
+                        <?php endforeach; ?>
+                    </td>
+                </tr>
+                <tr>
+                    <th>色</th>
+                    <td><input type="text" class="input-text-1" name="color" value="<?= $params['color']??'' ?>" /></td>
+                </tr>
+                <tr>
+                    <th>テイスト</th>
+                    <td>
+                        <?php foreach ($taste_list as $key => $value):?>
+                        <input type="radio" id="taste<?=$key ?>" name="taste" value="<?= $key?>" <?php if(($params['taste']??'') == $key): ?>checked="checked"<?php endif; ?> />
+                        <label for="taste<?=$key ?>" class="radio-label"><?= $value?></label>
+                        <?php endforeach; ?>
+                    </td>
+                </tr>
+            </table>
         </div>
         <div class="createCocktailElements__block">
             <h2 class="elements-title">材料を選択する</h2>
             <div class="elements-select__inner">
-                <select class="category" name="category" size="5">
-                <?php foreach ($category_list as $key => $value):?>
-                    <option value="<?=$key?>" <?php if (($params['category']??'') == $key):?>selected<?php endif;?> ><?=$value?></option>
-                <?php endforeach;?>
-                </select>
-                <select class="elements" name="elements" size="5"><!-- Ajaxで生成 --></select>
-                <input type="text" class="amount-input" name="amount" value="<?= $params['amount'][0]??'' ?>" placeholder="量を入力..." />
-                <input type="button" class="submit-elements" value="材料を追加"/>
+                <span>
+                    <select class="category" name="category" size="5">
+                    <?php foreach ($category_list as $key => $value):?>
+                        <option value="<?=$key?>" <?php if (($params['category']??'') == $key):?>selected<?php endif;?> ><?=$value?></option>
+                    <?php endforeach;?>
+                    </select>
+                </span>
+                <span>
+                    <select class="elements" name="elements" size="5"><!-- Ajaxで生成 --></select>
+                </span>
+                <div class="display-flex">
+                    <input type="text" class="amount-input" name="amount" value="<?= $params['amount'][0]??'' ?>" placeholder="量を入力..." />
+                    <input type="button" class="submit-elements" value="材料を追加"/>
+                </div>
             </div>
             <h3>材料一覧</h3>
             <?= $this->element('input_errors', ['name' => 'elements_id_selected']); ?>

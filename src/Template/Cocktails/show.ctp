@@ -10,11 +10,11 @@
 <div class="cocktail__wrapper">
     <table class="detail-table">
         <tr>
-            <th>グラス</th>
+            <th>グラスタイプ</th>
             <td><?= $glass_list[$cocktail['glass']]?></td>
         </tr>
         <tr>
-            <th>度数</th>
+            <th>強さ</th>
             <td><?= $percentage_list[$cocktail['percentage']]?></td>
         </tr>
         <tr>
@@ -22,7 +22,7 @@
             <td><?= $cocktail['color']?></td>
         </tr>
         <tr>
-            <th>味</th>
+            <th>テイスト</th>
             <td><?= $taste_list[$cocktail['taste']]?></td>
         </tr>
     </table>
