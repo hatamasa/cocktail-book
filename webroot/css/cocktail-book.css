@@ -1,157 +1,172 @@
-
-.title__block {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-}
-
-.title__block ul {
-  margin-left: 50px;
-  list-style: none;
-}
-
-.title__block, .cocktailSearchForm__block, .cocktail__block, .cocktailElements__block {
-  margin-left: 20px;
-}
-
-.detail-table tr th {
-  width: 130px;
-}
-
-.detail-table tr td {
-  width: 200px;
-}
-
-.detail-elements-table {
-  margin-left: 20px;
-}
-
-.detail-elements-table tr th {
-  width: 130px;
-}
-
-.detail-elements-table tr td {
-  width: 200px;
-}
-
-.cocktailElements__block p {
-  margin-left: 20px;
-}
-
-/*  */
-#name-search-input {
-  width: 400px;
-}
-
-#input-text-1 {
-  width: 300px;
+/* main */
+.main {
+    margin-left: 20px;
 }
 
 
-.elements-table {
-  width: 700px;
+/* wrapper*/
+.title__wrapper, .cocktailSearch__wrapper, .results__wrapper,
+.cocktail__wrapper, .cocktailElements__wrapper, .createCocktail__wrapper {
+}
+
+.title__wrapper {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.title__wrapper ul {
+    margin-left: 50px;
+    list-style: none;
+}
+
+.cocktail__wrapper p {
+    margin-left: 20px;
+}
+
+.results__wrapper {
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 15px;
+    flex-wrap: wrap;
+}
+
+.results__wrapper ul {
+    width: 130px;
+    margin: 5px;
+    list-style: none;
+    font-size: 80%;
 }
 
 
-.elements-table tr th {
-  width: 80px;
+/* block */
+.createCocktail__block, .createCocktailElements__block {
 }
 
-.elements-table tr td input {
-  width: auto;
-}
-
-h4 {
-  margin-left: 20px;
-  clear: both;
+/* inner */
+/* 材料を選択するインナー */
+.elements-select__inner {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
 }
 
 .category {
-  margin-left: 20px;
-  width: 150px;
-  height: 130px;
-  float: left;
+    margin-left: 20px;
+    width: 150px;
+    height: 130px;
 }
 
 .elements {
-  margin-left: 20px;
-  width: 200px;
-  height: 130px;
-  float: left;
+    margin-left: 20px;
+    width: 200px;
+    height: 130px;
 }
 
 .amount-input {
-  margin-left: 20px;
-  width: 100px;
+    margin-left: 20px;
+    width: 100px;
 }
 
 .submit-elements {
-  height: 35px;
+    height: 35px;
 }
 
-.submit-elements-label {
-  clear: both;
+
+/* table */
+.detail-table tr th {
+    width: 130px;
+}
+
+.detail-table tr td {
+    width: 200px;
+}
+
+.detail-elements-table {
+    margin-left: 20px;
+}
+
+.detail-elements-table tr th {
+    width: 130px;
+}
+
+.detail-elements-table tr td {
+    width: 200px;
+}
+
+.elements-table {
+    width: 700px;
+}
+
+.elements-table tr th {
+    width: 80px;
+}
+
+.elements-table tr td input {
+    width: auto;
+}
+
+
+/* 要素 */
+input[type=radio] {
+    display: none;
+}
+
+input[type="radio"]:checked + label {
+    background: #737373;/* マウス選択時の背景色を指定する */
+    color: #ffffff;     /* マウス選択時のフォント色を指定する */
+}
+
+.radio-label:hover {
+    background-color: #737373;  /* マウスオーバー時の背景色を指定する */
+}
+
+.radio-label {
+    display: block;
+    /* float: left; */
+    /* margin: 5px; */
+    width: 75px;
+    height: 30px;
+    /* padding-left: 5px; */
+    /* padding-right: 5px; */
+    color: #737373;
+    text-align: center;
+    line-height: 27px;
+    cursor: pointer;
+    border: 2px solid #989898;
+    border-radius: 5px;
+    font-size: 0.5rem;
 }
 
 .form-group {
-  margin-top: 15px;
-  margin-bottom: 15px;
+    margin-top: 15px;
+    margin-bottom: 15px;
 }
 
-.col-input-1 {
-  margin-left: 30px;
+.display-flex {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
 }
 
-.col-label-2 {
-  width: 65px;
-  float: left;
-  font-size: 100%;
+.form-label-inline {
+    width: 100px;
 }
 
-.col-input-2 {
-  position: relative;
-  left: 30px;
+.name-search-input {
+    width: 400px;
 }
 
-.col-label-3 {
-  width: 50px;
-  float: left;
-  font-size: 100%;
+.input-text-1 {
+    width: 300px;
 }
 
-.col-input-3 {
-  position: relative;
-  left: 30px;
+.form-input-check {
+    margin-left: 30px;
 }
 
-.results__block {
-  display: flex;
-  justify-content: flex-start;
-  margin-top: 15px;
-  margin-left: 20px;
-  flex-wrap: wrap;
-}
-
-.results__block ul {
-  width: 130px;
-  margin: 5px;
-  list-style: none;
-  font-size: 80%;
-}
-
-.errors-form p {
-  color: #ff0000;
-}
 
 .input-errors div {
   color: #ff0000;
   margin-left: 95px;
-}
-
-.messages-form {
-  margin-bottom: 10px;
-}
-
-.messages-form p {
-  color: #02d410;
 }

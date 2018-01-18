@@ -2260,11 +2260,11 @@ input[type="file"], input[type="checkbox"], input[type="radio"], select
 }
 
 input[type="checkbox"]+label, input[type="radio"]+label {
-  display: inline-block;
-  margin-left: 0.5rem;
-  margin-right: 1rem;
-  margin-bottom: 0;
-  vertical-align: baseline
+    display: inline-block;
+    /* margin-left: 0.5rem; */
+    /* margin-right: 1rem; */
+    margin-bottom: 0;
+    vertical-align: baseline;
 }
 
 input[type="file"] {
