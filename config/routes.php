@@ -45,6 +45,9 @@ Router::defaultRouteClass(DashedRoute::class);
 
 Router::scope('/', function (RouteBuilder $routes) {
 
+    // bootstrapテスト用
+    $routes->get('/boottests', ['controller' => 'BootTests', 'action' => 'index']);
+
     // 初期表示、検索画面表示
     $routes->get('/', ['controller' => 'Cocktails', 'action' => 'index']);
     // 検索
