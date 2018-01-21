@@ -1,20 +1,3 @@
-<?php
-/**
- * CakePHP(tm) : Rapid Development Framework (https://cakephp.org)
- * Copyright (c) Cake Software Foundation, Inc. (https://cakefoundation.org)
- *
- * Licensed under The MIT License
- * For full copyright and license information, please see the LICENSE.txt
- * Redistributions of files must retain the above copyright notice.
- *
- * @copyright     Copyright (c) Cake Software Foundation, Inc. (https://cakefoundation.org)
- * @link          https://cakephp.org CakePHP(tm) Project
- * @since         0.10.0
- * @license       https://opensource.org/licenses/mit-license.php MIT License
- */
-
-$cakeDescription = 'CakePHP: the rapid development php framework';
-?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -38,17 +21,23 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     <?= $this->fetch('script') ?>
 </head>
 <body>
-    <header class="top-header">
-        <ul>
-            <li>
-                <h1 class="title"><a href="<?= $this->Url->build('/') ?>"><?= $this->fetch('title') ?><span>▼</span></a></h1>
+    <header class="top-header display-inline">
+        <div id="nav-drawer">
+            <input id="nav-input" type="checkbox" class="nav-unshown">
+            <label id="nav-open" for="nav-input"><span></span></label>
+            <label class="nav-unshown" id="nav-close" for="nav-input"></label>
+            <div id="nav-content">
                 <ul>
+                    <li class="nav-title">カクテル.com</li>
                     <li><a href="<?= $this->Url->build('/') ?>">カクテルを検索</a></li>
                     <li><a href="<?= $this->Url->build('/cocktails/add') ?>">カクテルを作成</a></li>
                     <li><a href="<?= $this->Url->build('') ?>">材料を管理</a></li>
                 </ul>
-            </li>
-        </ul>
+            </div>
+        </div>
+        <div class="title">
+            <a href="<?= $this->Url->build('/') ?>"><?= $this->fetch('title') ?></a>
+        </div>
     </header>
     <div class="container">
         <?= $this->Flash->render() ?>
