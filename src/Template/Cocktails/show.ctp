@@ -10,20 +10,20 @@
 <div class="cocktail__wrapper">
     <table class="detail-table">
         <tr>
-            <th>グラスタイプ</th>
-            <td><?= $glass_list[$cocktail['glass']]?></td>
+            <th class="table-header-md">グラスタイプ</th>
+            <td class="table-data-md"><?= $glass_list[$cocktail['glass']]?></td>
         </tr>
         <tr>
-            <th>強さ</th>
-            <td><?= $percentage_list[$cocktail['percentage']]?></td>
+            <th class="table-header-md">強さ</th>
+            <td class="table-data-md"><?= $percentage_list[$cocktail['percentage']]?></td>
         </tr>
         <tr>
-            <th>色</th>
-            <td><?= $cocktail['color']?></td>
+            <th class="table-header-md">色</th>
+            <td class="table-data-md"><?= $cocktail['color']?></td>
         </tr>
         <tr>
-            <th>テイスト</th>
-            <td><?= $taste_list[$cocktail['taste']]?></td>
+            <th class="table-header-md">テイスト</th>
+            <td class="table-data-md"><?= $taste_list[$cocktail['taste']]?></td>
         </tr>
     </table>
 </div>
@@ -32,9 +32,9 @@
     <table class="detail-elements-table">
     <?php foreach ($cocktail_elements as $element): ?>
         <tr>
-            <th><?= $category_list[$element['category_kbn']]?></th>
-            <td><?= $element['name']?></td>
-            <td><?= $element['amount']?></td>
+            <th class="table-header-md"><?= $category_list[$element['category_kbn']]?></th>
+            <td class="table-data-md"><?= $element['name']?></td>
+            <td class="table-data-sm"><?= $element['amount']?></td>
         </tr>
     <?php endforeach; ?>
     </table>

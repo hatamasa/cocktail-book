@@ -111,14 +111,13 @@ function makeSelectedList(obj){
         <div class="createCocktail__block">
             <table>
                 <tr>
-                    <?= $this->element('input_errors', ['name' => 'name']); ?>
-                    <th>名前</th>
-                    <td><input type="text" class="input-text-1" name="name" value="<?= $params['name']??'' ?>" /></td>
+                    <th class="table-header-md">名前</th>
+                    <td><?= $this->element('input_errors', ['name' => 'name']); ?>
+                    <input type="text" class="input-text-1" name="name" value="<?= $params['name']??'' ?>" /></td>
                 </tr>
                 <tr>
-                    <?= $this->element('input_errors', ['name' => 'glass']); ?>
-                    <th>グラスタイプ</th>
-                    <td class="display-inline">
+                    <th class="table-header-md">グラスタイプ</th>
+                    <td class="display-inline"><?= $this->element('input_errors', ['name' => 'glass']); ?>
                         <?php foreach ($glass_list as $key => $value):?>
                         <input type="radio" id="glass<?=$key ?>" name="glass" value="<?= $key?>" <?php if(($params['glass']??'') == $key): ?>checked="checked"<?php endif; ?> />
                         <label for="glass<?= $key?>" class="radio-label"><?= $value?></label>
@@ -126,8 +125,8 @@ function makeSelectedList(obj){
                     </td>
                 </tr>
                 <tr>
-                    <th>強さ</th>
-                    <td>
+                    <th class="table-header-md">強さ</th>
+                    <td><?= $this->element('input_errors', ['name' => 'percentage']); ?>
                         <?php foreach ($percentage_list as $key => $value):?>
                         <input type="radio" id="percentage<?=$key ?>" name="percentage" value="<?= $key?>" <?php if(($params['percentage']??'') == $key): ?>checked="checked"<?php endif; ?> />
                         <label for="percentage<?=$key ?>" class="radio-label"><?= $value?></label>
@@ -135,12 +134,12 @@ function makeSelectedList(obj){
                     </td>
                 </tr>
                 <tr>
-                    <th>色</th>
+                    <th class="table-header-md">色</th>
                     <td><input type="text" class="input-text-1" name="color" value="<?= $params['color']??'' ?>" /></td>
                 </tr>
                 <tr>
-                    <th>テイスト</th>
-                    <td>
+                    <th class="table-header-md">テイスト</th>
+                    <td><?= $this->element('input_errors', ['name' => 'taste']); ?>
                         <?php foreach ($taste_list as $key => $value):?>
                         <input type="radio" id="taste<?=$key ?>" name="taste" value="<?= $key?>" <?php if(($params['taste']??'') == $key): ?>checked="checked"<?php endif; ?> />
                         <label for="taste<?=$key ?>" class="radio-label"><?= $value?></label>
@@ -164,7 +163,7 @@ function makeSelectedList(obj){
                 </span>
                 <div class="display-flex">
                     <input type="text" class="amount-input" name="amount" value="<?= $params['amount'][0]??'' ?>" placeholder="量を入力..." />
-                    <input type="button" class="submit-elements" value="材料を追加"/>
+                    <button type="button" class="btn btn-default btn-sm submit-elements" >材料を追加</button>
                 </div>
             </div>
             <h3>材料一覧</h3>
@@ -181,7 +180,7 @@ function makeSelectedList(obj){
                 </div>
             </div>
         </div>
-        <input type="submit" class="cancel" value="保存する" />
+        <button type="submit" class="btn btn-default cancel" >保存する</button>
     </form>
 </div>
 <!-- 登録結果表示 -->

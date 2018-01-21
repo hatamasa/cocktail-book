@@ -1,8 +1,23 @@
-/* main */
-.main {
-    margin-left: 20px;
+@media screen and (max-width:480px){
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    h2 {
+        font-size: 1rem;
+    }
+
+    h3 {
+        font-size: 1rem;
+    }
+
+    .top-bar-section ul li {
+        line-height: 1;
+    }
+
 }
 
+/* main */
 
 /* wrapper*/
 .title__wrapper, .cocktailSearch__wrapper, .results__wrapper,
@@ -46,21 +61,26 @@
 /* inner */
 /* 材料を選択するインナー */
 .elements-select__inner {
-    /* display: flex;
-    justify-content: flex-start;
-    align-items: flex-start; */
+    display: inline-block;
 }
 
-.category {
+select.category {
     margin-left: 20px;
     width: 150px;
     height: 130px;
+    float: left;
+}
+@media screen and (max-width:480px){
+    select.category {
+        height: 100px;
+    }
 }
 
-.elements {
+select.elements {
     margin-left: 20px;
     width: 200px;
     height: 130px;
+    float: left;
 }
 
 .amount-input {
@@ -74,14 +94,44 @@
 
 
 /* table */
-.detail-table tr th {
+.table-header-sm {
+    width: 80px;
+}
+
+.table-data-sm {
+    width: 80px;
+}
+
+.table-header-md {
     width: 130px;
 }
 
-.detail-table tr td {
+.table-data-md {
     width: 200px;
 }
 
+.table-data-lg {
+    width: 250px;
+}
+
+@media screen and (max-width:480px){
+    .table-header-sm {
+        width: 30px;
+    }
+
+    .table-data-sm {
+        width: 50px;
+    }
+
+    .table-header-md {
+        width: 110px;
+    }
+
+    .table-data-md {
+        width: auto;
+    }
+}
+/*
 .detail-elements-table {
     margin-left: 20px;
 }
@@ -93,13 +143,14 @@
 .detail-elements-table tr td {
     width: 200px;
 }
-
+ */
 .elements-table {
     width: 700px;
 }
-
-.elements-table tr th {
-    width: 80px;
+@media screen and (max-width:480px) {
+    .elements-table {
+        width: auto;
+    }
 }
 
 .elements-table tr td input {
@@ -140,10 +191,10 @@ input[type="radio"]:checked + label {
 }
 
 .checkbox-span{
-  padding-left: 20px;
-  position:relative;
-  margin-right: 20px;
-  color: #989898;
+    padding-left: 18px;
+    position: relative;
+    margin-right: 10px;
+    color: #989898;
 }
 
 .checkbox-span::before{
@@ -186,7 +237,11 @@ input[type="radio"]:checked + label {
 
 .display-flex {
     display: inline-flex;
-    position: absolute;
+}
+@media screen and (max-width:480px){
+    .display-flex {
+        margin-bottom: 15px;
+    }
 }
 
 .name-search-input {
@@ -211,5 +266,4 @@ input[type="radio"]:checked + label {
 
 .input-errors div {
   color: #ff0000;
-  margin-left: 95px;
 }

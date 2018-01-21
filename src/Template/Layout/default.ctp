@@ -25,8 +25,10 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     </title>
     <script type="text/javascript" src="/js/jquery-3.2.0.min.js"></script>
     <script type="text/javascript" src="/js/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
     <?= $this->Html->meta('icon') ?>
 
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
     <?= $this->Html->css('base.css') ?>
     <?= $this->Html->css('cake.css') ?>
     <?= $this->Html->css('cocktail-book.css') ?>
@@ -51,10 +53,8 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
         </div>
     </nav>
     <?= $this->Flash->render() ?>
-    <div class="container clearfix">
-        <div class="main">
+    <div class="container">
         <?= $this->fetch('content') ?>
-        </div>
     </div>
     <footer>
     </footer>

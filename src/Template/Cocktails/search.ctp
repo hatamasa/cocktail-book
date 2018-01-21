@@ -46,7 +46,7 @@
                 <?php endforeach; ?>
             </ul>
         </div>
-        <input type="submit" value="検索" />
+        <button type="submit" class="btn btn-default" >検索</button>
     </form>
 </div>
 <!-- 検索結果表示 -->
