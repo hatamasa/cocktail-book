@@ -1,2 +1,2 @@
-h1 myapp cocktail-book
-* https://cocktail-book.herokuapp.com/
+h1 myapp cocktail.com
+* https://cocktail-com.herokuapp.com/
