@@ -45,21 +45,21 @@ class Cocktails
 
             ->requirePresence('glass', true, 'グラスの入力は必須です')
 
-            ->requirePresence('percentage', true, '度数の入力は必須です')
+            ->requirePresence('percentage', true, '強さの入力は必須です')
 
             ->allowEmpty('color')
             ->add('color', 'length', [
                 'rule' => ['maxLength', 10],
                 'message' => '色は10文字以内で入力ください'])
 
-            ->requirePresence('taste', true, '味の入力は必須です')
+            ->requirePresence('taste', true, 'テイストの入力は必須です')
 
             ->allowEmpty('processes')
             ->add('processes', 'length', [
                     'rule' => ['maxLength', 250],
                     'message' => '作成手順は250文字以内で入力ください'])
 
-            ->requirePresence('elements_id_selected', true, '材料の入力は必須です')
+            ->requirePresence('elements_id_selected', true, '材料は少なくとも一つ以上入力してください')
                 ;
 
         return $validator->errors($this->params);

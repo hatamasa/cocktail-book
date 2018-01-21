@@ -39,7 +39,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 </head>
 <body>
     <header class="top-header">
-        <ul class="title-area large-3 medium-4 columns">
+        <ul>
             <li>
                 <h1 class="title"><a href="<?= $this->Url->build('/') ?>"><?= $this->fetch('title') ?><span>▼</span></a></h1>
                 <ul>
@@ -50,8 +50,8 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
             </li>
         </ul>
     </header>
-    <?= $this->Flash->render() ?>
     <div class="container">
+        <?= $this->Flash->render() ?>
         <?= $this->fetch('content') ?>
     </div>
     <footer>
