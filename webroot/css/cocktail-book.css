@@ -1,3 +1,20 @@
+body {
+    background-image: url("/img/main.jpg");
+    background-repeat:no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+    background-size: cover;
+
+}
+
+.container {
+    background-color:#ffffffdb;
+}
+
+ul {
+    list-style: none;
+}
+
 @media screen and (max-width:480px){
     h1 {
         font-size: 1.5rem;
@@ -10,14 +27,83 @@
     h3 {
         font-size: 1rem;
     }
-
-    .top-bar-section ul li {
-        line-height: 1;
-    }
-
 }
 
 /* main */
+
+header{
+    position: relative;
+    width: 100%;
+    background-color: #737373c7;
+    height: 85px;
+}
+@media screen and (max-width:480px){
+    header {
+       height: 65px;
+    }
+}
+.title {
+    width: 400px;
+}
+
+.title a {
+    color: #fff;
+}
+
+.title a span {
+    font-size: 15px;
+    margin-left: 10px;
+}
+@media screen and (max-width:480px){
+    .title a span {
+        font-size: 10px;
+        margin-left: 5px;
+    }
+}
+
+
+ul > li{
+    display: inline-block;
+}
+ul > li > a{
+    padding: 15px 30px;
+    display: block;
+    font-size: 0.8em;
+    text-transform: uppercase;
+    letter-spacing: .2em;
+}
+ul > li > span{
+    margin-left: 1.2em;
+}
+ul > li:hover > a{
+    background-color: #efefef;
+    color: #444;
+}
+
+/* Submenu */
+
+ul li ul{
+    position: absolute;
+    top: 55px;
+    left: 0;
+}
+ul li ul li{
+    display: block;
+}
+ul li ul li a{
+    background-color: #989898c7;
+    color: #fff;
+}
+ul li ul li a:hover{
+    background-color: #ddd;
+}
+
+header ul li ul{
+    display: none;
+}
+header ul li:hover ul{
+    display: block;
+}
 
 /* wrapper*/
 .title__wrapper, .cocktailSearch__wrapper, .results__wrapper,
@@ -32,7 +118,6 @@
 
 .title__wrapper ul {
     margin-left: 50px;
-    list-style: none;
 }
 
 .cocktail__wrapper p {
@@ -49,7 +134,6 @@
 .results__wrapper ul {
     width: 130px;
     margin: 5px;
-    list-style: none;
     font-size: 80%;
 }
 
@@ -72,7 +156,7 @@ select.category {
 }
 @media screen and (max-width:480px){
     select.category {
-        height: 100px;
+        height: 32px;
     }
 }
 
@@ -81,6 +165,11 @@ select.elements {
     width: 200px;
     height: 130px;
     float: left;
+}
+@media screen and (max-width:480px){
+    select.elements {
+        height: 32px;
+    }
 }
 
 .amount-input {
@@ -254,10 +343,6 @@ input[type="radio"]:checked + label {
 
 .form-input-check {
     margin-left: 30px;
-}
-
-.line-style-none {
-    list-style: none;
 }
 
 .float-left {

@@ -38,20 +38,18 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     <?= $this->fetch('script') ?>
 </head>
 <body>
-    <nav class="top-bar expanded" data-topbar role="navigation">
+    <header class="top-header">
         <ul class="title-area large-3 medium-4 columns">
-            <li class="name">
-                <h1><a href="<?= $this->Url->build('/') ?>"><?= $this->fetch('title') ?></a></h1>
+            <li>
+                <h1 class="title"><a href="<?= $this->Url->build('/') ?>"><?= $this->fetch('title') ?><span>▼</span></a></h1>
+                <ul>
+                    <li><a href="<?= $this->Url->build('/') ?>">カクテルを検索</a></li>
+                    <li><a href="<?= $this->Url->build('/cocktails/add') ?>">カクテルを作成</a></li>
+                    <li><a href="<?= $this->Url->build('') ?>">材料を管理</a></li>
+                </ul>
             </li>
         </ul>
-        <div class="top-bar-section">
-            <ul class="right">
-                <li><a href="<?= $this->Url->build('/') ?>">カクテルを検索</a></li>
-                <li><a href="<?= $this->Url->build('/cocktails/add') ?>">カクテルを作成</a></li>
-                <li><a href="<?= $this->Url->build('') ?>">材料を管理</a></li>
-            </ul>
-        </div>
-    </nav>
+    </header>
     <?= $this->Flash->render() ?>
     <div class="container">
         <?= $this->fetch('content') ?>
