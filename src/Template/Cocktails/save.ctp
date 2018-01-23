@@ -98,16 +98,12 @@ function makeSelectedList(obj){
 </script>
 <!-- フォーム -->
 <div class="title__wrapper">
-<?php if (($edit??'' == 'edit') || isset($params['edit'])):?>
-    <h1>カクテルを編集する</h1>
-    <input type="hidden" name="edit" value="edit" />
-<?php else:?>
-    <h1>カクテルを作成する</h1>
-<?php endif;?>
+    <h1>カクテルを<?php if ($edit??'' == 'edit'):?>編集<?php else:?>作成<?php endif;?>する</h1>
 </div>
 <div class="createCocktail__wrapper">
     <form action="<?= $this->Url->build('/cocktails/save') ?>" class="cocktail-form" method="post">
         <input type="hidden" name="id" value="<?= $params['id']??'' ?>" />
+        <input type="hidden" name="edit" value="<?php if($edit??'' == 'edit'): ?>edit<?php endif;?>" />
         <div class="createCocktail__block">
             <table>
                 <tr>

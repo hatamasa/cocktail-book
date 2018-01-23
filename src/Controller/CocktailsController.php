@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Model\Cocktails\Cocktails;
+use App\Model\Elements\Elements;
 
 /**
  * カクテルコントローラ
@@ -47,8 +48,7 @@ class CocktailsController extends AppController
             }
         }
 
-        $this->set('results', $results);
-        $this->set('params', $params);
+        $this->set(compact('results', 'params'));
     }
 
     /**
@@ -100,8 +100,7 @@ class CocktailsController extends AppController
         $errors = [];
         $results = [];
         $params = $this->request->getData();
-        $edit = $this->request->getData('edit');
-        $new_elements_list = [];
+        $elements_list_selected = [];
 
         // 登録時処理
         $cocktails = new Cocktails($params);
@@ -110,7 +109,7 @@ class CocktailsController extends AppController
         // バリデエラーがない場合、登録を行う
         if (! $errors) {
             try {
-                $results = $cocktails->createCocktail($edit);
+                $results = $cocktails->createCocktail($params['edit']);
                 $this->Flash->success('保存しました');
                 $params = [];
             } catch (\Exception $e) {
@@ -121,20 +120,18 @@ class CocktailsController extends AppController
 
         // バリデエラー、登録エラーがある場合、かつ材料リストがある場合、入力保持のため材料テーブルを作成する
         if ($errors && isset($params['elements_id_selected'])) {
-            $new_elements_list = $cocktails->makeElementsTableList();
+            $elements = new Elements($params);
+            $elements_list_selected = $elements->makeElementsTableList();
         }
 
-        // 編集からの遷移、かつエラーがない場合は詳細画面を表示する
-        if(($edit??'' == 'edit') && !$errors){
+        // エラーがない場合は詳細画面を表示する
+        if(!$errors){
             $this->redirect('cocktails/' . $results['id']);
         }
 
         // バリデエラー、Exception、作成からの遷移の場合は登録画面を表示する
-        $this->set('errors', $errors);
-        $this->set('results', $results);
-        $this->set('params', $params);
-        $this->set('edit', $edit??'');
-        $this->set('elements_list_selected', $new_elements_list);
+        $this->set(compact('errors', 'results', 'params', 'elements_list_selected'));
+        $this->set('edit', $params['edit']??'');
     }
 
     /**
@@ -151,7 +148,7 @@ class CocktailsController extends AppController
         $cocktails = new Cocktails();
         $elements_list = $cocktails->getElementsList($category_kbn);
 
-        $this->set('elements_list', $elements_list);
+        $this->set(compact('elements_list'));
         $this->render('/Element/cocktails/ajax_elements_options','');
     }
 
@@ -170,10 +167,10 @@ class CocktailsController extends AppController
         $params['elements_id_selected'][] = $params['elements_id'];
         $params['amount_selected'][] = $params['amount'];
 
-        $cocktail = new Cocktails($params);
-        $new_elements_list = $cocktail->makeElementsTableList();
+        $cocktails = new Cocktails($params);
+        $elements_list_selected = $cocktails->makeElementsTableList();
 
-        $this->set('elements_list_selected', $new_elements_list);
+        $this->set(compact('elements_list_selected'));
         $this->render('/Element/cocktails/ajax_elements_table','');
     }
 
@@ -193,10 +190,10 @@ class CocktailsController extends AppController
         array_splice($params['elements_id_selected'], $params['del_index'], 1);
         array_splice($params['amount_selected'], $params['del_index'], 1);
 
-        $cocktail = new Cocktails($params);
-        $new_elements_list = $cocktail->makeElementsTableList();
+        $cocktails = new Cocktails($params);
+        $elements_list_selected = $cocktails->makeElementsTableList();
 
-        $this->set('elements_list_selected', $new_elements_list);
+        $this->set(compact('elements_list_selected'));
         $this->render('/Element/cocktails/ajax_elements_table','');
     }
 

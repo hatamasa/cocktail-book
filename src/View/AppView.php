@@ -50,6 +50,9 @@ class AppView extends View
                 $this->set('taste_list', Configure::read('taste'));
                 $this->set('category_list', Configure::read('category_kbn'));
                 break;
+            case 'Elements':
+                $this->set('category_list', Configure::read('category_kbn'));
+                break;
         }
     }
 }

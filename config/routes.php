@@ -73,6 +73,16 @@ Router::scope('/', function (RouteBuilder $routes) {
     // ajax材料テーブルから削除する
     $routes->post('/cocktails/deleteElementsTable', ['controller' => 'Cocktails', 'action' => 'deleteElementsTable']);
 
+    // 材料管理初期表示
+    $routes->get('/elements', ['controller' => 'Elements', 'action' => 'index']);
+    // 材料検索
+    $routes->post('/elements/search', ['controller' => 'Elements', 'action' => 'search']);
+    // 材料詳細表示
+    $routes->post('/elements/:id', ['controller' => 'Elements', 'action' => 'show'])
+        ->setPatterns(['id' => '\d+'])
+        ->setPass(['id']);
+
+
     /**
      * Connect catchall routes for all controllers.
      *

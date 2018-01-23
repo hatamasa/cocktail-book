@@ -1,9 +1,7 @@
 <?php
 namespace App\Model\Table;
 
-use Cake\Datasource\RulesChecker;
 use Cake\ORM\Table;
-use Cake\Validation\Validator;
 use App\Model\Cocktails\CocktailsUtil;
 
 class CocktailsTable extends Table
