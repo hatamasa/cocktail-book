@@ -3,6 +3,7 @@ namespace App\Controller;
 
 use App\Model\Cocktails\Cocktails;
 use App\Model\Elements\Elements;
+use Cake\Error\Debugger;
 
 /**
  * カクテルコントローラ
@@ -38,8 +39,7 @@ class CocktailsController extends AppController
             $start = microtime(true);
             $results = $this->Cocktails->fetchAllCocktails($params);
             $end = microtime(true);
-            $stdout= fopen( 'php://stdout', 'w' );
-            fwrite( $stdout, "sql result time: " . ($end - $start) );
+            $this->log('fetchAllCocktails run time: ' . ($end - $start), LOG_DEBUG);
 
             if (count($results) == 0) {
                 $this->Flash->set("検索結果はありません");
