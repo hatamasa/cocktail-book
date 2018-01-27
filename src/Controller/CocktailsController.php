@@ -35,7 +35,11 @@ class CocktailsController extends AppController
         $errors = $cocktails->validateForSearch();
 
         if (! $errors) {
+            $start = microtime(true);
             $results = $this->Cocktails->fetchAllCocktails($params);
+            $end = microtime(true);
+            $stdout= fopen( 'php://stdout', 'w' );
+            fwrite( $stdout, "sql result time: " . ($end - $start) );
 
             if (count($results) == 0) {
                 $this->Flash->set("検索結果はありません");
