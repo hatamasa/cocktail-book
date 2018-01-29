@@ -38,7 +38,9 @@ class CocktailsController extends AppController
             $start = microtime(true);
             $results = $this->Cocktails->fetchAllCocktails($params);
             $end = microtime(true);
-            $this->log('fetchAllCocktails run time: ' . ($end - $start), LOG_DEBUG);
+            $stdout= fopen( 'php://stdout', 'w' );
+            fwrite( $stdout, "sql result time: " . ($end - $start) );
+
 
             if (count($results) == 0) {
                 $this->Flash->set("検索結果はありません");
