@@ -1,8 +1,6 @@
 <?php
 namespace App\Controller;
 
-use App\Model\Elements\Elements;
-
 /**
  * エレメントコントローラ
  * /elements
