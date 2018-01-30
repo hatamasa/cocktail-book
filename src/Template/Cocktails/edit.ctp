@@ -98,12 +98,11 @@ function makeSelectedList(obj){
 </script>
 <!-- フォーム -->
 <div class="title__wrapper">
-    <h1>カクテルを<?php if ($edit??'' == 'edit'):?>編集<?php else:?>作成<?php endif;?>する</h1>
+    <h1>カクテルを編集する</h1>
 </div>
 <div class="createCocktail__wrapper">
-    <form action="<?= $this->Url->build('/cocktails/save') ?>" class="cocktail-form" method="post">
+    <form action="/cocktails/<?= $pamams['id'] ?>/edit" class="cocktail-form" method="put">
         <input type="hidden" name="id" value="<?= $params['id']??'' ?>" />
-        <input type="hidden" name="edit" value="<?php if($edit??'' == 'edit'): ?>edit<?php endif;?>" />
         <div class="createCocktail__block">
             <table>
                 <tr>
@@ -178,10 +177,4 @@ function makeSelectedList(obj){
         </div>
         <button type="submit" class="btn btn-default cancel" >保存する</button>
     </form>
-</div>
-<!-- 登録結果表示 -->
-<div class="results__wrapper">
-<?php if(isset($results) && count($results) > 0):?>
-    <?= $this->element('cocktails/cocktail', ['row' => $results]);?>
-<?php endif;?>
 </div>

@@ -50,7 +50,7 @@ Router::scope('/', function (RouteBuilder $routes) {
     // 検索
     $routes->get('/cocktails/search', ['controller' => 'Cocktails', 'action' => 'search']);
     // 詳細表示
-    $routes->get('/cocktails/:id', ['controller' => 'Cocktails', 'action' => 'show'])
+    $routes->get('/cocktails/:id', ['controller' => 'Cocktails', 'action' => 'view'])
         ->setPatterns(['id' => '\d+'])
         ->setPass(['id']);
     // 編集画面表示
@@ -58,11 +58,13 @@ Router::scope('/', function (RouteBuilder $routes) {
         ->setPatterns(['id' => '\d+'])
         ->setPass(['id']);
     // 編集
-    $routes->patch('/cocktails/save', ['controller' => 'Cocktails', 'action' => 'save']);
+    $routes->put('/cocktails/:id/edit', ['controller' => 'Cocktails', 'action' => 'edit'])
+        ->setPatterns(['id' => '\d+'])
+        ->setPass(['id']);
     // 新規作成画面表示
     $routes->get('/cocktails/add', ['controller' => 'Cocktails', 'action' => 'add']);
     // 新規作成
-    $routes->post('/cocktails/save', ['controller' => 'Cocktails', 'action' => 'save']);
+    $routes->post('/cocktails/add', ['controller' => 'Cocktails', 'action' => 'add']);
 
     // ajax材料セレクトボックス取得
     $routes->get('/cocktails/getElementsOptions/:id', ['controller' => 'Cocktails', 'action' => 'getElementsOptions'])

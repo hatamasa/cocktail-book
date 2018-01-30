@@ -18,7 +18,6 @@ class CocktailsController extends AppController
      */
     public function index()
     {
-        $this->render('search');
     }
 
     /**
@@ -39,8 +38,6 @@ class CocktailsController extends AppController
             $results = $this->Cocktails->fetchAllCocktails($params);
             $end = microtime(true);
             $this->logger->log($end - $start, LOG_DEBUG);
-//             $stdout= fopen( 'php://stdout', 'w' );
-//             fwrite( $stdout, "sql result time: " . ($end - $start) );
 
             if (count($results) == 0) {
                 $this->Flash->set("検索結果はありません");
@@ -54,6 +51,7 @@ class CocktailsController extends AppController
         }
 
         $this->set(compact('results', 'params'));
+        $this->render('index');
     }
 
     /**
@@ -61,7 +59,7 @@ class CocktailsController extends AppController
      * GET /:id
      * @param  $id
      */
-    public function show($id)
+    public function view($id)
     {
         $cocktails = new Cocktails();
         $results = $cocktails->fetchCocktailDetail($id);
@@ -71,72 +69,99 @@ class CocktailsController extends AppController
     }
 
     /**
-     * カクテル編集画面表示
-     * GET /:id/edit
+     * カクテル編集
+     * GET|PUT /:id/edit
      * @param  $id
      */
     public function edit($id)
     {
-        $cocktails = new Cocktails();
-        $results = $cocktails->fetchCocktailDetail($id);
-
-        $this->set('edit', 'edit');
-        $this->set('params', $results['cocktail']);
-        $this->set('elements_list_selected', $results['cocktail_elements']);
-
-        $this->render('save');
-    }
-
-    /**
-     * カクテル作成画面表示
-     *  GET /add
-     */
-    public function add()
-    {
-        $this->render('save');
-    }
-
-    /**
-     * カクテル登録/更新
-     * POST /save
-     */
-    public function save()
-    {
-        $errors = [];
-        $results = [];
-        $params = $this->request->getData();
         $elements_list_selected = [];
+        $cocktails = new Cocktails();
+        $params = [];
 
-        // 登録時処理
-        $cocktails = new Cocktails($params);
-        $errors = $cocktails->valudateForCreate();
+        if($this->request->is('GET')){
 
-        // バリデエラーがない場合、登録を行う
-        if (! $errors) {
-            try {
-                $results = $cocktails->createCocktail($params['edit']);
-                $this->Flash->success('保存しました');
-                $params = [];
-            } catch (\Exception $e) {
-                $errors[] = $e->getMessage();
-                $this->Flash->error('保存中にエラーが発生しました');
+            $params = $cocktails->fetchCocktailDetail($id);
+
+        } else if ($this->request->is('PUT')){
+
+            $params = $this->request->getData();
+            // 登録時処理
+            $errors = $cocktails->valudateForCreate();
+
+            // バリデエラーがない場合、登録を行う
+            if (! $errors) {
+                try {
+                    $cocktails->createCocktail('edit');
+                    $this->Flash->success('保存しました');
+                } catch (\Exception $e) {
+                    $this->logger->log($e->getMessage(), LOG_ERR);
+                    $this->Flash->error('保存中にエラーが発生しました');
+                }
+            }
+
+            // バリデエラー、登録エラーがある場合、かつ材料リストがある場合、入力保持のため材料テーブルを作成する
+            if ($errors && isset($params['element_id_selected'])) {
+                $elements = new Elements($params);
+                $elements_list_selected = $elements->makeElementsTableList();
+            }
+
+            // エラーがない場合は詳細画面を表示する
+            if(!$errors){
+                $this->redirect('cocktails/' . $id);
             }
         }
 
-        // バリデエラー、登録エラーがある場合、かつ材料リストがある場合、入力保持のため材料テーブルを作成する
-        if ($errors && isset($params['element_id_selected'])) {
-            $elements = new Elements($params);
-            $elements_list_selected = $elements->makeElementsTableList();
-        }
-
-        // エラーがない場合は詳細画面を表示する
-        if(!$errors){
-            $this->redirect('cocktails/' . $results['id']);
-        }
-
         // バリデエラー、Exception、作成からの遷移の場合は登録画面を表示する
-        $this->set(compact('errors', 'results', 'params', 'elements_list_selected'));
-        $this->set('edit', $params['edit']??'');
+        $this->set('params', $params['cocktail']);
+        $this->set('elements_list_selected', $elements_list_selected??$params['cocktail_elements']);
+    }
+
+    /**
+     * カクテル作成
+     *  GET|POST /add
+     */
+    public function add()
+    {
+        $params = [];
+        $elements_list_selected = [];
+
+        if($this->request->is('POST')){
+
+            $params = $this->request->getData();
+            // 登録時処理
+            $cocktails = new Cocktails($params);
+            $errors = $cocktails->valudateForCreate();
+
+            // バリデエラーがない場合、登録を行う
+            if (! $errors) {
+                try {
+                    $results = $cocktails->createCocktail();
+                    $this->Flash->success('保存しました');
+                } catch (\Exception $e) {
+                    $this->logger->log($e->getMessage(), LOG_ERR);
+                    $this->Flash->error('保存中にエラーが発生しました');
+                }
+            }
+
+            // バリデエラー、登録エラーがある場合、かつ材料リストがある場合、入力保持のため材料テーブルを作成する
+            if ($errors && isset($params['element_id_selected'])) {
+                $elements = new Elements($params);
+                $elements_list_selected = $elements->makeElementsTableList();
+            }
+
+            // エラーがない場合は詳細画面を表示する
+            if(!$errors){
+                $this->redirect('cocktails/' . $results['id']);
+            }
+        }
+
+        // バリデエラー、Exception、画面表示からの遷移の場合は登録画面を表示する
+        $this->set(compact('params', 'elements_list_selected'));
+    }
+
+    public function delete()
+    {
     }
 
     /**
