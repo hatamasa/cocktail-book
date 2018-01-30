@@ -19,8 +19,8 @@ class Logger
     public function log(string $message, $log_level = LOG_INFO)
     {
         // heroku環境は標準出力でheroku logsへ出力
-        if (isset($_ENV['CAKE_ENV']) && $log_level != LOG_ERR) {
-            if ($log_level == LOG_ERR) {
+        if (isset($_ENV['CAKE_ENV']) && $log_level !== LOG_ERR) {
+            if ($log_level === LOG_ERR) {
                 $stdout = fopen('php://stderr', 'w');
             } else {
                 $stdout = fopen('php://stdout', 'w');
