@@ -2,7 +2,6 @@
 namespace App\Controller;
 
 use App\Model\Cocktails\Cocktails;
-use App\Model\Elements\Elements;
 
 /**
  * カクテルコントローラ
