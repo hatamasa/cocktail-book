@@ -59,7 +59,7 @@ class Cocktails
                     'rule' => ['maxLength', 250],
                     'message' => '作成手順は250文字以内で入力ください'])
 
-            ->requirePresence('elements_id_selected', true, '材料は少なくとも一つ以上入力してください')
+            ->requirePresence('element_id_selected', true, '材料は少なくとも一つ以上入力してください')
                 ;
 
         return $validator->errors($this->params);
@@ -70,14 +70,14 @@ class Cocktails
      * @param $id
      * @return array
      */
-    public function fetchCocktailDetail($cocktails_id){
+    public function fetchCocktailDetail($cocktail_id){
         $results = [];
 
         $cocktailsTable = TableRegistry::get('Cocktails');
-        $results['cocktail'] = $cocktailsTable->get($cocktails_id)->toArray();
+        $results['cocktail'] = $cocktailsTable->get($cocktail_id)->toArray();
 
         $cocktailElementsTable = TableRegistry::get('CocktailElements');
-        $results['cocktail_elements'] = $cocktailElementsTable->fetchElementsByCocktailId($cocktails_id);
+        $results['cocktail_elements'] = $cocktailElementsTable->fetchElementsByCocktailId($cocktail_id);
 
         return $results;
     }
@@ -105,10 +105,10 @@ class Cocktails
         // カクテル要素の配列作成
         $cocktail_elements = [];
 
-        for ($i = 0; $i < count($this->params['elements_id_selected']); $i++){
+        for ($i = 0; $i < count($this->params['element_id_selected']); $i++){
             $cocktail_elements[] = [
                 'id' => $this->params['saved_id'][$i]??'',
-                'elements_id' => $this->params['elements_id_selected'][$i],
+                'element_id' => $this->params['element_id_selected'][$i],
                 'amount' => $this->params['amount_selected'][$i],
             ];
         }
@@ -126,7 +126,7 @@ class Cocktails
             if($edit == 'edit'){
                 // patchEntityのみではCocktailElementsがUPDATEされないで新規追加されてしまう
                 // そのためCocktailElementsを全削除して入れ直す
-                $cocktailElementsTable->deleteAll(['cocktails_id' => $this->params['id']]);
+                $cocktailElementsTable->deleteAll(['cocktail_id' => $this->params['id']]);
 
                 $cocktail = $cocktailsTable->get($this->params['id'], ['contain' => 'CocktailElements']);
                 $cocktail = $cocktailsTable->patchEntity($cocktail, $data, [
@@ -166,8 +166,8 @@ class Cocktails
     public function makeElementsTableList(){
         $elementsRepository = TableRegistry::get('Elements');
         $elements_list = [];
-        for ($i = 0; $i < count($this->params['elements_id_selected']); $i++){
-            $elements_list[$i] = $elementsRepository->findById($this->params['elements_id_selected'][$i])->first();
+        for ($i = 0; $i < count($this->params['element_id_selected']); $i++){
+            $elements_list[$i] = $elementsRepository->findById($this->params['element_id_selected'][$i])->first();
             $elements_list[$i]['saved_id'] = $this->params['saved_id'][$i]??'';
             $elements_list[$i]['amount'] = $this->params['amount_selected'][$i];
         }

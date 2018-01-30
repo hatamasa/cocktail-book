@@ -1,14 +1,14 @@
 <?php
 namespace App\Model\Table;
 
-use Cake\ORM\Table;
 use App\Model\Cocktails\CocktailsUtil;
+use Cake\ORM\Table;
 
 class CocktailsTable extends Table
 {
     public function initialize(array $config){
         $this->hasMany('CocktailElements')
-        ->setForeignKey('cocktails_id');
+        ->setForeignKey('cocktail_id');
     }
 
     /**

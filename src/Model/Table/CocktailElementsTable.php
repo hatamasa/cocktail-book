@@ -6,7 +6,7 @@ use Cake\ORM\Table;
 class CocktailElementsTable extends Table
 {
 
-    public function fetchElementsByCocktailId($cocktails_id){
+    public function fetchElementsByCocktailId($cocktail_id){
 
         $query = $this->query();
 
@@ -18,10 +18,10 @@ class CocktailElementsTable extends Table
                 'category_kbn' => 'me.category_kbn',
                 'name' => 'me.name'
             ])
-            ->innerJoin(['me' => 'elements'], ['CocktailElements.elements_id = me.id'])
-            ->where(['CocktailElements.cocktails_id' => $cocktails_id])
+            ->innerJoin(['me' => 'elements'], ['CocktailElements.element_id = me.id'])
+            ->where(['CocktailElements.cocktail_id' => $cocktail_id])
             ->order(['me.category_kbn' => 'ASC'])
-            ->order(['CocktailElements.elements_id' => 'ASC']);
+            ->order(['CocktailElements.element_id' => 'ASC']);
 
         return $query->toArray();
     }

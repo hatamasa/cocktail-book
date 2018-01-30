@@ -37,23 +37,23 @@ insert into cocktails(id, name, search_name, glass, percentage, taste, author_id
 // カクテル要素
 create table cocktail_elements (
   id int(4) not null auto_increment,
-  cocktails_id int(4) not null comment 'cocktails.id',
-  elements_id int(4) not null comment 'elements.id',
+  cocktail_id int(4) not null comment 'cocktails.id',
+  element_id int(4) not null comment 'elements.id',
   amount varchar(20) not null comment '分量',
   dt_create datetime DEFAULT CURRENT_TIMESTAMP,
   dt_update datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   primary key (id),
-  constraint foreign key(cocktails_id) references cocktails(id),
-  constraint foreign key(elements_id) references elements(id)
+  constraint foreign key(cocktail_id) references cocktails(id),
+  constraint foreign key(element_id) references elements(id)
 );
-insert into cocktail_elements(cocktails_id, elements_id, amount) values(1, 2, '30ml');
-insert into cocktail_elements(cocktails_id, elements_id, amount) values(1, 10, '適量');
-insert into cocktail_elements(cocktails_id, elements_id, amount) values(2, 1 , '30ml');
-insert into cocktail_elements(cocktails_id, elements_id, amount) values(2, 11, '適量');
-insert into cocktail_elements(cocktails_id, elements_id, amount) values(3, 9, '30ml');
-insert into cocktail_elements(cocktails_id, elements_id, amount) values(3, 13, '適量');
-insert into cocktail_elements(cocktails_id, elements_id, amount) values(4, 7, '30ml');
-insert into cocktail_elements(cocktails_id, elements_id, amount) values(4, 12, '適量');
+insert into cocktail_elements(cocktail_id, element_id, amount) values(1, 2, '30ml');
+insert into cocktail_elements(cocktail_id, element_id, amount) values(1, 10, '適量');
+insert into cocktail_elements(cocktail_id, element_id, amount) values(2, 1 , '30ml');
+insert into cocktail_elements(cocktail_id, element_id, amount) values(2, 11, '適量');
+insert into cocktail_elements(cocktail_id, element_id, amount) values(3, 9, '30ml');
+insert into cocktail_elements(cocktail_id, element_id, amount) values(3, 13, '適量');
+insert into cocktail_elements(cocktail_id, element_id, amount) values(4, 7, '30ml');
+insert into cocktail_elements(cocktail_id, element_id, amount) values(4, 12, '適量');
 
 
 // 要素マスタ

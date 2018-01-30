@@ -124,7 +124,7 @@ class CocktailsController extends AppController
         }
 
         // バリデエラー、登録エラーがある場合、かつ材料リストがある場合、入力保持のため材料テーブルを作成する
-        if ($errors && isset($params['elements_id_selected'])) {
+        if ($errors && isset($params['element_id_selected'])) {
             $elements = new Elements($params);
             $elements_list_selected = $elements->makeElementsTableList();
         }
@@ -169,7 +169,7 @@ class CocktailsController extends AppController
         $params = $this->request->getData();
 
         // 材料リストに、追加される材料を追加
-        $params['elements_id_selected'][] = $params['elements_id'];
+        $params['element_id_selected'][] = $params['element_id'];
         $params['amount_selected'][] = $params['amount'];
 
         $cocktails = new Cocktails($params);
@@ -192,7 +192,7 @@ class CocktailsController extends AppController
 
         // 材料リストから、削除される材料を削除
         array_splice($params['saved_id'], $params['del_index'], 1);
-        array_splice($params['elements_id_selected'], $params['del_index'], 1);
+        array_splice($params['element_id_selected'], $params['del_index'], 1);
         array_splice($params['amount_selected'], $params['del_index'], 1);
 
         $cocktails = new Cocktails($params);

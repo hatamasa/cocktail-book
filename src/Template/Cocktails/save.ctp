@@ -23,7 +23,7 @@ $(function(){
         // 選択済み材料を取得
         obj = makeSelectedList(obj);
         // 新しく追加する材料を追加
-        obj['elements_id'] = $('.elements').val();
+        obj['element_id'] = $('.elements').val();
         obj['amount'] = $('.amount-input').val();
 
         console.log(obj);
@@ -78,12 +78,12 @@ function makeSelectedList(obj){
     });
     obj['saved_id'] = obj_id_list;
 
-    // すでに追加されているelements_idを取得
+    // すでに追加されているelement_idを取得
     var obj_elements_list = new Object();
-    $('.elements-table').find('.elements_id_selected').each(function(i){
+    $('.elements-table').find('.element_id_selected').each(function(i){
         obj_elements_list[i] = $(this).val();
     });
-    obj['elements_id_selected'] = obj_elements_list;
+    obj['element_id_selected'] = obj_elements_list;
 
     // すでに追加されているamountを取得
     var obj_amount_list = new Object();
@@ -163,7 +163,7 @@ function makeSelectedList(obj){
                 </div>
             </div>
             <h3>材料一覧</h3>
-            <?= $this->element('input_errors', ['name' => 'elements_id_selected']); ?>
+            <?= $this->element('input_errors', ['name' => 'element_id_selected']); ?>
             <table class="elements-table"><!-- Ajaxで生成 -->
                 <?= $this->element('cocktails/ajax_elements_table', ['elements_list_selected' => $elements_list_selected??[]]); ?>
             </table>
