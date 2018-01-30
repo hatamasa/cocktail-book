@@ -37,7 +37,7 @@ class CocktailsController extends AppController
             $start = microtime(true);
             $results = $this->Cocktails->fetchAllCocktails($params);
             $end = microtime(true);
-            $this->logger->log($end - $start, LOG_DEBUG);
+            $this->logger->log("fetchAllCocktails time: " . ($end - $start), LOG_DEBUG);
 
             if (count($results) == 0) {
                 $this->Flash->set("検索結果はありません");
@@ -75,18 +75,23 @@ class CocktailsController extends AppController
      */
     public function edit($id)
     {
-        $elements_list_selected = [];
-        $cocktails = new Cocktails();
         $params = [];
+        $elements_list_selected = [];
+        $errors = [];
 
         if($this->request->is('GET')){
-
+            // 画面表示。idから検索して登録画面を表示する
+            $cocktails = new Cocktails();
             $params = $cocktails->fetchCocktailDetail($id);
+
+            $this->set('params', $params['cocktail']);
+            $this->set('elements_list_selected', $params['cocktail_elements']);
 
         } else if ($this->request->is('PUT')){
 
             $params = $this->request->getData();
             // 登録時処理
+            $cocktails = new Cocktails($params);
             $errors = $cocktails->valudateForCreate();
 
             // バリデエラーがない場合、登録を行う
@@ -94,27 +99,26 @@ class CocktailsController extends AppController
                 try {
                     $cocktails->createCocktail('edit');
                     $this->Flash->success('保存しました');
+                    // 登録完了した場合、詳細画面を表示する
+                    $this->redirect('cocktails/' . $id);
+
                 } catch (\Exception $e) {
                     $this->logger->log($e->getMessage(), LOG_ERR);
                     $this->Flash->error('保存中にエラーが発生しました');
                 }
+            } else {
+                $this->Flash->error('エラー項目があります');
             }
 
             // バリデエラー、登録エラーがある場合、かつ材料リストがある場合、入力保持のため材料テーブルを作成する
-            if ($errors && isset($params['element_id_selected'])) {
-                $elements = new Elements($params);
-                $elements_list_selected = $elements->makeElementsTableList();
+            if(isset($params['element_id_selected'])){
+                $elements_list_selected = $cocktails->makeElementsTableList();
             }
 
-            // エラーがない場合は詳細画面を表示する
-            if(!$errors){
-                $this->redirect('cocktails/' . $id);
-            }
+            // バリデエラー、Exception、作成からの遷移の場合は登録画面を表示する
+            $this->set(compact('params', 'elements_list_selected', 'errors'));
         }
 
-        // バリデエラー、Exception、作成からの遷移の場合は登録画面を表示する
-        $this->set('params', $params['cocktail']);
-        $this->set('elements_list_selected', $elements_list_selected??$params['cocktail_elements']);
     }
 
     /**
@@ -125,6 +129,7 @@ class CocktailsController extends AppController
     {
         $params = [];
         $elements_list_selected = [];
+        $errors = [];
 
         if($this->request->is('POST')){
 
@@ -138,26 +143,25 @@ class CocktailsController extends AppController
                 try {
                     $results = $cocktails->createCocktail();
                     $this->Flash->success('保存しました');
+                    // 登録完了した場合、詳細画面を表示する
+                    $this->redirect('cocktails/' . $results['id']);
+
                 } catch (\Exception $e) {
                     $this->logger->log($e->getMessage(), LOG_ERR);
                     $this->Flash->error('保存中にエラーが発生しました');
                 }
+            } else {
+                $this->Flash->error('エラー項目があります');
             }
 
             // バリデエラー、登録エラーがある場合、かつ材料リストがある場合、入力保持のため材料テーブルを作成する
-            if ($errors && isset($params['element_id_selected'])) {
-                $elements = new Elements($params);
-                $elements_list_selected = $elements->makeElementsTableList();
-            }
-
-            // エラーがない場合は詳細画面を表示する
-            if(!$errors){
-                $this->redirect('cocktails/' . $results['id']);
+            if (isset($params['element_id_selected'])) {
+                $elements_list_selected = $cocktails->makeElementsTableList();
             }
         }
 
         // バリデエラー、Exception、画面表示からの遷移の場合は登録画面を表示する
-        $this->set(compact('params', 'elements_list_selected'));
+        $this->set(compact('params', 'elements_list_selected', 'errors'));
     }
 
     public function delete()

@@ -1,6 +1,8 @@
 <?php
 namespace App\Model\Common;
 
+use Cake\Log\Log;
+
 /**
  * ログの出力クラス
  * @author m-hatano
@@ -14,7 +16,7 @@ class Logger
      * @param string 出力メッセージ
      * @param string ログレベル
      */
-    public function log(string $str, $log_level = LOG_INFO)
+    public function log(string $message, $log_level = LOG_INFO)
     {
         // heroku環境は標準出力でheroku logsへ出力
         if (isset($_ENV['CAKE_ENV']) && $log_level !== LOG_ERR) {
@@ -23,10 +25,10 @@ class Logger
             } else {
                 $stdout = fopen('php://stdout', 'w');
             }
-            fwrite($stdout, $str);
+            fwrite($stdout, $message);
         } else {
             // ローカル環境はcakelogでlogsへ出力
-            $this->log($str, $log_level);
+            Log::write($log_level, $message);
         }
     }
 }

@@ -101,7 +101,8 @@ function makeSelectedList(obj){
     <h1>カクテルを編集する</h1>
 </div>
 <div class="createCocktail__wrapper">
-    <form action="/cocktails/<?= $pamams['id'] ?>/edit" class="cocktail-form" method="put">
+    <form action="/cocktails/<?= $params['id'] ?>/edit" class="cocktail-form" method="post">
+        <input type="hidden" name="_method" value="PUT">
         <input type="hidden" name="id" value="<?= $params['id']??'' ?>" />
         <div class="createCocktail__block">
             <table>
