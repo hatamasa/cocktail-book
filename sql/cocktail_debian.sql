@@ -25,7 +25,6 @@ create table cocktails (
   processes varchar(500),
   author_id varchar(4),
   dt_create datetime DEFAULT CURRENT_TIMESTAMP,
-  dt_update datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   primary key (id)
 );
 insert into cocktails(id, name, search_name, glass, percentage, taste, author_id) values(1, 'gintonic', '', 2, 1, 3, 1);
@@ -41,7 +40,6 @@ create table cocktail_elements (
   element_id int(4) not null,
   amount varchar(20) not null,
   dt_create datetime DEFAULT CURRENT_TIMESTAMP,
-  dt_update datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   primary key (id),
   constraint foreign key(cocktail_id) references cocktails(id),
   constraint foreign key(element_id) references elements(id)
@@ -62,7 +60,6 @@ create table elements (
   category_kbn varchar(4) not null,
   name varchar(64),
   dt_create datetime DEFAULT CURRENT_TIMESTAMP,
-  dt_update datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   primary key (id)
 );
 insert into elements(id, category_kbn, name) values(1, 1, 'vocha');
@@ -87,7 +84,6 @@ create table users (
   user_mail varchar(64),
   password varchar(64),
   dt_create datetime DEFAULT CURRENT_TIMESTAMP,
-  dt_update datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   primary key (id)
 );
 insert into users(id, name, user_mail, password) values(1, 'masaya', '', '');

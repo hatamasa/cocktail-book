@@ -182,7 +182,7 @@ class CocktailsController extends AppController
         $elements_list = $cocktails->getElementsList($category_kbn);
 
         $this->set(compact('elements_list'));
-        $this->render('/Element/cocktails/ajax_elements_options','');
+        $this->render('/Element/Cocktails/ajax_elements_options','');
     }
 
     /**
@@ -204,7 +204,7 @@ class CocktailsController extends AppController
         $elements_list_selected = $cocktails->makeElementsTableList();
 
         $this->set(compact('elements_list_selected'));
-        $this->render('/Element/cocktails/ajax_elements_table','');
+        $this->render('/Element/Cocktails/ajax_elements_table','');
     }
 
     /**
@@ -227,7 +227,7 @@ class CocktailsController extends AppController
         $elements_list_selected = $cocktails->makeElementsTableList();
 
         $this->set(compact('elements_list_selected'));
-        $this->render('/Element/cocktails/ajax_elements_table','');
+        $this->render('/Element/Cocktails/ajax_elements_table','');
     }
 
 }

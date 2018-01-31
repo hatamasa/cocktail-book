@@ -164,7 +164,7 @@ function makeSelectedList(obj){
             <h3>材料一覧</h3>
             <?= $this->element('input_errors', ['name' => 'element_id_selected']); ?>
             <table class="elements-table"><!-- Ajaxで生成 -->
-                <?= $this->element('cocktails/ajax_elements_table', ['elements_list_selected' => $elements_list_selected??[]]); ?>
+                <?= $this->element('Cocktails/ajax_elements_table', ['elements_list_selected' => $elements_list_selected??[]]); ?>
             </table>
         </div>
         <div class="createCocktail__block">

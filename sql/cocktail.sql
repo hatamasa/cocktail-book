@@ -25,7 +25,6 @@ create table cocktails (
   processes varchar(500) comment '作成手順',
   author_id varchar(4) comment 'users.id',
   dt_create datetime DEFAULT CURRENT_TIMESTAMP,
-  dt_update datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   primary key (id)
 );
 insert into cocktails(id, name, search_name, glass, percentage, taste, author_id) values(1, 'ジントニック', 'ｼﾞﾝﾄﾆｯｸ', 2, 1, 3, 1);
@@ -62,7 +61,6 @@ create table elements (
   category_kbn varchar(4) not null comment '1:スピリッツ 2:その他ベース 3:リキュール 4:ノンアルコール',
   name varchar(64),
   dt_create datetime DEFAULT CURRENT_TIMESTAMP,
-  dt_update datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   primary key (id)
 );
 insert into elements(id, category_kbn, name) values(1, 1, 'ウォッカ');
@@ -87,7 +85,6 @@ create table users (
   user_mail varchar(64),
   password varchar(64),
   dt_create datetime DEFAULT CURRENT_TIMESTAMP,
-  dt_update datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   primary key (id)
 );
 insert into users(id, name, user_mail, password) values(1, 'masaya', '', '');

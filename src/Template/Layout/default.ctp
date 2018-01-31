@@ -14,36 +14,18 @@
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <?= $this->Html->css('base.css') ?>
     <?= $this->Html->css('cake.css') ?>
-    <?= $this->Html->css('cocktail-book.css') ?>
+    <?= $this->Html->css('cocktail-com.css') ?>
 
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
     <?= $this->fetch('script') ?>
 </head>
 <body>
-    <header class="top-header display-inline">
-        <div id="nav-drawer">
-            <input id="nav-input" type="checkbox" class="nav-unshown">
-            <label id="nav-open" for="nav-input"><span></span></label>
-            <label class="nav-unshown" id="nav-close" for="nav-input"></label>
-            <div id="nav-content">
-                <ul>
-                    <li class="nav-title">カクテル.com</li>
-                    <li><a href="<?= $this->Url->build('/') ?>">カクテルを検索</a></li>
-                    <li><a href="<?= $this->Url->build('/cocktails/add') ?>">カクテルを作成</a></li>
-                    <li><a href="<?= $this->Url->build('/elements') ?>">材料を管理</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="title">
-            <a href="<?= $this->Url->build('/') ?>"><?= $this->fetch('title') ?></a>
-        </div>
-    </header>
+    <?= $this->element('header'); ?>
     <div class="container">
         <?= $this->Flash->render() ?>
         <?= $this->fetch('content') ?>
     </div>
-    <footer>
-    </footer>
+    <?= $this->element('footer'); ?>
 </body>
 </html>
