@@ -2,8 +2,13 @@ body {
     background-image: url("/img/main.jpg");
     background-repeat:no-repeat;
     background-position: center center;
-    background-attachment: scroll;
+    background-attachment: fixed;
     background-size: cover;
+}
+@media screen and (max-width:480px){
+    body {
+        background-attachment: scroll;
+    }
 }
 
 .container {
