@@ -438,10 +438,6 @@ meta.foundation-data-attribute-namespace {
   font-family: false
 }
 
-html, body {
-  height: 100%
-}
-
 html {
   box-sizing: border-box
 }
@@ -453,7 +449,7 @@ html {
 }
 
 html, body {
-  font-size: 90%
+  font-size: 90%;
 }
 
 body {

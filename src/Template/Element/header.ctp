@@ -6,9 +6,9 @@
         <div id="nav-content">
             <ul>
                 <li class="nav-title">カクテル.com</li>
-                <li><a href="<?= $this->Url->build('/') ?>">カクテルを検索</a></li>
-                <li><a href="<?= $this->Url->build('/cocktails/add') ?>">カクテルを作成</a></li>
-                <li><a href="<?= $this->Url->build('/elements') ?>">材料を管理</a></li>
+                <a href="<?= $this->Url->build('/') ?>"><li>カクテルを検索</li></a>
+                <a href="<?= $this->Url->build('/cocktails/add') ?>"><li>カクテルを作成</li></a>
+                <a href="<?= $this->Url->build('/elements') ?>"><li>材料を管理</li></a>
             </ul>
         </div>
     </div>

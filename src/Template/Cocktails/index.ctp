@@ -9,9 +9,9 @@
         </div>
         <div class="form-group">
             <h2>グラスタイプ</h2>
-            <ul class="form-input-check display-inline">
+            <ul class="form-input-check display-inline-ul">
                 <?php foreach ($glass_list as $key => $value):?>
-                <li class="line-style-none float-left">
+                <li>
                     <label>
                         <input type="checkbox" class="checkbox-input" name="glass[]" value="<?= $key?>" <?php if(in_array($key, $params['glass']??[])): ?> checked="checked" <?php endif; ?> />
                         <span class="checkbox-span"><?= $value?></span>
@@ -22,9 +22,9 @@
         </div>
         <div class="form-group">
             <h2>強さ</h2>
-            <ul class="form-input-check display-inline">
+            <ul class="form-input-check display-inline-ul">
                 <?php foreach ($percentage_list as $key => $value):?>
-                <li class="line-style-none float-left">
+                <li>
                     <label>
                         <input type="checkbox" class="checkbox-input" name="percentage[]" value="<?= $key?>" <?php if(in_array($key, $params['percentage']??[])): ?> checked="checked" <?php endif; ?> />
                         <span class="checkbox-span"><?= $value?></span>
@@ -35,9 +35,9 @@
         </div>
         <div class="form-group">
             <h2>テイスト</h2>
-            <ul class="form-input-check display-inline">
+            <ul class="form-input-check display-inline-ul">
                 <?php foreach ($taste_list as $key => $value):?>
-                <li class="line-style-none float-left">
+                <li>
                     <label>
                         <input type="checkbox" class="checkbox-input" name="taste[]" value="<?= $key?>" <?php if(in_array($key, $params['taste']??[])): ?> checked="checked" <?php endif; ?> />
                         <span class="checkbox-span"><?= $value?></span>
@@ -46,7 +46,7 @@
                 <?php endforeach; ?>
             </ul>
         </div>
-        <button type="submit" class="btn btn-default" >検索</button>
+        <button type="submit" class="btn btn-default btn-full" >検索</button>
     </form>
 </div>
 <!-- 検索結果表示 -->

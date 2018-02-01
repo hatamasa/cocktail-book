@@ -176,6 +176,6 @@ function makeSelectedList(obj){
                 </div>
             </div>
         </div>
-        <button type="submit" class="btn btn-default cancel" >保存する</button>
+        <button type="submit" class="btn btn-default btn-full cancel" >保存する</button>
     </form>
 </div>

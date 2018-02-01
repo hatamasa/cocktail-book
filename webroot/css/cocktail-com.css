@@ -4,11 +4,16 @@ body {
     background-position: center center;
     background-attachment: scroll;
     background-size: cover;
-
 }
 
 .container {
+    padding-bottom: 30px;
     background-color:#ffffffdb;
+}
+@media screen and (max-width:480px){
+    .container{
+        padding-top: 50px;
+    }
 }
 
 ul {
@@ -39,7 +44,9 @@ header{
 }
 @media screen and (max-width:480px){
     header {
-       height: 65px;
+       position: fixed;
+       height: 50px;
+       padding: 8px;
     }
 }
 
@@ -47,11 +54,13 @@ footer{
     position: relative;
     width: 100%;
     background-color: #737373c7;
-    height: 85px;
+    padding: 10px;
+    color: #fff;
+    text-align: center;
 }
 @media screen and (max-width:480px){
     footer {
-       height: 65px;
+       height: auto;
     }
 }
 
@@ -62,6 +71,7 @@ footer{
 @media screen and (max-width:480px){
     .title {;
         line-height: 40px;
+        font-size: 20px;
     }
 }
 
@@ -215,6 +225,15 @@ footer{
     width: 130px;
     margin: 5px;
     font-size: 80%;
+}
+
+.footerLink__block a {
+    color: #fff;
+    font-size: 110%;
+}
+
+.footerLink__block ul li {
+    margin-right: 15px;
 }
 
 
@@ -385,8 +404,12 @@ input[type="radio"]:checked + label {
     margin-bottom: 15px;
 }
 
-.display-inline {
+.display-inline-ul {
     display: inline-block;
+}
+
+.display-inline-ul li {
+    float: left;
 }
 
 .display-flex {
@@ -410,10 +433,14 @@ input[type="radio"]:checked + label {
     margin-left: 30px;
 }
 
-.float-left {
-    float: left;
-}
-
 .input-errors div {
   color: #ff0000;
 }
+
+@media screen and (max-width:480px){
+    .btn-full {
+        display: block;
+        width: 100%;
+    }
+}
+
