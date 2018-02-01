@@ -53,7 +53,7 @@
 <div class="results__wrapper">
 <?php if(isset($results)):?>
     <?php foreach ($results as $row): ?>
-    <?= $this->element('cocktails/cocktail', ['row' => $row]);?>
+    <?= $this->element('Cocktails/cocktail', ['row' => $row]);?>
     <?php endforeach; ?>
 <?php endif;?>
 </div>
