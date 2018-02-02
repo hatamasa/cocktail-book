@@ -9,6 +9,9 @@ class CocktailsTable extends Table
     public function initialize(array $config){
         $this->hasMany('CocktailElements')
         ->setForeignKey('cocktail_id');
+
+        $this->hasMany('CocktailTags')
+        ->setForeignKey('cocktail_id');
     }
 
     /**
