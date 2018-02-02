@@ -126,7 +126,6 @@ class Cocktails
         $connection = ConnectionManager::get('default');
         $connection->begin();
         try{
-
             if($edit == 'edit'){
                 // patchEntityのみではアソシエーション削除の場合、削除されない
                 // そのためCocktailElements, CocktailTagsを全削除して入れ直す
