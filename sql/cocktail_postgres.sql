@@ -1,6 +1,5 @@
-// DB作成周りは精査していない
 // DB作成
-CREATE DATABASE cocktail;
+CREATE DATABASE "cocktail-com";
 
 // ユーザ作成
 CREATE USER cocktail@localhost IDENTIFIED BY 'cocktail';
@@ -93,7 +92,7 @@ insert into cocktail_tags(id, cocktail_id, tag_id) values(1, 1, 1);
 insert into cocktail_tags(id, cocktail_id, tag_id) values(2, 1, 2);
 insert into cocktail_tags(id, cocktail_id, tag_id) values(3, 2, 1);
 insert into cocktail_tags(id, cocktail_id, tag_id) values(4, 3, 2);
-insert into cocktail_tags(id, cocktail_id, tag_id) values(4, 3, 3);
+insert into cocktail_tags(id, cocktail_id, tag_id) values(5, 3, 3);
 
 // タグマスタ
 create table tags (
@@ -108,13 +107,12 @@ insert into tags(id, name) values(3, '夏らしい');
 insert into tags(id, name) values(4, '冬っぽい');
 insert into tags(id, name) values(5, '夜景が似合う');
 
-// ユーザ
-create table users (
-  id int not null serial,
-  name varchar(64),
-  user_mail varchar(64),
-  password varchar(64),
+// 管理者
+create table admins (
+  id serial not null,
+  login_id varchar(32),
+  password varchar(32),
   dt_create timestamp DEFAULT CURRENT_TIMESTAMP,
   primary key (id)
 );
-insert into users(id, name, user_mail, password) values(1, 'masaya', '', '');
+insert into admins(id, login_id, password) values(1, 'admin', '');
