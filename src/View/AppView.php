@@ -49,6 +49,16 @@ class AppView extends View
                 $this->set('percentage_list', Configure::read('percentage'));
                 $this->set('taste_list', Configure::read('taste'));
                 $this->set('category_list', Configure::read('category_kbn'));
+
+                // プルダウン表示材料を取得
+                switch ($this->template){
+                    case 'index':
+                    case 'search':
+                    case 'add':
+                    case 'edit':
+                        // TODO マスタからリストを取得して、setする
+                        break;
+                }
                 break;
             case 'Elements':
                 $this->set('category_list', Configure::read('category_kbn'));
