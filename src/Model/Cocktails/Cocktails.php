@@ -86,7 +86,7 @@ class Cocktails
      * カクテルを登録する
      * @param $params
      */
-    public function createCocktail($edit = null){
+    public function saveCocktail($edit = null){
 
         // カクテルの配列作成
         $data = [
@@ -98,21 +98,30 @@ class Cocktails
             'color' => $this->params['color'],
             'taste' => $this->params['taste'],
             'processes' => $this->params['processes'],
-            'tags_digit' => $this->makeTagsBinaryDigit($this->params['tags_no_selected']),
         ];
 
         // カクテル要素の配列作成
         for ($i = 0; $i < count($this->params['element_id_selected']); $i++){
             $data['cocktail_elements'][] = [
                 'id' => $this->params['saved_id'][$i]??'',
+                'cocktail_id' => $this->params['id'],
                 'element_id' => $this->params['element_id_selected'][$i],
                 'amount' => $this->params['amount_selected'][$i],
+            ];
+        }
+
+        foreach ($this->params['tag_id_selected'] as $tag_id){
+            $data['cocktail_tags'][] = [
+                'id' => '',
+                'cocktail_id' => $this->params['id'],
+                'tag_id' => $tag_id,
             ];
         }
 
         // エンティティとアソシエーションを作成
         $cocktailsTable = TableRegistry::get('Cocktails');
         $cocktailElementsTable = TableRegistry::get('CocktailElements');
+        $cocktailTagsTable = TableRegistry::get('CocktailTags');
 
         $connection = ConnectionManager::get('default');
         $connection->begin();
@@ -120,16 +129,17 @@ class Cocktails
 
             if($edit == 'edit'){
                 // patchEntityのみではアソシエーション削除の場合、削除されない
-                // そのためCocktailElementsを全削除して入れ直す
+                // そのためCocktailElements, CocktailTagsを全削除して入れ直す
                 $cocktailElementsTable->deleteAll(['cocktail_id' => $this->params['id']]);
+                $cocktailTagsTable->deleteAll(['cocktail_id' => $this->params['id']]);
 
                 $cocktail = $cocktailsTable->get($this->params['id']);
                 $cocktail = $cocktailsTable->patchEntity($cocktail, $data, [
-                    'associated' => ['CocktailElements'],
+                    'associated' => ['CocktailElements', 'CocktailTags'],
                 ]);
             }else{
                 $cocktail = $cocktailsTable->newEntity($data, [
-                    'associated' => ['CocktailElements'],
+                    'associated' => ['CocktailElements', 'CocktailTags'],
                 ]);
             }
             $result = $cocktailsTable->save($cocktail);

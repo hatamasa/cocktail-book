@@ -23,7 +23,6 @@ class CocktailsTable extends Table
         // 検索項目に合わせてSQLを作成
         $query->where(['1' => 1]);
         if(isset($params['name']) && !empty(trim($params['name']))){
-            // TODO 検索用名前から検索したい
             $query->andWhere(['search_name LIKE' => $this->convertToSearchString($params['name'])]);
         }
         if(isset($params['glass'])){

@@ -24,7 +24,6 @@ create table cocktails (
   color varchar(20),
   taste varchar(2),
   processes varchar(500),
-  search_tag_binary numeric(30),
   dt_create timestamp DEFAULT CURRENT_TIMESTAMP,
   primary key (id)
 );
@@ -32,10 +31,10 @@ comment on column cocktails.glass is '1:ショート 2:ロング 3:ロックグ�
 comment on column cocktails.percentage is '1:弱い 2:普通 3:強い';
 comment on column cocktails.taste is '1:甘口 2:どちらでもない 3:中辛 4:辛口';
 
-insert into cocktails(id, name, search_name, glass, percentage, taste, search_tag_binary) values(1, 'ジントニック', 'ｼﾞﾝﾄﾆｯｸ', 2, 1, 3, 1);
-insert into cocktails(id, name, search_name, glass, percentage, taste, search_tag_binary) values(2, 'モスコミュール', 'ﾓｽｺﾐｭｰﾙ', 2, 1, 2, 1);
-insert into cocktails(id, name, search_name, glass, percentage, taste, search_tag_binary) values(3, 'カルーアミルク', 'ｶﾙｰｱﾐﾙｸ', 3, 1, 1, 1);
-insert into cocktails(id, name, search_name, glass, percentage, taste, search_tag_binary) values(4, 'カシスオレンジ', 'ｶｼｽｵﾚﾝｼﾞ', 2, 1, 1, 1);
+insert into cocktails(id, name, search_name, glass, percentage, taste) values(1, 'ジントニック', 'ｼﾞﾝﾄﾆｯｸ', 2, 1, 3);
+insert into cocktails(id, name, search_name, glass, percentage, taste) values(2, 'モスコミュール', 'ﾓｽｺﾐｭｰﾙ', 2, 1, 2);
+insert into cocktails(id, name, search_name, glass, percentage, taste) values(3, 'カルーアミルク', 'ｶﾙｰｱﾐﾙｸ', 3, 1, 1);
+insert into cocktails(id, name, search_name, glass, percentage, taste) values(4, 'カシスオレンジ', 'ｶｼｽｵﾚﾝｼﾞ', 2, 1, 1);
 
 
 // カクテル要素
@@ -82,18 +81,32 @@ insert into elements(id, category_kbn, name) values(12, 4, 'オレンジジュ�
 insert into elements(id, category_kbn, name) values(13, 4, '牛乳');
 
 
+// カクテルタグ
+create table cocktail_tags (
+    id serial,
+    cocktail_id int not null references cocktails(id),
+    tag_id varchar(20),
+    dt_create timestamp DEFAULT CURRENT_TIMESTAMP,
+    primary key (id)
+);
+insert into cocktail_tags(id, cocktail_id, tag_id) values(1, 1, 1);
+insert into cocktail_tags(id, cocktail_id, tag_id) values(2, 1, 2);
+insert into cocktail_tags(id, cocktail_id, tag_id) values(3, 2, 1);
+insert into cocktail_tags(id, cocktail_id, tag_id) values(4, 3, 2);
+insert into cocktail_tags(id, cocktail_id, tag_id) values(4, 3, 3);
+
 // タグマスタ
 create table tags (
     id serial,
-    name varchar(20),
-    bit_no integer(4),
-    dt_create timestamp DEFAULT CURRENT_TIMESTAMP
+    name varchar(30),
+    dt_create timestamp DEFAULT CURRENT_TIMESTAMP,
+    primary key (id)
 );
-insert into tags(id, name, bit_no) values(1, '', 1);
-insert into tags(id, name, bit_no) values(2, '', 2);
-insert into tags(id, name, bit_no) values(3, '', 3);
-insert into tags(id, name, bit_no) values(4, '', 4);
-insert into tags(id, name, bit_no) values(5, '', 5);
+insert into tags(id, name) values(1, '男らしい');
+insert into tags(id, name) values(2, '酔いたい日の');
+insert into tags(id, name) values(3, '夏らしい');
+insert into tags(id, name) values(4, '冬っぽい');
+insert into tags(id, name) values(5, '夜景が似合う');
 
 // ユーザ
 create table users (
