@@ -110,6 +110,7 @@ class Cocktails
             ];
         }
 
+        // カクテルタグの配列作成
         foreach ($this->params['tag_id_selected'] as $tag_id){
             $data['cocktail_tags'][] = [
                 'id' => '',
