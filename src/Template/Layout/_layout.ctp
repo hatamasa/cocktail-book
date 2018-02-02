@@ -21,8 +21,8 @@
     <?= $this->fetch('script') ?>
 </head>
 <body>
+    <?= $this->element('_header'); ?>
     <div class="main">
-        <?= $this->element('_header'); ?>
         <div class="container">
             <?= $this->Flash->render() ?>
             <?= $this->fetch('content') ?>

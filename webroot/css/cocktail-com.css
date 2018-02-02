@@ -23,6 +23,8 @@ body {
     background-position: center center;
     background-attachment: fixed;
     background-size: cover;
+    position: relative;
+    z-index: -9999;
 }
 @media screen and (max-width:480px){
     body {
@@ -35,6 +37,8 @@ body {
 .main {
     min-height: 100%;
     margin-bottom: -100px;
+    position: relative;
+    z-index: -9999;
 }
 @media screen and (max-width:480px){
     .main{
@@ -46,6 +50,8 @@ body {
     min-height: calc(100vh - 185px);
     padding-bottom: 30px;
     background-color:#ffffffdb;
+    position: relative;
+    z-index: -9999;
 }
 @media screen and (max-width:480px){
     .container{
@@ -82,6 +88,7 @@ footer{
 @media screen and (max-width:480px){
     footer, .push {
        height: 150px;
+       z-index: -1;
     }
 }
 
@@ -398,6 +405,7 @@ input[type="radio"]:checked + label {
     position: relative;
     margin-right: 10px;
     color: #989898;
+    z-index: -1;
 }
 
 .checkbox-span::before{
