@@ -81,10 +81,10 @@ class CocktailsController extends AppController
         if($this->request->is('GET')){
             // 画面表示。idから検索して登録画面を表示する
             $cocktails = new Cocktails();
-            $params = $cocktails->fetchCocktailDetail($id);
+            $results = $cocktails->fetchCocktailDetail($id);
 
-            $this->set('params', $params['cocktail']);
-            $this->set('elements_list_selected', $params['cocktail_elements']);
+            $params = $results['cocktail'];
+            $elements_list_selected = $results['cocktail_elements'];
 
         } else if ($this->request->is('PUT')){
 
@@ -113,11 +113,10 @@ class CocktailsController extends AppController
             if(isset($params['element_id_selected'])){
                 $elements_list_selected = $cocktails->makeElementsTableList();
             }
-
-            // バリデエラー、Exception、作成からの遷移の場合は登録画面を表示する
-            $this->set(compact('params', 'elements_list_selected', 'errors'));
         }
 
+        // バリデエラー、Exception、画面表示の場合は再表示する
+        $this->set(compact('params', 'elements_list_selected', 'errors'));
     }
 
     /**
