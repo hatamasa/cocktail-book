@@ -89,31 +89,26 @@ class Cocktails
     public function createCocktail($edit = null){
 
         // カクテルの配列作成
-        // TODO ログインしているユーザのIDを設定する
         $data = [
             'id' => $this->params['id']??'',
             'name' => $this->params['name'],
-            'search_name' => CocktailsUtil::convertTohalfString($this->params['name']),
+            'search_name' => CocktailsUtil::tohalfString($this->params['name']),
             'glass' => $this->params['glass'],
             'percentage' => $this->params['percentage'],
             'color' => $this->params['color'],
             'taste' => $this->params['taste'],
             'processes' => $this->params['processes'],
-            'author_id' => null
+            'tags_digit' => $this->makeTagsBinaryDigit($this->params['tags_no_selected']),
         ];
 
         // カクテル要素の配列作成
-        $cocktail_elements = [];
-
         for ($i = 0; $i < count($this->params['element_id_selected']); $i++){
-            $cocktail_elements[] = [
+            $data['cocktail_elements'][] = [
                 'id' => $this->params['saved_id'][$i]??'',
                 'element_id' => $this->params['element_id_selected'][$i],
                 'amount' => $this->params['amount_selected'][$i],
             ];
         }
-
-        $data['cocktail_elements'] = $cocktail_elements;
 
         // エンティティとアソシエーションを作成
         $cocktailsTable = TableRegistry::get('Cocktails');
@@ -124,11 +119,11 @@ class Cocktails
         try{
 
             if($edit == 'edit'){
-                // patchEntityのみではCocktailElementsがUPDATEされないで新規追加されてしまう
+                // patchEntityのみではアソシエーション削除の場合、削除されない
                 // そのためCocktailElementsを全削除して入れ直す
                 $cocktailElementsTable->deleteAll(['cocktail_id' => $this->params['id']]);
 
-                $cocktail = $cocktailsTable->get($this->params['id'], ['contain' => 'CocktailElements']);
+                $cocktail = $cocktailsTable->get($this->params['id']);
                 $cocktail = $cocktailsTable->patchEntity($cocktail, $data, [
                     'associated' => ['CocktailElements'],
                 ]);
@@ -172,6 +167,15 @@ class Cocktails
             $elements_list[$i]['amount'] = $this->params['amount_selected'][$i];
         }
         return $elements_list;
+    }
+
+    /**
+     * タグ番号の配列からタグ検索用の2進数配列を作成する
+     * @param array タグ番号の配列
+     */
+    private function makeTagsBinaryDigit(array $tags_digit)
+    {
+        // TODO タグidからタグマスタを検索し、取得したタグ検索配列番号のビットを1にする
     }
 
 }

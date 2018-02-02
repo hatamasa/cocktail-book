@@ -23,7 +23,7 @@ class CocktailsUtil
     * h	「全角ひらがな」を「半角カタカナ」に変換
     * @return string
     */
-    static public function convertToHalfString($str){
+    static public function toHalfString($str){
 
         return mb_convert_kana($str, 'rnaskh');
     }
