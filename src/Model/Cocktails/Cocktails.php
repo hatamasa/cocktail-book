@@ -86,7 +86,7 @@ class Cocktails
      * カクテルを登録する
      * @param $params
      */
-    public function saveCocktail($edit = null){
+    public function saveCocktail(){
 
         // カクテルの配列作成
         $data = [
@@ -111,12 +111,14 @@ class Cocktails
         }
 
         // カクテルタグの配列作成
-        foreach ($this->params['tag_id_selected'] as $tag_id){
-            $data['cocktail_tags'][] = [
-                'id' => '',
-                'cocktail_id' => $this->params['id'],
-                'tag_id' => $tag_id,
-            ];
+        if(isset($this->params['tag_id_selected'])){
+            foreach ($this->params['tag_id_selected'] as $tag_id){
+                $data['cocktail_tags'][] = [
+                    'id' => '',
+                    'cocktail_id' => $this->params['id'],
+                    'tag_id' => $tag_id,
+                ];
+            }
         }
 
         // エンティティとアソシエーションを作成
@@ -127,21 +129,15 @@ class Cocktails
         $connection = ConnectionManager::get('default');
         $connection->begin();
         try{
-            if($edit == 'edit'){
-                // patchEntityのみではアソシエーション削除の場合、削除されない
-                // そのためCocktailElements, CocktailTagsを全削除して入れ直す
-                $cocktailElementsTable->deleteAll(['cocktail_id' => $this->params['id']]);
-                $cocktailTagsTable->deleteAll(['cocktail_id' => $this->params['id']]);
+            // patchEntityのみではアソシエーション削除の場合、削除されない
+            // そのためCocktailElements, CocktailTagsを全削除して入れ直す
+            $cocktailElementsTable->deleteAll(['cocktail_id' => $this->params['id']]);
+            $cocktailTagsTable->deleteAll(['cocktail_id' => $this->params['id']]);
 
-                $cocktail = $cocktailsTable->get($this->params['id']);
-                $cocktail = $cocktailsTable->patchEntity($cocktail, $data, [
-                    'associated' => ['CocktailElements', 'CocktailTags'],
-                ]);
-            }else{
-                $cocktail = $cocktailsTable->newEntity($data, [
-                    'associated' => ['CocktailElements', 'CocktailTags'],
-                ]);
-            }
+            $cocktail = $cocktailsTable->newEntity();
+            $cocktail = $cocktailsTable->patchEntity($cocktail, $data, [
+                'associated' => ['CocktailElements', 'CocktailTags'],
+            ]);
             $result = $cocktailsTable->save($cocktail);
             $connection->commit();
 

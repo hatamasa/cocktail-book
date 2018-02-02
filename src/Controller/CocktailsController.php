@@ -96,7 +96,7 @@ class CocktailsController extends AppController
             // バリデエラーがない場合、登録を行う
             if (! $errors) {
                 try {
-                    $cocktails->saveCocktail('edit');
+                    $cocktails->saveCocktail();
                     $this->Flash->success('保存しました');
                     // 登録完了した場合、詳細画面を表示する
                     $this->redirect('cocktails/' . $id);
