@@ -21,10 +21,13 @@
     <?= $this->fetch('script') ?>
 </head>
 <body>
-    <?= $this->element('_header'); ?>
-    <div class="container">
-        <?= $this->Flash->render() ?>
-        <?= $this->fetch('content') ?>
+    <div class="main">
+        <?= $this->element('_header'); ?>
+        <div class="container">
+            <?= $this->Flash->render() ?>
+            <?= $this->fetch('content') ?>
+        </div>
+        <div class="push"></div>
     </div>
     <?= $this->element('_footer'); ?>
 </body>

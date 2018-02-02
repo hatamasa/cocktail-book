@@ -449,6 +449,7 @@ html {
 }
 
 html, body {
+  height: 100%;
   font-size: 90%;
 }
 
