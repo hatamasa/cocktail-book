@@ -26,6 +26,8 @@ use Cake\Core\Configure;
 class AppView extends View
 {
 
+    public $layout = '_layout';
+
     /**
      * Initialization hook method.
      *
