@@ -60,7 +60,7 @@
     <h3>材料一覧</h3>
     <?= $this->element('input_errors', ['name' => 'element_id_selected']); ?>
     <table class="elements-table"><!-- Ajaxで生成 -->
-        <?= $this->element('Admin/Cocktails/ajax_elements_table'); ?>
+        <?= $this->element('Cocktails/ajax_elements_table'); ?>
     </table>
 </div>
 <div class="createCocktail__block">

@@ -1,40 +1,38 @@
 <?php
 /**
  * @var \App\View\AppView $this
- * @var \App\Model\Entity\Element[]|\Cake\Collection\CollectionInterface $elements
+ * @var \App\Model\Entity\Tag[]|\Cake\Collection\CollectionInterface $tags
  */
 ?>
 <nav class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('New Element'), ['action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('New Tag'), ['action' => 'add']) ?></li>
         <li><?= $this->Html->link(__('List Cocktails'), ['controller' => 'Cocktails', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('New Cocktail'), ['controller' => 'Cocktails', 'action' => 'add']) ?></li>
     </ul>
 </nav>
-<div class="elements index large-9 medium-8 columns content">
-    <h3><?= __('Elements') ?></h3>
+<div class="tags index large-9 medium-8 columns content">
+    <h3><?= __('Tags') ?></h3>
     <table cellpadding="0" cellspacing="0">
         <thead>
             <tr>
                 <th scope="col"><?= $this->Paginator->sort('id') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('category_kbn') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('name') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('dt_create') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($elements as $element): ?>
+            <?php foreach ($tags as $tag): ?>
             <tr>
-                <td><?= $this->Number->format($element->id) ?></td>
-                <td><?= h($element->category_kbn) ?></td>
-                <td><?= h($element->name) ?></td>
-                <td><?= h($element->dt_create) ?></td>
+                <td><?= $this->Number->format($tag->id) ?></td>
+                <td><?= h($tag->name) ?></td>
+                <td><?= h($tag->dt_create) ?></td>
                 <td class="actions">
-                    <?= $this->Html->link(__('View'), ['action' => 'view', $element->id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $element->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $element->id], ['confirm' => __('Are you sure you want to delete # {0}?', $element->id)]) ?>
+                    <?= $this->Html->link(__('View'), ['action' => 'view', $tag->id]) ?>
+                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $tag->id]) ?>
+                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $tag->id], ['confirm' => __('Are you sure you want to delete # {0}?', $tag->id)]) ?>
                 </td>
             </tr>
             <?php endforeach; ?>

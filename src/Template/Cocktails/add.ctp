@@ -4,8 +4,8 @@
     <h1>カクテルを作成する</h1>
 </div>
 <div class="createCocktail__wrapper">
-    <form action="<?= $this->Url->build('/admin/cocktails/add') ?>" class="cocktail-form" method="post">
-        <?= $this->element('Admin/Cocktails/cocktail_input_area');?>
+    <form action="<?= $this->Url->build('/cocktails/add') ?>" class="cocktail-form" method="post">
+        <?= $this->element('Cocktails/cocktail_input_area');?>
         <button type="submit" class="btn btn-default btn-full cancel" >保存する</button>
     </form>
 </div>

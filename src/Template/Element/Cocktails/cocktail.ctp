@@ -1,4 +1,4 @@
-<a href="<?= $this->Url->build('/cocktails/') ?><?= $row['id']?>">
+<a href="<?= $this->Url->build('/cocktails/view/') ?><?= $row['id']?>">
 <ul>
     <li><h3><?= $row['name']?></h3></li>
     <li>グラス：<?= $glass_list[$row['glass']]?></li>

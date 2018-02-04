@@ -69,7 +69,7 @@ class CocktailsController extends AppController
 
     /**
      * カクテル編集
-     * GET|PUT /admin/cocktails/:id/edit
+     * GET|PUT /cocktails/:id/edit
      * @param  $id
      */
     public function edit($id)
@@ -104,7 +104,7 @@ class CocktailsController extends AppController
                     $cocktails->saveCocktail();
                     $this->Flash->success('保存しました');
                     // 登録完了した場合、詳細画面を表示する
-                    $this->redirect('cocktails/' . $id);
+                    $this->redirect('cocktails/view/' . $id);
 
                 } catch (\Exception $e) {
                     $this->logger->log($e->getMessage(), LOG_ERR);
@@ -126,7 +126,7 @@ class CocktailsController extends AppController
 
     /**
      * カクテル作成
-     *  GET|POST /admin/cocktails/add
+     *  GET|POST /cocktails/add
      */
     public function add()
     {
@@ -146,7 +146,7 @@ class CocktailsController extends AppController
                     $results = $cocktails->saveCocktail();
                     $this->Flash->success('保存しました');
                     // 登録完了した場合、詳細画面を表示する
-                    $this->redirect('cocktails/' . $results['id']);
+                    $this->redirect('cocktails/view/' . $results['id']);
 
                 } catch (\Exception $e) {
                     $this->logger->log($e->getMessage(), LOG_ERR);
@@ -172,7 +172,7 @@ class CocktailsController extends AppController
 
     /**
      * (Ajax用)エレメントのプルダウン制御用
-     * GET /admin/cocktails/getElementsOptions/:id
+     * GET /cocktails/getElementsOptions/:id
      * @param $category_kbn
      */
     public function getElementsOptions($category_kbn)
@@ -185,12 +185,12 @@ class CocktailsController extends AppController
         $elements_list = $cocktails->getElementsList($category_kbn);
 
         $this->set(compact('elements_list'));
-        $this->render('/Element/Admin/Cocktails/ajax_elements_options','');
+        $this->render('/Element/Cocktails/ajax_elements_options','');
     }
 
     /**
      * (Ajax用)材料追加用
-     * POST /admin/cocktails/mergeElementsTable
+     * POST /cocktails/mergeElementsTable
      */
     public function mergeElementsTable()
     {
@@ -207,12 +207,12 @@ class CocktailsController extends AppController
         $params['cocktails_elements'] = $cocktails->makeElementsTableList();
 
         $this->set(compact('params'));
-        $this->render('/Element/Admin/Cocktails/ajax_elements_table','');
+        $this->render('/Element/Cocktails/ajax_elements_table','');
     }
 
     /**
      * (Ajax用)材料削除用
-     * POST /admin/cocktails/deleteElementsTable
+     * POST /cocktails/deleteElementsTable
      */
     public function deleteElementsTable(){
 
@@ -230,7 +230,7 @@ class CocktailsController extends AppController
         $params['cocktails_elements'] = $cocktails->makeElementsTableList();
 
         $this->set(compact('params'));
-        $this->render('/Element/Admin/Cocktails/ajax_elements_table','');
+        $this->render('/Element/Cocktails/ajax_elements_table','');
     }
 
 }

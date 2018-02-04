@@ -1,79 +1,109 @@
 <?php
 namespace App\Controller;
 
+use App\Controller\AppController;
+
 /**
- * エレメントコントローラ
- * /elements
- * @author hatamasa
+ * Elements Controller
+ *
+ * @property \App\Model\Table\ElementsTable $Elements
+ *
+ * @method \App\Model\Entity\Element[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
 class ElementsController extends AppController
 {
 
     /**
-     * 初期表示
-     * GET /
+     * Index method
+     *
+     * @return \Cake\Http\Response|void
      */
     public function index()
     {
-        $results = $this->Elements->find('all', [
-            'order' => ['Elements.category_kbn' => 'ASC', 'Elements.name' => 'ASC']
-        ])->toArray();
+        $elements = $this->paginate($this->Elements);
 
-        $this->set(compact("results"));
+        $this->set(compact('elements'));
     }
 
     /**
-     * カテゴリから材料を検索する
-     * GET /search
-     * @param $category
+     * View method
+     *
+     * @param string|null $id Element id.
+     * @return \Cake\Http\Response|void
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function search()
+    public function view($id = null)
     {
-        $params = $this->request->getQueryParams();
-        $results = $this->Elements->findByCategoryKbn($params['category_kbn'])->toArray();
+        $element = $this->Elements->get($id, [
+            'contain' => ['Cocktails']
+        ]);
 
-        $this->set(compact("results"));
-        $this->render('index');
+        $this->set('element', $element);
     }
 
     /**
-     * 材料詳細表示
-     * GET /:id
-     * @param $id
-     */
-    public function show($id)
-    {
-        $results = $this->Elements->findById($id)->first();
-
-        $this->set(compact("results"));
-    }
-
-    /**
-     * 材料編集画面表示
-     * GET /:id/edit
-     * @param $id
-     */
-    public function edit($id)
-    {
-        $results = $this->Elements->findById($id)->first();
-
-        $this->set(compact("results"));
-    }
-
-    /**
-     * 材料作成画面表示
-     * GET /add
+     * Add method
+     *
+     * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
      */
     public function add()
     {
+        $element = $this->Elements->newEntity();
+        if ($this->request->is('post')) {
+            $element = $this->Elements->patchEntity($element, $this->request->getData());
+            if ($this->Elements->save($element)) {
+                $this->Flash->success(__('The element has been saved.'));
+
+                return $this->redirect(['action' => 'index']);
+            }
+            $this->Flash->error(__('The element could not be saved. Please, try again.'));
+        }
+        $cocktails = $this->Elements->Cocktails->find('list', ['limit' => 200]);
+        $this->set(compact('element', 'cocktails'));
     }
 
     /**
-     * 材料登録/更新
-     * POST /save
+     * Edit method
+     *
+     * @param string|null $id Element id.
+     * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
+     * @throws \Cake\Network\Exception\NotFoundException When record not found.
      */
-    public function save()
+    public function edit($id = null)
     {
+        $element = $this->Elements->get($id, [
+            'contain' => ['Cocktails']
+        ]);
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $element = $this->Elements->patchEntity($element, $this->request->getData());
+            if ($this->Elements->save($element)) {
+                $this->Flash->success(__('The element has been saved.'));
 
+                return $this->redirect(['action' => 'index']);
+            }
+            $this->Flash->error(__('The element could not be saved. Please, try again.'));
+        }
+        $cocktails = $this->Elements->Cocktails->find('list', ['limit' => 200]);
+        $this->set(compact('element', 'cocktails'));
+    }
+
+    /**
+     * Delete method
+     *
+     * @param string|null $id Element id.
+     * @return \Cake\Http\Response|null Redirects to index.
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     */
+    public function delete($id = null)
+    {
+        $this->request->allowMethod(['post', 'delete']);
+        $element = $this->Elements->get($id);
+        if ($this->Elements->delete($element)) {
+            $this->Flash->success(__('The element has been deleted.'));
+        } else {
+            $this->Flash->error(__('The element could not be deleted. Please, try again.'));
+        }
+
+        return $this->redirect(['action' => 'index']);
     }
 }
