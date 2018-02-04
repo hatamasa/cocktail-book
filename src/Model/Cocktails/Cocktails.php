@@ -175,13 +175,4 @@ class Cocktails
         return $elements_list;
     }
 
-    /**
-     * タグ番号の配列からタグ検索用の2進数配列を作成する
-     * @param array タグ番号の配列
-     */
-    private function makeTagsBinaryDigit(array $tags_digit)
-    {
-        // TODO タグidからタグマスタを検索し、取得したタグ検索配列番号のビットを1にする
-    }
-
 }

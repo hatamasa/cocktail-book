@@ -76,7 +76,7 @@ class CocktailsController extends AppController
     public function edit($id)
     {
         $params = [];
-        $elements_list_selected = [];
+        $cocktail_elements = [];
         $errors = [];
 
         if($this->request->is('GET')){
@@ -85,7 +85,7 @@ class CocktailsController extends AppController
             $results = $cocktails->fetchCocktailDetail($id);
 
             $params = $results['cocktail'];
-            $elements_list_selected = $results['cocktail_elements'];
+            $cocktail_elements = $results['cocktail_elements'];
 
         } else if ($this->request->is('PUT')){
 
@@ -112,12 +112,12 @@ class CocktailsController extends AppController
 
             // バリデエラー、登録エラーがある場合、かつ材料リストがある場合、入力保持のため材料テーブルを作成する
             if(isset($params['element_id_selected'])){
-                $elements_list_selected = $cocktails->makeElementsTableList();
+                $cocktail_elements = $cocktails->makeElementsTableList();
             }
         }
 
         // バリデエラー、Exception、画面表示の場合は再表示する
-        $this->set(compact('params', 'elements_list_selected', 'errors'));
+        $this->set(compact('params', 'cocktail_elements', 'errors'));
     }
 
     /**
@@ -127,7 +127,7 @@ class CocktailsController extends AppController
     public function add()
     {
         $params = [];
-        $elements_list_selected = [];
+        $cocktail_elements = [];
         $errors = [];
 
         if($this->request->is('POST')){
@@ -155,12 +155,12 @@ class CocktailsController extends AppController
 
             // バリデエラー、登録エラーがある場合、かつ材料リストがある場合、入力保持のため材料テーブルを作成する
             if (isset($params['element_id_selected'])) {
-                $elements_list_selected = $cocktails->makeElementsTableList();
+                $cocktail_elements = $cocktails->makeElementsTableList();
             }
         }
 
         // バリデエラー、Exception、画面表示からの遷移の場合は登録画面を表示する
-        $this->set(compact('params', 'elements_list_selected', 'errors'));
+        $this->set(compact('params', 'cocktail_elements', 'errors'));
     }
 
     public function delete()
@@ -201,9 +201,9 @@ class CocktailsController extends AppController
         $params['amount_selected'][] = $params['amount'];
 
         $cocktails = new Cocktails($params);
-        $elements_list_selected = $cocktails->makeElementsTableList();
+        $cocktail_elements = $cocktails->makeElementsTableList();
 
-        $this->set(compact('elements_list_selected'));
+        $this->set(compact('cocktail_elements'));
         $this->render('/Element/Cocktails/ajax_elements_table','');
     }
 
@@ -224,9 +224,9 @@ class CocktailsController extends AppController
         array_splice($params['amount_selected'], $params['del_index'], 1);
 
         $cocktails = new Cocktails($params);
-        $elements_list_selected = $cocktails->makeElementsTableList();
+        $cocktail_elements = $cocktails->makeElementsTableList();
 
-        $this->set(compact('elements_list_selected'));
+        $this->set(compact('cocktail_elements'));
         $this->render('/Element/Cocktails/ajax_elements_table','');
     }
 
