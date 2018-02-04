@@ -64,6 +64,7 @@ class CocktailsController extends AppController
         $results = $cocktails->fetchCocktailDetail($id);
 
         $this->set('cocktail', $results['cocktail']);
+        $this->set('cocktail_tags', $results['cocktail']['CocktailTags']??[] );
         $this->set('cocktail_elements', $results['cocktail_elements']);
     }
 

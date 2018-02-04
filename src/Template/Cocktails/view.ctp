@@ -39,6 +39,16 @@
     <?php endforeach; ?>
     </table>
 </div>
+<div>
+    <h2>タグ</h2>
+    <table>
+    <?php foreach ($cocktail_tags as $tag): ?>
+        <tr>
+            <td><?= $tag['name'] ?></td>
+        </tr>
+    <?php endforeach;?>
+    </table>
+</div>
 <div class="cocktail__wrapper">
     <h2>手順</h2>
     <p><?= $cocktail['processes']?></p>

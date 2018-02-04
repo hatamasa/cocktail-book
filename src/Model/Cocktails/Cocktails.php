@@ -74,7 +74,7 @@ class Cocktails
         $results = [];
 
         $cocktailsTable = TableRegistry::get('Cocktails');
-        $results['cocktail'] = $cocktailsTable->get($cocktail_id)->toArray();
+        $results['cocktail'] = $cocktailsTable->findById($cocktail_id)->contain(['CocktailTags'])->first();
 
         $cocktailElementsTable = TableRegistry::get('CocktailElements');
         $results['cocktail_elements'] = $cocktailElementsTable->fetchElementsByCocktailId($cocktail_id);

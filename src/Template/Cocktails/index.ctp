@@ -46,6 +46,19 @@
                 <?php endforeach; ?>
             </ul>
         </div>
+        <div class="form-group">
+            <h2>タグから検索する</h2>
+            <ul class="form-input-check display-inline-ul">
+                <?php foreach ($tags as $tag):?>
+                <li>
+                    <label>
+                        <input type="checkbox" class="checkbox-input" name="tag_ids[]" value="<?= $tag['id']?>" <?php if(in_array($tag['id'], $params['tag_ids']??[])): ?> checked="checked" <?php endif; ?> />
+                        <span class="checkbox-span"><?= $tag['name']?></span>
+                    </label>
+                </li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
         <button type="submit" class="btn btn-default btn-full" >検索</button>
     </form>
 </div>
