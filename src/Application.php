@@ -14,9 +14,10 @@
  */
 namespace App;
 
-use Cake\Core\Configure;
+use Cake\Cache\Cache;
 use Cake\Error\Middleware\ErrorHandlerMiddleware;
 use Cake\Http\BaseApplication;
+use Cake\ORM\TableRegistry;
 use Cake\Routing\Middleware\AssetMiddleware;
 use Cake\Routing\Middleware\RoutingMiddleware;
 
@@ -49,4 +50,21 @@ class Application extends BaseApplication
 
         return $middlewareQueue;
     }
+
+    public function bootstrap()
+    {
+        // config/bootstrap.php を `require_once`  するために parent を呼びます。
+        parent::bootstrap();
+
+        // タグマスタキャッシュがない場合はDBより読み込む
+        if(($tags = Cache::read('tags')) === false ){
+            $tagsTable = TableRegistry::get('Tags');
+            $tags = $tagsTable->find('all', [
+                'order' => ['Tags.id' => 'ASC']
+            ])->toArray();
+            Cache::write('tags', $tags);
+        }
+
+    }
 }
+

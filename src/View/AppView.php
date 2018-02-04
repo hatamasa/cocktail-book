@@ -15,6 +15,7 @@ namespace App\View;
 
 use Cake\View\View;
 use Cake\Core\Configure;
+use Cake\Cache\Cache;
 
 /**
  * Application View
@@ -43,7 +44,7 @@ class AppView extends View
 
         $this->assign('title', 'カクテル.com');
 
-        // 定数の呼び出し
+        // パス別の処理
         switch ($this->templatePath) {
             case 'Cocktails':
                 // 表示に必要は区分値
@@ -52,13 +53,14 @@ class AppView extends View
                 $this->set('taste_list', Configure::read('taste'));
                 $this->set('category_list', Configure::read('category_kbn'));
 
-                // プルダウン表示材料を取得
+                // テンプレート別処理
                 switch ($this->template){
                     case 'index':
                     case 'search':
                     case 'add':
                     case 'edit':
-                        // TODO マスタからリストを取得して、setする
+                        // マスタキャッシュをセット
+                        $this->set('tags', Cache::read('tags'));
                         break;
                 }
                 break;
