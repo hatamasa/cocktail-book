@@ -74,7 +74,7 @@ class Cocktails
         $results = [];
 
         $cocktailsTable = TableRegistry::get('Cocktails');
-        $results['cocktail'] = $cocktailsTable->findById($cocktail_id)->contain(['Tags'])->first();
+        $results['cocktail'] = $cocktailsTable->findById($cocktail_id)->contain(['CocktailsTags', 'Tags'])->first();
 
         $cocktailsElementsTable = TableRegistry::get('CocktailsElements');
         $results['cocktails_elements'] = $cocktailsElementsTable->fetchElementsByCocktailId($cocktail_id);
@@ -84,7 +84,6 @@ class Cocktails
 
     /**
      * カクテルを登録する
-     * TODO カクテルタグへの保存
      * @param $params
      */
     public function saveCocktail(){
@@ -112,8 +111,8 @@ class Cocktails
         }
 
         // カクテルタグの配列作成
-        if(isset($this->params['tag_id_selected'])){
-            foreach ($this->params['tag_id_selected'] as $tag_id){
+        if(isset($this->params['tag_id'])){
+            foreach ($this->params['tag_id'] as $tag_id){
                 $data['cocktails_tags'][] = [
                     'id' => '',
                     'cocktail_id' => $this->params['id'],

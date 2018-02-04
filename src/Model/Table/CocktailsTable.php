@@ -3,11 +3,15 @@ namespace App\Model\Table;
 
 use App\Model\Cocktails\CocktailsUtil;
 use Cake\ORM\Table;
+use Cake\ORM\TableRegistry;
 
 class CocktailsTable extends Table
 {
     public function initialize(array $config){
         $this->hasMany('CocktailsElements')
+        ->setForeignKey('cocktail_id');
+
+        $this->hasMany('CocktailsTags')
         ->setForeignKey('cocktail_id');
 
         $this->belongsToMany('Tags');
@@ -37,9 +41,14 @@ class CocktailsTable extends Table
             $query->andWhere(['taste IN' => $params['taste']]);
         }
         if(isset($params['tag_id'])){
-            $query
-                ->innerJoin(['ct' => 'cocktails_tags'], ['Cocktails.id = ct.cocktail_id'])
-                ->andWhere(['ct.tag_id IN' => $params['tag_id']]);
+            $cocktailsTags = TableRegistry::get('CocktailsTags');
+            $subQuery = $cocktailsTags->find()
+                ->select(['cocktail_id'])
+                ->where(['tag_id IN' => $params['tag_id']])
+                ->group(['cocktail_id'])
+            ;
+
+            $query->andWhere(['id IN' => $subQuery]);
         }
 
         $query->order(['name' => 'ASC']);
@@ -54,7 +63,7 @@ class CocktailsTable extends Table
      */
     private function convertToSearchString($str){
 
-        $str = CocktailsUtil::convertToHalfString($str);
+        $str = CocktailsUtil::ToHalfString($str);
         $str = CocktailsUtil::escapeString(trim($str));
         return $str;
     }

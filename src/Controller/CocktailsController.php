@@ -85,9 +85,11 @@ class CocktailsController extends AppController
 
             $params = $results['cocktail'];
             $params['cocktails_elements'] = $results['cocktails_elements'];
+
+            // 付いているタグIDは配列にして返却
             $params['tag_id'] = [];
-            foreach ($results['cocktail']['tags'] as $tag){
-                $params['tag_id'][] = $tag['id'];
+            foreach ($results['cocktail']['cocktails_tags'] as $cocktails_tag){
+                $params['tag_id'][] = $cocktails_tag['tag_id'];
             }
 
         } else if ($this->request->is('PUT')){
