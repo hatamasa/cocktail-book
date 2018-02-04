@@ -60,7 +60,7 @@ class AppView extends View
                     case 'add':
                     case 'edit':
                         // マスタキャッシュをセット
-                        $this->set('tags', Cache::read('tags'));
+                        $this->set('tags_master', Cache::read('tags_master'));
                         break;
                 }
                 break;

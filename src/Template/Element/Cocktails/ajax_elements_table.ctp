@@ -1,5 +1,5 @@
-<?php if(isset($cocktail_elements)):?>
-<?php foreach ($cocktail_elements as $key => $value):?>
+<?php if(isset($params['cocktails_elements'])):?>
+<?php foreach ($params['cocktails_elements'] as $key => $value):?>
 <tr><!-- 'saved_id' => 'CocktailElements.id', 'id' => 'me.id' -->
   <input type="hidden" class="index" name="index" value="<?=$key?>" />
   <input type="hidden" class="saved_id" name="saved_id[]" value="<?= $value['saved_id']??'' ?>" />

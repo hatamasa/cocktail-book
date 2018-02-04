@@ -49,10 +49,10 @@
         <div class="form-group">
             <h2>タグから検索する</h2>
             <ul class="form-input-check display-inline-ul">
-                <?php foreach ($tags as $tag):?>
+                <?php foreach ($tags_master as $tag):?>
                 <li>
                     <label>
-                        <input type="checkbox" class="checkbox-input" name="tag_ids[]" value="<?= $tag['id']?>" <?php if(in_array($tag['id'], $params['tag_ids']??[])): ?> checked="checked" <?php endif; ?> />
+                        <input type="checkbox" class="checkbox-input" name="tag_id[]" value="<?= $tag['id']?>" <?php if(in_array($tag['id'], $params['tag_id']??[])): ?> checked="checked" <?php endif; ?> />
                         <span class="checkbox-span"><?= $tag['name']?></span>
                     </label>
                 </li>

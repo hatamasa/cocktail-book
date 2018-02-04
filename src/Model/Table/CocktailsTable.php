@@ -7,11 +7,10 @@ use Cake\ORM\Table;
 class CocktailsTable extends Table
 {
     public function initialize(array $config){
-        $this->hasMany('CocktailElements')
+        $this->hasMany('CocktailsElements')
         ->setForeignKey('cocktail_id');
 
-        $this->hasMany('CocktailTags')
-        ->setForeignKey('cocktail_id');
+        $this->belongsToMany('Tags');
     }
 
     /**
@@ -36,6 +35,11 @@ class CocktailsTable extends Table
         }
         if(isset($params['taste'])){
             $query->andWhere(['taste IN' => $params['taste']]);
+        }
+        if(isset($params['tag_id'])){
+            $query
+                ->innerJoin(['ct' => 'cocktails_tags'], ['Cocktails.id = ct.cocktail_id'])
+                ->andWhere(['ct.tag_id IN' => $params['tag_id']]);
         }
 
         $query->order(['name' => 'ASC']);

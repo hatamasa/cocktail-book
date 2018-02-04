@@ -3,10 +3,11 @@ namespace App\Model\Table;
 
 use Cake\ORM\Table;
 
-class CocktailTagsTable extends Table
+class TagsTable extends Table
 {
 
     public function initialize(array $config)
     {
+        $this->belongsToMany('Cocktails');
     }
 }

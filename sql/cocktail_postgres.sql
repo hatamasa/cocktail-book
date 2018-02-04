@@ -37,29 +37,29 @@ insert into cocktails(id, name, search_name, glass, percentage, taste) values(4,
 
 
 // カクテル要素
-create table cocktail_elements (
+create table cocktails_elements (
   id serial,
-  cocktail_id int not null references cocktails(id),
-  element_id int not null references elements(id),
+  cocktail_id int not null,
+  element_id int not null,
   amount varchar(20) not null,
   dt_create timestamp DEFAULT CURRENT_TIMESTAMP,
   primary key (id)
 );
-insert into cocktail_elements(cocktail_id, element_id, amount) values(1, 2, '30ml');
-insert into cocktail_elements(cocktail_id, element_id, amount) values(1, 10, '適量');
-insert into cocktail_elements(cocktail_id, element_id, amount) values(2, 1 , '30ml');
-insert into cocktail_elements(cocktail_id, element_id, amount) values(2, 11, '適量');
-insert into cocktail_elements(cocktail_id, element_id, amount) values(3, 9, '30ml');
-insert into cocktail_elements(cocktail_id, element_id, amount) values(3, 13, '適量');
-insert into cocktail_elements(cocktail_id, element_id, amount) values(4, 7, '30ml');
-insert into cocktail_elements(cocktail_id, element_id, amount) values(4, 12, '適量');
+insert into cocktails_elements(cocktail_id, element_id, amount) values(1, 2, '30ml');
+insert into cocktails_elements(cocktail_id, element_id, amount) values(1, 10, '適量');
+insert into cocktails_elements(cocktail_id, element_id, amount) values(2, 1 , '30ml');
+insert into cocktails_elements(cocktail_id, element_id, amount) values(2, 11, '適量');
+insert into cocktails_elements(cocktail_id, element_id, amount) values(3, 9, '30ml');
+insert into cocktails_elements(cocktail_id, element_id, amount) values(3, 13, '適量');
+insert into cocktails_elements(cocktail_id, element_id, amount) values(4, 7, '30ml');
+insert into cocktails_elements(cocktail_id, element_id, amount) values(4, 12, '適量');
 
 
 // 要素マスタ
 create table elements (
   id serial,
   category_kbn varchar(4) not null,
-  name varchar(64),
+  name varchar(64) not null,
   dt_create timestamp DEFAULT CURRENT_TIMESTAMP,
   primary key (id)
 );
@@ -81,23 +81,23 @@ insert into elements(id, category_kbn, name) values(13, 4, '牛乳');
 
 
 // カクテルタグ
-create table cocktail_tags (
+create table cocktails_tags (
     id serial,
-    cocktail_id int not null references cocktails(id),
-    tag_id varchar(20),
+    cocktail_id int not null,
+    tag_id int,
     dt_create timestamp DEFAULT CURRENT_TIMESTAMP,
     primary key (id)
 );
-insert into cocktail_tags(id, cocktail_id, tag_id) values(1, 1, 1);
-insert into cocktail_tags(id, cocktail_id, tag_id) values(2, 1, 2);
-insert into cocktail_tags(id, cocktail_id, tag_id) values(3, 2, 1);
-insert into cocktail_tags(id, cocktail_id, tag_id) values(4, 3, 2);
-insert into cocktail_tags(id, cocktail_id, tag_id) values(5, 3, 3);
+insert into cocktails_tags(id, cocktail_id, tag_id) values(1, 1, 1);
+insert into cocktails_tags(id, cocktail_id, tag_id) values(2, 1, 2);
+insert into cocktails_tags(id, cocktail_id, tag_id) values(3, 2, 1);
+insert into cocktails_tags(id, cocktail_id, tag_id) values(4, 3, 2);
+insert into cocktails_tags(id, cocktail_id, tag_id) values(5, 3, 3);
 
 // タグマスタ
 create table tags (
     id serial,
-    name varchar(30),
+    name varchar(30) not null,
     dt_create timestamp DEFAULT CURRENT_TIMESTAMP,
     primary key (id)
 );

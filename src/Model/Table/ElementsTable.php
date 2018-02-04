@@ -8,7 +8,7 @@ class ElementsTable extends Table
 
     public function initialize(array $config)
     {
-        $this->hasMany('CocktailElements')
+        $this->hasMany('CocktailsElements')
             ->setForeignKey('element_id');
     }
 }

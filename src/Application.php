@@ -57,12 +57,12 @@ class Application extends BaseApplication
         parent::bootstrap();
 
         // タグマスタキャッシュがない場合はDBより読み込む
-        if(($tags = Cache::read('tags')) === false ){
+        if(($tags_master = Cache::read('tags_master')) === false ){
             $tagsTable = TableRegistry::get('Tags');
-            $tags = $tagsTable->find('all', [
+            $tags_master = $tagsTable->find('all', [
                 'order' => ['Tags.id' => 'ASC']
             ])->toArray();
-            Cache::write('tags', $tags);
+            Cache::write('tags_master', $tags_master);
         }
 
     }

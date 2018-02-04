@@ -74,16 +74,17 @@ class Cocktails
         $results = [];
 
         $cocktailsTable = TableRegistry::get('Cocktails');
-        $results['cocktail'] = $cocktailsTable->findById($cocktail_id)->contain(['CocktailTags'])->first();
+        $results['cocktail'] = $cocktailsTable->findById($cocktail_id)->contain(['Tags'])->first();
 
-        $cocktailElementsTable = TableRegistry::get('CocktailElements');
-        $results['cocktail_elements'] = $cocktailElementsTable->fetchElementsByCocktailId($cocktail_id);
+        $cocktailsElementsTable = TableRegistry::get('CocktailsElements');
+        $results['cocktails_elements'] = $cocktailsElementsTable->fetchElementsByCocktailId($cocktail_id);
 
         return $results;
     }
 
     /**
      * カクテルを登録する
+     * TODO カクテルタグへの保存
      * @param $params
      */
     public function saveCocktail(){
@@ -102,7 +103,7 @@ class Cocktails
 
         // カクテル要素の配列作成
         for ($i = 0; $i < count($this->params['element_id_selected']); $i++){
-            $data['cocktail_elements'][] = [
+            $data['cocktails_elements'][] = [
                 'id' => $this->params['saved_id'][$i]??'',
                 'cocktail_id' => $this->params['id'],
                 'element_id' => $this->params['element_id_selected'][$i],
@@ -113,7 +114,7 @@ class Cocktails
         // カクテルタグの配列作成
         if(isset($this->params['tag_id_selected'])){
             foreach ($this->params['tag_id_selected'] as $tag_id){
-                $data['cocktail_tags'][] = [
+                $data['cocktails_tags'][] = [
                     'id' => '',
                     'cocktail_id' => $this->params['id'],
                     'tag_id' => $tag_id,
@@ -123,20 +124,20 @@ class Cocktails
 
         // エンティティとアソシエーションを作成
         $cocktailsTable = TableRegistry::get('Cocktails');
-        $cocktailElementsTable = TableRegistry::get('CocktailElements');
-        $cocktailTagsTable = TableRegistry::get('CocktailTags');
+        $cocktailsElementsTable = TableRegistry::get('CocktailsElements');
+        $cocktailsTagsTable = TableRegistry::get('CocktailsTags');
 
         $connection = ConnectionManager::get('default');
         $connection->begin();
         try{
             // patchEntityのみではアソシエーション削除の場合、削除されない
-            // そのためCocktailElements, CocktailTagsを全削除して入れ直す
-            $cocktailElementsTable->deleteAll(['cocktail_id' => $this->params['id']]);
-            $cocktailTagsTable->deleteAll(['cocktail_id' => $this->params['id']]);
+            // そのためCocktailsElements, CocktailsTagsを全削除して入れ直す
+            $cocktailsElementsTable->deleteAll(['cocktail_id' => $this->params['id']]);
+            $cocktailsTagsTable->deleteAll(['cocktail_id' => $this->params['id']]);
 
             $cocktail = $cocktailsTable->newEntity();
             $cocktail = $cocktailsTable->patchEntity($cocktail, $data, [
-                'associated' => ['CocktailElements', 'CocktailTags'],
+                'associated' => ['CocktailsElements', 'CocktailsTags'],
             ]);
             $result = $cocktailsTable->save($cocktail);
             $connection->commit();

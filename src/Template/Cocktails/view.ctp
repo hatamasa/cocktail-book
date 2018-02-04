@@ -30,7 +30,7 @@
 <div class="cocktailElements__wrapper">
     <h2>入れるもの</h2>
     <table class="detail-elements-table">
-    <?php foreach ($cocktail_elements as $element): ?>
+    <?php foreach ($cocktails_elements as $element): ?>
         <tr>
             <th class="table-header-md"><?= $category_list[$element['category_kbn']]?></th>
             <td class="table-data-md"><?= $element['name']?></td>
@@ -42,7 +42,7 @@
 <div>
     <h2>タグ</h2>
     <table>
-    <?php foreach ($cocktail_tags as $tag): ?>
+    <?php foreach ($cocktails_tags as $tag): ?>
         <tr>
             <td><?= $tag['name'] ?></td>
         </tr>

@@ -3,7 +3,7 @@ namespace App\Model\Table;
 
 use Cake\ORM\Table;
 
-class CocktailElementsTable extends Table
+class CocktailsElementsTable extends Table
 {
 
     public function fetchElementsByCocktailId($cocktail_id){
@@ -12,16 +12,16 @@ class CocktailElementsTable extends Table
 
         $query
             ->select([
-                'saved_id' => 'CocktailElements.id',
+                'saved_id' => 'CocktailsElements.id',
                 'id' => 'me.id',
-                'amount' => 'CocktailElements.amount',
+                'amount' => 'CocktailsElements.amount',
                 'category_kbn' => 'me.category_kbn',
                 'name' => 'me.name'
             ])
-            ->innerJoin(['me' => 'elements'], ['CocktailElements.element_id = me.id'])
-            ->where(['CocktailElements.cocktail_id' => $cocktail_id])
+            ->innerJoin(['me' => 'elements'], ['CocktailsElements.element_id = me.id'])
+            ->where(['CocktailsElements.cocktail_id' => $cocktail_id])
             ->order(['me.category_kbn' => 'ASC'])
-            ->order(['CocktailElements.element_id' => 'ASC']);
+            ->order(['CocktailsElements.element_id' => 'ASC']);
 
         return $query->toArray();
     }
