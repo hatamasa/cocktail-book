@@ -45,14 +45,14 @@ create table cocktails_elements (
   dt_create timestamp DEFAULT CURRENT_TIMESTAMP,
   primary key (id)
 );
-insert into cocktails_elements(cocktail_id, element_id, amount) values(nextval('cocktails_elements_id_seq'), 2, '30ml');
-insert into cocktails_elements(cocktail_id, element_id, amount) values(nextval('cocktails_elements_id_seq'), 10, '適量');
-insert into cocktails_elements(cocktail_id, element_id, amount) values(nextval('cocktails_elements_id_seq'), 1 , '30ml');
-insert into cocktails_elements(cocktail_id, element_id, amount) values(nextval('cocktails_elements_id_seq'), 11, '適量');
-insert into cocktails_elements(cocktail_id, element_id, amount) values(nextval('cocktails_elements_id_seq'), 9, '30ml');
-insert into cocktails_elements(cocktail_id, element_id, amount) values(nextval('cocktails_elements_id_seq'), 13, '適量');
-insert into cocktails_elements(cocktail_id, element_id, amount) values(nextval('cocktails_elements_id_seq'), 7, '30ml');
-insert into cocktails_elements(cocktail_id, element_id, amount) values(nextval('cocktails_elements_id_seq'), 12, '適量');
+insert into cocktails_elements(id, cocktail_id, element_id, amount) values(nextval('cocktails_elements_id_seq'), 1, 2, '30ml');
+insert into cocktails_elements(id, cocktail_id, element_id, amount) values(nextval('cocktails_elements_id_seq'), 1, 10, '適量');
+insert into cocktails_elements(id, cocktail_id, element_id, amount) values(nextval('cocktails_elements_id_seq'), 2, 1 , '30ml');
+insert into cocktails_elements(id, cocktail_id, element_id, amount) values(nextval('cocktails_elements_id_seq'), 2, 11, '適量');
+insert into cocktails_elements(id, cocktail_id, element_id, amount) values(nextval('cocktails_elements_id_seq'), 3, 9, '30ml');
+insert into cocktails_elements(id, cocktail_id, element_id, amount) values(nextval('cocktails_elements_id_seq'), 3, 13, '適量');
+insert into cocktails_elements(id, cocktail_id, element_id, amount) values(nextval('cocktails_elements_id_seq'), 4, 7, '30ml');
+insert into cocktails_elements(id, cocktail_id, element_id, amount) values(nextval('cocktails_elements_id_seq'), 4, 12, '適量');
 
 
 // 要素マスタ

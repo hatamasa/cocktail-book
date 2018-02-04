@@ -3,7 +3,7 @@ $(function(){
     // selectボックスの変更イベント
     $('.category').on('change keyup', function() {
         var id = $('.category').val();
-        $('.elements').load( '/cocktails/getElementsOptions/'+id);
+        $('.elements').load( '/admin/cocktails/getElementsOptions/'+id);
     });
 
     // セレクトボックスを未選択状態にする
@@ -25,7 +25,7 @@ $(function(){
         obj['amount'] = $('.amount-input').val();
 
         console.log(obj);
-        $('.elements-table').load( '/cocktails/mergeElementsTable/', obj);
+        $('.elements-table').load( '/admin/cocktails/mergeElementsTable/', obj);
     });
 
     // 材料削除ボタン押下イベント
@@ -39,7 +39,7 @@ $(function(){
         obj['del_index'] = $(this).closest('tr').find('.index').val();
 
         console.log(obj);
-        $('.elements-table').load( '/cocktails/deleteElementsTable/', obj);
+        $('.elements-table').load( '/admin/cocktails/deleteElementsTable/', obj);
     });
 
 });

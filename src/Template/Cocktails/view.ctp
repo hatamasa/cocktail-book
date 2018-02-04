@@ -2,8 +2,8 @@
 <div class="title__wrapper">
     <h1><?= $cocktail['name']?></h1>
     <ul>
-        <li>
-            <a href="/cocktails/<?=$cocktail['id']?>/edit">編集する</a>
+        <li><!-- TODO 管理者ログインのみ表示 -->
+            <a href="/admin/cocktails/<?=$cocktail['id']?>/edit">編集する</a>
         </li>
     </ul>
 </div>
