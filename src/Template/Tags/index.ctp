@@ -1,19 +1,7 @@
-<?php
-/**
- * @var \App\View\AppView $this
- * @var \App\Model\Entity\Tag[]|\Cake\Collection\CollectionInterface $tags
- */
-?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('New Tag'), ['action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Cocktails'), ['controller' => 'Cocktails', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Cocktail'), ['controller' => 'Cocktails', 'action' => 'add']) ?></li>
-    </ul>
-</nav>
+<?= $this->element('_admin_nav');?>
 <div class="tags index large-9 medium-8 columns content">
     <h3><?= __('Tags') ?></h3>
+    <?= $this->Html->link(__('Add Tag'), ['action' => 'add']) ?>
     <table cellpadding="0" cellspacing="0">
         <thead>
             <tr>
@@ -30,7 +18,6 @@
                 <td><?= h($tag->name) ?></td>
                 <td><?= h($tag->dt_create) ?></td>
                 <td class="actions">
-                    <?= $this->Html->link(__('View'), ['action' => 'view', $tag->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $tag->id]) ?>
                     <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $tag->id], ['confirm' => __('Are you sure you want to delete # {0}?', $tag->id)]) ?>
                 </td>

@@ -1,19 +1,7 @@
-<?php
-/**
- * @var \App\View\AppView $this
- * @var \App\Model\Entity\Element[]|\Cake\Collection\CollectionInterface $elements
- */
-?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('New Element'), ['action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Cocktails'), ['controller' => 'Cocktails', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Cocktail'), ['controller' => 'Cocktails', 'action' => 'add']) ?></li>
-    </ul>
-</nav>
+<?= $this->element('_admin_nav');?>
 <div class="elements index large-9 medium-8 columns content">
     <h3><?= __('Elements') ?></h3>
+    <?= $this->Html->link(__('Add Element'), ['action' => 'add']) ?>
     <table cellpadding="0" cellspacing="0">
         <thead>
             <tr>
@@ -32,7 +20,6 @@
                 <td><?= h($element->name) ?></td>
                 <td><?= h($element->dt_create) ?></td>
                 <td class="actions">
-                    <?= $this->Html->link(__('View'), ['action' => 'view', $element->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $element->id]) ?>
                     <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $element->id], ['confirm' => __('Are you sure you want to delete # {0}?', $element->id)]) ?>
                 </td>
