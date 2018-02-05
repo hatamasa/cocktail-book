@@ -1,6 +1,7 @@
 <?= $this->element('_admin_nav');?>
 <div class="elements index large-9 medium-8 columns content">
     <h3><?= __('Elements') ?></h3>
+    <!-- TODO ここでaddできるようにする -->
     <?= $this->Html->link(__('Add Element'), ['action' => 'add']) ?>
     <table cellpadding="0" cellspacing="0">
         <thead>
