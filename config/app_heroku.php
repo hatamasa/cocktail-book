@@ -2,6 +2,11 @@
 
 //$db = parse_url(env('CLEARDB_DATABASE_URL'));
 $db = parse_url(env('DATABASE_URL'));
+ini_set('session.save_handler', 'memcached');
+ini_set('session.save_path', 'PERSISTENT=pool ' . env('MEMCACHIER_SERVERS'));
+ini_set('Memcached.sess_binary', 1);
+ini_set('Memcached.sess_sasl_username', env('MEMCACHIER_USERNAME'));
+ini_set('Memcached.sess_sasl_password', env('MEMCACHIER_PASSWORD'));
 
 return [
     /**
