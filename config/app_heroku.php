@@ -101,14 +101,14 @@ return [
             'duration' => '+1440 minutes',
         ],
 
-        'session' => [
-            'className' => 'Memcached',
-            'prefix' => 'myapp_cake_session_',
-            'servers' => [env('MEMCACHIER_SERVERS')],
-            'username' => env('MEMCACHIER_USERNAME'),
-            'password' => env('MEMCACHIER_PASSWORD'),
-            'duration' => '+1440 minutes',
-        ],
+//         'session' => [
+//             'className' => 'Memcached',
+//             'prefix' => 'myapp_cake_session_',
+//             'servers' => [env('MEMCACHIER_SERVERS')],
+//             'username' => env('MEMCACHIER_USERNAME'),
+//             'password' => env('MEMCACHIER_PASSWORD'),
+//             'duration' => '+1440 minutes',
+//         ],
 
         '_cake_core_' => [
             'className' => 'Memcached',
@@ -318,9 +318,10 @@ return [
      * To use database sessions, load the SQL file located at config/schema/sessions.sql
      */
     'Session' => [
-        'defaults' => 'cache',
-        'handler' => [
-            'config' => 'session'
-        ]
+        'defaults' => 'php'
+//         'defaults' => 'cache',
+//         'handler' => [
+//             'config' => 'session'
+//         ]
     ],
 ];
