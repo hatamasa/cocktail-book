@@ -1,7 +1,6 @@
 <?= $this->element('_admin_nav');?>
 <div class="tags index large-9 medium-8 columns content">
     <h3><?= __('Tags') ?></h3>
-    <!-- TODO ここでaddできるようにする -->
     <?= $this->Html->link(__('Add Tag'), ['action' => 'add']) ?>
     <table cellpadding="0" cellspacing="0">
         <thead>
