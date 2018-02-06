@@ -99,32 +99,41 @@ return [
             'serialize' => 'php'
         ],
 
-//         'session' => [
-//             'className' => 'Memcached',
-//             'prefix' => 'myapp_cake_session_',
-//             'servers' => [env('MEMCACHIER_SERVERS')],
-//             'username' => env('MEMCACHIER_USERNAME'),
-//             'password' => env('MEMCACHIER_PASSWORD'),
-//             'duration' => '+1440 minutes',
-//         ],
+        'session' => [
+            'className' => 'Memcached',
+            'prefix' => 'myapp_cake_session_',
+            'servers' => [env('MEMCACHIER_SERVERS')],
+            'username' => env('MEMCACHIER_USERNAME'),
+            'password' => env('MEMCACHIER_PASSWORD'),
+            'duration' => '+1440 minutes',
+            'compress' => false,
+            'persistent' => 'memcachier',
+            'serialize' => 'php'
+        ],
 
-//         '_cake_core_' => [
-//             'className' => 'Memcached',
-//             'prefix' => 'myapp_cake_core_',
-//             'servers' => [env('MEMCACHIER_SERVERS')],
-//             'username' => env('MEMCACHIER_USERNAME'),
-//             'password' => env('MEMCACHIER_PASSWORD'),
-//             'duration' => '+1 years',
-//         ],
+        '_cake_core_' => [
+            'className' => 'Memcached',
+            'prefix' => 'myapp_cake_core_',
+            'servers' => [env('MEMCACHIER_SERVERS')],
+            'username' => env('MEMCACHIER_USERNAME'),
+            'password' => env('MEMCACHIER_PASSWORD'),
+            'duration' => '+1 years',
+            'compress' => false,
+            'persistent' => 'memcachier',
+            'serialize' => 'php'
+        ],
 
-//         '_cake_model_' => [
-//             'className' => 'Memcached',
-//             'prefix' => 'myapp_cake_model_',
-//             'servers' => [env('MEMCACHIER_SERVERS')],
-//             'username' => env('MEMCACHIER_USERNAME'),
-//             'password' => env('MEMCACHIER_PASSWORD'),
-//             'duration' => '+1 years',
-//         ],
+        '_cake_model_' => [
+            'className' => 'Memcached',
+            'prefix' => 'myapp_cake_model_',
+            'servers' => [env('MEMCACHIER_SERVERS')],
+            'username' => env('MEMCACHIER_USERNAME'),
+            'password' => env('MEMCACHIER_PASSWORD'),
+            'duration' => '+1 years',
+            'compress' => false,
+            'persistent' => 'memcachier',
+            'serialize' => 'php'
+        ],
     ],
 
     /**
