@@ -88,7 +88,7 @@ return [
      */
     'Cache' => [
         'default' => [
-            'className' => 'Cake\Cache\Engine\MemcachedEngine',
+            'className' => 'Memcached',
             'prefix' => 'myapp_cake_',
             'servers' => [env('MEMCACHIER_SERVERS')],
             'username' => env('MEMCACHIER_USERNAME'),
@@ -100,7 +100,7 @@ return [
         ],
 
         'session' => [
-            'className' => 'Cake\Cache\Engine\MemcachedEngine',
+            'className' => 'Memcached',
             'prefix' => 'myapp_cake_session_',
             'servers' => [env('MEMCACHIER_SERVERS')],
             'username' => env('MEMCACHIER_USERNAME'),
@@ -112,7 +112,7 @@ return [
         ],
 
         '_cake_core_' => [
-            'className' => 'Cake\Cache\Engine\MemcachedEngine',
+            'className' => 'Memcached',
             'prefix' => 'myapp_cake_core_',
             'servers' => [env('MEMCACHIER_SERVERS')],
             'username' => env('MEMCACHIER_USERNAME'),
@@ -124,7 +124,7 @@ return [
         ],
 
         '_cake_model_' => [
-            'className' => 'Cake\Cache\Engine\MemcachedEngine',
+            'className' => 'Memcached',
             'prefix' => 'myapp_cake_model_',
             'servers' => [env('MEMCACHIER_SERVERS')],
             'username' => env('MEMCACHIER_USERNAME'),
