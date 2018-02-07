@@ -106,6 +106,7 @@ return [
             'username' => env('MEMCACHIER_USERNAME'),
             'password' => env('MEMCACHIER_PASSWORD'),
             'duration' => '+1440 minutes',
+//             'serialize' => 'php'
         ],
 
         'session' => [
@@ -115,6 +116,7 @@ return [
             'username' => env('MEMCACHIER_USERNAME'),
             'password' => env('MEMCACHIER_PASSWORD'),
             'duration' => '+1440 minutes',
+//             'serialize' => 'php'
         ],
 
         '_cake_core_' => [
@@ -124,6 +126,7 @@ return [
             'username' => env('MEMCACHIER_USERNAME'),
             'password' => env('MEMCACHIER_PASSWORD'),
             'duration' => '+1 years',
+            'serialize' => 'php'
         ],
 
         '_cake_model_' => [
@@ -133,6 +136,7 @@ return [
             'username' => env('MEMCACHIER_USERNAME'),
             'password' => env('MEMCACHIER_PASSWORD'),
             'duration' => '+1 years',
+//             'serialize' => 'php'
         ],
     ],
 
