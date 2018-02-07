@@ -4,10 +4,17 @@
 $db = parse_url(env('DATABASE_URL'));
 
 ini_set('session.save_handler', 'memcached');
-ini_set('session.save_path', 'PERSISTENT=pool ' . env('MEMCACHIER_SERVERS'));
-ini_set('Memcached.sess_binary_protocol', 1);
-ini_set('Memcached.sess_sasl_username', env('MEMCACHIER_USERNAME'));
-ini_set('Memcached.sess_sasl_password', env('MEMCACHIER_PASSWORD'));
+ini_set('session.save_path', env('MEMCACHIER_SERVERS'));
+if(version_compare(phpversion('memcached'), '3', '>=')) {
+    ini_set('memcached.sess_persistent', 1);
+    ini_set('memcached.sess_binary_protocol', 1);
+} else {
+    ini_set('session.save_path', 'PERSISTENT=myapp_session ' . ini_get('session.save_path'));
+    ini_set('memcached.sess_binary', 1);
+}
+ini_set('memcached.sess_sasl_username', env('MEMCACHIER_USERNAME'));
+ini_set('memcached.sess_sasl_password', env('MEMCACHIER_PASSWORD'));
+
 return [
     /**
      * Debug Level:
