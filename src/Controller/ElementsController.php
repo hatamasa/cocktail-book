@@ -1,8 +1,6 @@
 <?php
 namespace App\Controller;
 
-use App\Controller\AppController;
-
 /**
  * Elements Controller
  *
@@ -12,6 +10,12 @@ use App\Controller\AppController;
  */
 class ElementsController extends AppController
 {
+    public function initialize()
+    {
+        parent::initialize();
+        // 全てにログインを必要とする
+        $this->Auth->deny();
+    }
 
     /**
      * Index method
@@ -105,5 +109,15 @@ class ElementsController extends AppController
         }
 
         return $this->redirect(['action' => 'index']);
+    }
+
+    public function isAuthorized($user)
+    {
+        $action = $this->request->getParam('action');
+        // ログイン時に許可するアクション
+        if (in_array($action, ['index', 'view', 'edit', 'add', 'delete'])) {
+            return true;
+        }
+        return false;
     }
 }

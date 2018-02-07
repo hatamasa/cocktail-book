@@ -233,4 +233,14 @@ class CocktailsController extends AppController
         $this->render('/Element/Cocktails/ajax_elements_table','');
     }
 
+    public function isAuthorized($user)
+    {
+        $action = $this->request->getParam('action');
+        // ログイン時に許可するアクション
+        if (in_array($action, ['edit', 'add', 'getElementsOptions', 'mergeElementsTable', 'deleteElementsTable'])) {
+            return true;
+        }
+        return false;
+    }
+
 }

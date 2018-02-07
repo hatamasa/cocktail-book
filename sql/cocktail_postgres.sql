@@ -108,14 +108,14 @@ insert into tags(id, name) values(nextval('tags_id_seq'), '冬っぽい');
 insert into tags(id, name) values(nextval('tags_id_seq'), '夜景が似合う');
 
 // 管理者
-create table admins (
-  id serial not null,
-  login_id varchar(32),
-  password varchar(32),
+create table users (
+  id serial,
+  login varchar(32),
+  password varchar(200),
   dt_create timestamp DEFAULT CURRENT_TIMESTAMP,
   primary key (id)
 );
-insert into admins(id, login_id, password) values(nextval('admins_id_seq'), 'admin', '');
+insert into users(id, login, password) values(nextval('users_id_seq'), 'admin', '$2y$10$GdiVvNEYUUUXv00PsEtST.fO6u5Rv24RYVnytttOcTMatwHuZ24YS');
 
 // テーブル削除
 drop table cocktails;
@@ -123,4 +123,4 @@ drop table cocktails_elements;
 drop table cocktails_tags;
 drop table elements;
 drop table tags;
-drop table admins;
+drop table users;
