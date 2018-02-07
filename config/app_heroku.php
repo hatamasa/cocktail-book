@@ -136,7 +136,7 @@ return [
             'username' => env('MEMCACHIER_USERNAME'),
             'password' => env('MEMCACHIER_PASSWORD'),
             'duration' => '+1 years',
-//             'serialize' => 'php'
+            'serialize' => 'php'
         ],
     ],
 
