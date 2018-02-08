@@ -1,11 +1,11 @@
 <!-- 検索結果表示 -->
 <div class="title__wrapper">
     <h1><?= $cocktail['name']?></h1>
+    <?php if ($auth->user()): ?>
     <ul>
-        <li><!-- TODO 管理者ログインのみ表示 -->
-            <a href="/cocktails/edit/<?=$cocktail['id']?>">編集する</a>
-        </li>
+        <li><a href="/cocktails/edit/<?=$cocktail['id']?>">編集する</a></li>
     </ul>
+    <?php endif;?>
 </div>
 <div class="cocktail__wrapper">
     <table class="detail-table">

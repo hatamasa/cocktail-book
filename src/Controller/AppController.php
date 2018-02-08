@@ -15,15 +15,14 @@ class AppController extends Controller
     {
         parent::initialize();
 
-        $this->loadComponent('RequestHandler');
-        $this->loadComponent('Flash');
-
-        // ログ出力用メソッド登録
+        // ログ出力用クラス
         $this->logger = new Logger();
 
+        // 各種コンポーネントロード
+        $this->loadComponent('RequestHandler');
+        $this->loadComponent('Flash');
         //$this->loadComponent('Security');
         //$this->loadComponent('Csrf');
-
         $this->loadComponent('Auth', [
             // 認可
             'authorize' => 'Controller',
@@ -46,6 +45,8 @@ class AppController extends Controller
 
         // 未承認で許可するアクション
         $this->Auth->allow(['index', 'search', 'view']);
+        // セッションキーを指定
+        $this->set('auth',$this->Auth);
     }
 
     /**
@@ -56,7 +57,7 @@ class AppController extends Controller
      */
     public function isAuthorized($user)
     {
-        // デフォルトでは、アクセスを拒否します。
+        // デフォルトでは、アクセスを拒否する
         return false;
     }
 

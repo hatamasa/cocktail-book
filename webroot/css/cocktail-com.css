@@ -93,18 +93,32 @@ footer{
 }
 
 .title {
-    width: 90%;
+    width: 100%%;
     text-align: center;
+}
+
+.title a {
+    color: #fff;
+}
+
+.title ul{
+    float: right;
+    padding-top: 15px;
+    padding-right: 50px;
+    color: #ca1717;
+    font-weight: bold;
 }
 @media screen and (max-width:480px){
     .title {;
         line-height: 40px;
         font-size: 20px;
     }
-}
-
-.title a {
-    color: #fff;
+    .title ul{
+        float: right;
+        padding-right: 8px;
+        font-size: 0.5rem;
+        padding-top: 10px;
+    }
 }
 
 #nav-drawer {
@@ -290,11 +304,6 @@ select.category {
     height: 130px;
     float: left;
 }
-@media screen and (max-width:480px){
-    select.category {
-        height: 32px;
-    }
-}
 
 select.elements {
     margin-left: 20px;
@@ -303,6 +312,10 @@ select.elements {
     float: left;
 }
 @media screen and (max-width:480px){
+    select.category {
+        height: 32px;
+    }
+
     select.elements {
         height: 32px;
     }
