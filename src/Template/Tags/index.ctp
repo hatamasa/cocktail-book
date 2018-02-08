@@ -1,7 +1,7 @@
 <?= $this->element('_admin_nav');?>
 <div class="tags index large-9 medium-8 columns content">
-    <h3><?= __('Tags') ?></h3>
-    <?= $this->Html->link(__('Add Tag'), ['action' => 'add']) ?>
+    <h3><?= __('タグ管理') ?></h3>
+    <?= $this->Html->link(__('タグを作成する'), ['action' => 'add']) ?>
     <table cellpadding="0" cellspacing="0">
         <thead>
             <tr>
@@ -18,8 +18,9 @@
                 <td><?= h($tag->name) ?></td>
                 <td><?= h($tag->dt_create) ?></td>
                 <td class="actions">
-                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $tag->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $tag->id], ['confirm' => __('Are you sure you want to delete # {0}?', $tag->id)]) ?>
+                    <?= $this->Html->link(__('編集'), ['action' => 'edit', $tag->id]) ?>
+                    <?= $this->Form->postLink(__('削除'), ['action' => 'delete', $tag->id], ['confirm' => __('このタグを削除しますか？ # {0}', $tag->id)]) ?>
+
                 </td>
             </tr>
             <?php endforeach; ?>

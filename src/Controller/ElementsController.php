@@ -111,6 +111,10 @@ class ElementsController extends AppController
         return $this->redirect(['action' => 'index']);
     }
 
+    /**
+     * {@inheritDoc}
+     * @see \App\Controller\AppController::isAuthorized()
+     */
     public function isAuthorized($user)
     {
         $action = $this->request->getParam('action');

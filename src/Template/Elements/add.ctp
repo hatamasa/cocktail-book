@@ -5,7 +5,7 @@ use Cake\Core\Configure;
 <div class="elements form large-9 medium-8 columns content">
     <?= $this->Form->create($element) ?>
     <fieldset>
-        <legend><?= __('Add Element') ?></legend>
+        <legend><?= __('材料を作成する') ?></legend>
         <?php
             echo $this->Form->input('category_kbn',[
                 "type"=>"select",
@@ -14,6 +14,6 @@ use Cake\Core\Configure;
             echo $this->Form->control('name');
         ?>
     </fieldset>
-    <?= $this->Form->button(__('Submit')) ?>
+    <?= $this->Form->button(__('保存')) ?>
     <?= $this->Form->end() ?>
 </div>

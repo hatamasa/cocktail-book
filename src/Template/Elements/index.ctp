@@ -1,7 +1,7 @@
 <?= $this->element('_admin_nav');?>
 <div class="elements index large-9 medium-8 columns content">
-    <h3><?= __('Elements') ?></h3>
-    <?= $this->Html->link(__('Add Element'), ['action' => 'add']) ?>
+    <h3><?= __('材料管理') ?></h3>
+    <?= $this->Html->link(__('材料を作成する'), ['action' => 'add']) ?>
     <table cellpadding="0" cellspacing="0">
         <thead>
             <tr>
@@ -20,8 +20,8 @@
                 <td><?= h($element->name) ?></td>
                 <td><?= h($element->dt_create) ?></td>
                 <td class="actions">
-                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $element->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $element->id], ['confirm' => __('Are you sure you want to delete # {0}?', $element->id)]) ?>
+                    <?= $this->Html->link(__('編集'), ['action' => 'edit', $element->id]) ?>
+                    <?= $this->Form->postLink(__('削除'), ['action' => 'delete', $element->id], ['confirm' => __('この材料を削除しますか？ # {0}', $element->id)]) ?>
                 </td>
             </tr>
             <?php endforeach; ?>

@@ -57,6 +57,7 @@ class TagsController extends AppController
         if ($this->request->is('post')) {
             $tag = $this->Tags->patchEntity($tag, $this->request->getData());
             if ($this->Tags->save($tag)) {
+                // TODO cacheリロード実装
                 $this->Flash->success(__('The tag has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
@@ -112,6 +113,10 @@ class TagsController extends AppController
         return $this->redirect(['action' => 'index']);
     }
 
+    /**
+     * {@inheritDoc}
+     * @see \App\Controller\AppController::isAuthorized()
+     */
     public function isAuthorized($user)
     {
         $action = $this->request->getParam('action');

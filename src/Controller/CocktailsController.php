@@ -233,6 +233,10 @@ class CocktailsController extends AppController
         $this->render('/Element/Cocktails/ajax_elements_table','');
     }
 
+    /**
+     * {@inheritDoc}
+     * @see \App\Controller\AppController::isAuthorized()
+     */
     public function isAuthorized($user)
     {
         $action = $this->request->getParam('action');

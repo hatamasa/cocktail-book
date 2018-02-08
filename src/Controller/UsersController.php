@@ -28,6 +28,7 @@ class UsersController extends AppController
             $user = $this->Auth->identify();
             if ($user) {
                 $this->Auth->setUser($user);
+                $this->Flash->success('ログインしました。');
                 return $this->redirect($this->Auth->redirectUrl());
             }
             $this->Flash->error('ユーザー名またはパスワードが不正です。');
