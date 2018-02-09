@@ -1,6 +1,8 @@
 <?php
 namespace App\Controller;
 
+use App\Model\Common\MessageUtil;
+
 /**
  * Elements Controller
  *
@@ -38,9 +40,7 @@ class ElementsController extends AppController
      */
     public function view($id = null)
     {
-        $element = $this->Elements->get($id, [
-            'contain' => ['Cocktails']
-        ]);
+        $element = $this->Elements->get($id);
 
         $this->set('element', $element);
     }
@@ -56,11 +56,11 @@ class ElementsController extends AppController
         if ($this->request->is('post')) {
             $element = $this->Elements->patchEntity($element, $this->request->getData());
             if ($this->Elements->save($element)) {
-                $this->Flash->success(__('The element has been saved.'));
+                $this->Flash->success(__('材料を追加しました。'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The element could not be saved. Please, try again.'));
+            $this->Flash->error(__(MessageUtil::getMsg(MessageUtil::SAVE_ERROR)));
         }
         $cocktails = $this->Elements->Cocktails->find('list', ['limit' => 200]);
         $this->set(compact('element', 'cocktails'));
@@ -81,11 +81,11 @@ class ElementsController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $element = $this->Elements->patchEntity($element, $this->request->getData());
             if ($this->Elements->save($element)) {
-                $this->Flash->success(__('The element has been saved.'));
+                $this->Flash->success(__('材料を編集しました。'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The element could not be saved. Please, try again.'));
+            $this->Flash->error(__(MessageUtil::getMsg(MessageUtil::SAVE_ERROR)));
         }
         $cocktails = $this->Elements->Cocktails->find('list', ['limit' => 200]);
         $this->set(compact('element', 'cocktails'));
@@ -103,9 +103,9 @@ class ElementsController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $element = $this->Elements->get($id);
         if ($this->Elements->delete($element)) {
-            $this->Flash->success(__('The element has been deleted.'));
+            $this->Flash->success(__('材料を削除しました。'));
         } else {
-            $this->Flash->error(__('The element could not be deleted. Please, try again.'));
+            $this->Flash->error(__(MessageUtil::getMsg(MessageUtil::SAVE_ERROR)));
         }
 
         return $this->redirect(['action' => 'index']);

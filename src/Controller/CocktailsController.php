@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Model\Cocktails\Cocktails;
+use App\Model\Common\MessageUtil;
 
 /**
  * カクテルコントローラ
@@ -102,16 +103,16 @@ class CocktailsController extends AppController
             if (! $errors) {
                 try {
                     $cocktails->saveCocktail();
-                    $this->Flash->success('保存しました');
+                    $this->Flash->success(MessageUtil::getMsg(MessageUtil::SAVE_SUCCESS));
                     // 登録完了した場合、詳細画面を表示する
                     $this->redirect('cocktails/view/' . $id);
 
                 } catch (\Exception $e) {
                     $this->logger->log($e->getMessage(), LOG_ERR);
-                    $this->Flash->error('保存中にエラーが発生しました');
+                    $this->Flash->error(MessageUtil::getMsg(MessageUtil::SAVE_ERROR));
                 }
             } else {
-                $this->Flash->error('エラー項目があります');
+                $this->Flash->error(MessageUtil::getMsg(MessageUtil::VALIDATE_ERROR));
             }
 
             // バリデエラー、登録エラーがある場合、かつ材料リストがある場合、入力保持のため材料テーブルを作成する
@@ -144,16 +145,16 @@ class CocktailsController extends AppController
             if (! $errors) {
                 try {
                     $results = $cocktails->saveCocktail();
-                    $this->Flash->success('保存しました');
+                    $this->Flash->success(MessageUtil::getMsg(MessageUtil::SAVE_SUCCESS));
                     // 登録完了した場合、詳細画面を表示する
                     $this->redirect('cocktails/view/' . $results['id']);
 
                 } catch (\Exception $e) {
                     $this->logger->log($e->getMessage(), LOG_ERR);
-                    $this->Flash->error('保存中にエラーが発生しました');
+                    $this->Flash->error(MessageUtil::getMsg(MessageUtil::SAVE_ERROR));
                 }
             } else {
-                $this->Flash->error('エラー項目があります');
+                $this->Flash->error(MessageUtil::getMsg(MessageUtil::VALIDATE_ERROR));
             }
 
             // バリデエラー、登録エラーがある場合、かつ材料リストがある場合、入力保持のため材料テーブルを作成する

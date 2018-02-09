@@ -1,6 +1,9 @@
 <?php
 namespace App\Controller;
 
+use Cake\Cache\Cache;
+use App\Model\Common\MessageUtil;
+
 /**
  * Tags Controller
  *
@@ -39,9 +42,7 @@ class TagsController extends AppController
      */
     public function view($id = null)
     {
-        $tag = $this->Tags->get($id, [
-            'contain' => ['Cocktails']
-        ]);
+        $tag = $this->Tags->get($id);
 
         $this->set('tag', $tag);
     }
@@ -57,12 +58,11 @@ class TagsController extends AppController
         if ($this->request->is('post')) {
             $tag = $this->Tags->patchEntity($tag, $this->request->getData());
             if ($this->Tags->save($tag)) {
-                // TODO cacheリロード実装
-                $this->Flash->success(__('The tag has been saved.'));
-
+                $this->reloadCache();
+                $this->Flash->success(__('タグを追加しました。'));
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The tag could not be saved. Please, try again.'));
+            $this->Flash->error(__(MessageUtil::getMsg(MessageUtil::SAVE_ERROR)));
         }
         $cocktails = $this->Tags->Cocktails->find('list', ['limit' => 200]);
         $this->set(compact('tag', 'cocktails'));
@@ -77,17 +77,15 @@ class TagsController extends AppController
      */
     public function edit($id = null)
     {
-        $tag = $this->Tags->get($id, [
-            'contain' => ['Cocktails']
-        ]);
+        $tag = $this->Tags->get($id);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $tag = $this->Tags->patchEntity($tag, $this->request->getData());
             if ($this->Tags->save($tag)) {
-                $this->Flash->success(__('The tag has been saved.'));
-
+                $this->reloadCache();
+                $this->Flash->success(__('タグを編集しました。'));
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The tag could not be saved. Please, try again.'));
+            $this->Flash->error(__(MessageUtil::getMsg(MessageUtil::SAVE_ERROR)));
         }
         $cocktails = $this->Tags->Cocktails->find('list', ['limit' => 200]);
         $this->set(compact('tag', 'cocktails'));
@@ -105,9 +103,9 @@ class TagsController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $tag = $this->Tags->get($id);
         if ($this->Tags->delete($tag)) {
-            $this->Flash->success(__('The tag has been deleted.'));
+            $this->Flash->success(__('タグを削除しました。'));
         } else {
-            $this->Flash->error(__('The tag could not be deleted. Please, try again.'));
+            $this->Flash->error(__(MessageUtil::getMsg(MessageUtil::SAVE_ERROR)));
         }
 
         return $this->redirect(['action' => 'index']);

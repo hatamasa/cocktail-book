@@ -1,6 +1,7 @@
 <?php
 namespace App\Controller;
 
+use App\Model\Common\MessageUtil;
 use Cake\Cache\Cache;
 use Cake\ORM\TableRegistry;
 
@@ -24,7 +25,7 @@ class CachesController extends AppController
         if(Cache::write('tags_master', $tags_master)){
             $this->Flash->success('リロードしました。');
         }else {
-            $this->Flash->error('リロードに失敗しました。');
+            $this->Flash->error(MessageUtil::getMsg(MessageUtil::SAVE_ERROR));
         }
         $this->render($this->referer());
     }
