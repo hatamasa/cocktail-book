@@ -127,4 +127,15 @@ class TagsController extends AppController
         return false;
     }
 
+    /**
+     * タグマスタのキャッシュリロード
+     */
+    private function reloadCache()
+    {
+        $tags_master = $this->Tags->find('all', [
+            'order' => ['Tags.id' => 'ASC']
+        ])->toArray();
+        Cache::write('tags_master', $tags_master);
+    }
+
 }
