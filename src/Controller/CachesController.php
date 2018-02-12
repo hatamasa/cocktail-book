@@ -27,7 +27,7 @@ class CachesController extends AppController
         }else {
             $this->Flash->error(MessageUtil::getMsg(MessageUtil::SAVE_ERROR));
         }
-        $this->render($this->referer());
+        $this->redirect($this->referer());
     }
 
     /**

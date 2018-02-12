@@ -103,6 +103,7 @@ class TagsController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $tag = $this->Tags->get($id);
         if ($this->Tags->delete($tag)) {
+            $this->reloadCache();
             $this->Flash->success(__('タグを削除しました。'));
         } else {
             $this->Flash->error(__(MessageUtil::getMsg(MessageUtil::SAVE_ERROR)));
