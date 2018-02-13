@@ -11,13 +11,13 @@ class MessageUtil{
     {
         $message = '';
         switch ($code){
-            case SAVE_SUCCESS:
+            case self::SAVE_SUCCESS:
                 $message = '保存しました。';
                 break;
-            case VALIDATE_ERROR:
+            case self::VALIDATE_ERROR:
                 $message = 'エラーを確認してください。';
                 break;
-            case SAVE_ERROR:
+            case self::SAVE_ERROR:
                 $message = '処理中にエラーが発生しました。';
                 break;
         }
