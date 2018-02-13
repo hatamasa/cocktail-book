@@ -25,7 +25,17 @@ $(function(){
         obj['amount'] = $('.amount-input').val();
 
         console.log(obj);
-        $('.elements-table').load( '/cocktails/mergeElementsTable/', obj);
+        var csrf = $('input[name=_csrfToken]').val();
+        $.ajax({
+            url: '/cocktails/mergeElementsTable/',
+            type: "POST",
+            data: obj,
+            beforeSend: function(xhr){
+                xhr.setRequestHeader('X-CSRF-Token', csrf);
+            }
+        }).done(function(data){
+            $('.elements-table').html(data);
+        });
     });
 
     // 材料削除ボタン押下イベント
@@ -39,7 +49,17 @@ $(function(){
         obj['del_index'] = $(this).closest('tr').find('.index').val();
 
         console.log(obj);
-        $('.elements-table').load( '/cocktails/deleteElementsTable/', obj);
+        var csrf = $('input[name=_csrfToken]').val();
+        $.ajax({
+            url: '/cocktails/deleteElementsTable/',
+            type: "POST",
+            data: obj,
+            beforeSend: function(xhr){
+                xhr.setRequestHeader('X-CSRF-Token', csrf);
+            }
+        }).done(function(data){
+            $('.elements-table').html(data);
+        });
     });
 
 });
