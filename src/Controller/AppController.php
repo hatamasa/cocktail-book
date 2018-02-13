@@ -21,8 +21,7 @@ class AppController extends Controller
         // 各種コンポーネントロード
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
-        //$this->loadComponent('Security');
-        //$this->loadComponent('Csrf');
+        $this->loadComponent('Csrf');
         $this->loadComponent('Auth', [
             // 認可
             'authorize' => 'Controller',
