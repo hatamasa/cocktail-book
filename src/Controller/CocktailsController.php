@@ -37,12 +37,6 @@ class CocktailsController extends AppController
             $results = $this->Cocktails->fetchAllCocktails($params);
             $end = microtime(true);
             $this->logger->log("fetchAllCocktails time: " . ($end - $start), LOG_DEBUG);
-
-            if (count($results) == 0) {
-                $this->Flash->set("検索結果はありません");
-            } else {
-                $this->Flash->set(count($results) . "件ヒットしました");
-            }
         } else {
             foreach ($errors as $error){
                 $this->Flash->error($error);
@@ -50,7 +44,13 @@ class CocktailsController extends AppController
         }
 
         $this->set(compact('results', 'params'));
-        $this->render('index');
+
+        if (count($results) == 0) {
+            $this->Flash->error("検索結果はありません");
+            $this->render('index');
+        } else {
+            $this->Flash->set(count($results) . "件ヒットしました");
+        }
     }
 
     /**

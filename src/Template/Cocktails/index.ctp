@@ -62,11 +62,3 @@
         <button type="submit" class="btn btn-default btn-full" >検索</button>
     </form>
 </div>
-<!-- 検索結果表示 -->
-<div class="results__wrapper">
-<?php if(isset($results)):?>
-    <?php foreach ($results as $row): ?>
-    <?= $this->element('Cocktails/cocktail', ['row' => $row]);?>
-    <?php endforeach; ?>
-<?php endif;?>
-</div>
