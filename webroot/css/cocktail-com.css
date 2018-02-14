@@ -238,27 +238,10 @@ footer{
 
 
 /* wrapper*/
-.title__wrapper, .cocktailSearch__wrapper, .results__wrapper,
-.cocktail__wrapper, .cocktailElements__wrapper, .createCocktail__wrapper {
-}
-
 .title__wrapper {
     display: flex;
     justify-content: flex-start;
     align-items: center;
-}
-
-.title__wrapper ul {
-    margin-left: 50px;
-}
-
-
-.title__wrapper a {
-    color: #000;
-}
-
-.cocktail__wrapper p {
-    margin-left: 20px;
 }
 
 .results__wrapper {
@@ -289,8 +272,6 @@ footer{
 
 
 /* block */
-.createCocktail__block, .createCocktailElements__block {
-}
 
 /* inner */
 /* 材料を選択するインナー */
@@ -378,11 +359,6 @@ select.elements {
         width: auto;
     }
 }
-
-.elements-table tr td input {
-    width: auto;
-}
-
 
 /* 要素 */
 input[type=radio], input[type=checkbox] {
