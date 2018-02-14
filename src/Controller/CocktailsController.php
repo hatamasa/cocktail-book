@@ -32,25 +32,25 @@ class CocktailsController extends AppController
         $cocktails = new Cocktails($params);
         $errors = $cocktails->validateForSearch();
 
-        if (! $errors) {
-            $start = microtime(true);
-            $results = $this->Cocktails->fetchAllCocktails($params);
-            $end = microtime(true);
-            $this->logger->log("fetchAllCocktails time: " . ($end - $start), LOG_DEBUG);
-        } else {
+        // エラー場合はflashをセットして元の画面へ
+        if ($errors) {
             foreach ($errors as $error){
                 $this->Flash->error($error);
             }
+            $this->set(compact('params'));
+            return $this->render('index');
         }
 
+        $results = $this->Cocktails->fetchAllCocktails($params);
         $this->set(compact('results', 'params'));
 
+        // 結果0件は元の画面へ
         if (count($results) == 0) {
             $this->Flash->error("検索結果はありません");
-            $this->render('index');
-        } else {
-            $this->Flash->set(count($results) . "件ヒットしました");
+            return $this->render('index');
         }
+
+        $this->Flash->set(count($results) . "件ヒットしました");
     }
 
     /**
@@ -105,7 +105,7 @@ class CocktailsController extends AppController
                     $cocktails->saveCocktail();
                     $this->Flash->success(MessageUtil::getMsg(MessageUtil::SAVE_SUCCESS));
                     // 登録完了した場合、詳細画面を表示する
-                    $this->redirect('cocktails/view/' . $id);
+                    return $this->redirect('cocktails/view/' . $id);
 
                 } catch (\Exception $e) {
                     $this->logger->log($e->getMessage(), LOG_ERR);
@@ -147,7 +147,7 @@ class CocktailsController extends AppController
                     $results = $cocktails->saveCocktail();
                     $this->Flash->success(MessageUtil::getMsg(MessageUtil::SAVE_SUCCESS));
                     // 登録完了した場合、詳細画面を表示する
-                    $this->redirect('cocktails/view/' . $results['id']);
+                    return $this->redirect('cocktails/view/' . $results['id']);
 
                 } catch (\Exception $e) {
                     $this->logger->log($e->getMessage(), LOG_ERR);
@@ -179,7 +179,7 @@ class CocktailsController extends AppController
     public function getElementsOptions($category_kbn)
     {
         if (!$this->request->is('ajax')) {
-            $this->redirect('/');
+            return $this->redirect('/');
         }
 
         $cocktails = new Cocktails();
@@ -196,7 +196,7 @@ class CocktailsController extends AppController
     public function mergeElementsTable()
     {
         if (!$this->request->is('ajax')) {
-            $this->redirect('/');
+            return $this->redirect('/');
         }
         $params = $this->request->getData();
 
@@ -218,7 +218,7 @@ class CocktailsController extends AppController
     public function deleteElementsTable(){
 
         if (!$this->request->is('ajax')) {
-            $this->redirect('/');
+            return $this->redirect('/');
         }
         $params = $this->request->getData();
 
