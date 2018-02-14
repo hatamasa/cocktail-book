@@ -12,25 +12,14 @@ require valid-user
     RewriteRule ^ index.php [L]
 </IfModule>
 
-RewriteEngine on
+<ifModule mod_headers.c>
+    # CACHE media files for 30days
+    <Files ~ ".(gif|jpe?g|png|ico|js|gz)$">
+        Header set Cache-Control "max-age=2592000"
+    </Files>
 
-RewriteRule \.php$ - [L,E=X_CACHE_PATTERN1:]
-RewriteRule \.html$ - [L,E=X_CACHE_PATTERN2:]
-RewriteRule \.(css|js)$ - [L,E=X_CACHE_PATTERN3:]
-RewriteRule \.(gif|jpe?g|png)$ - [L,E=X_CACHE_PATTERN4:]
-
-# For dynamic contents
-Header set Cache-Control "no-cache" env=X_CACHE_PATTERN1
-Header unset Expires env=X_CACHE_PATTERN1
-Header unset Last-Modified env=X_CACHE_PATTERN1
-Header unset Etag env=X_CACHE_PATTERN1
-
-# For HTML files
-Header set Cache-Control "max-age=0" env=X_CACHE_PATTERN2
-Header set Expires "Mon, 26 Jul 1997 05:00:00 GMT" env=X_CACHE_PATTERN2
-
-# For CSS,JavaScript files
-Header set Cache-Control "max-age=600" env=X_CACHE_PATTERN3
-
-# For Image files
-Header set Cache-Control "max-age=86400" env=X_CACHE_PATTERN4
+    # CACHE media files for 12hours
+    <Files ~ ".(css)$">
+        Header set Cache-Control "max-age=43200"
+    </Files>
+</ifModule>
