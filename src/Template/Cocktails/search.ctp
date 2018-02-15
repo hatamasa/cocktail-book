@@ -2,7 +2,7 @@
     <h1>検索結果</h1>
 </div>
 <h2>検索条件</h2>
-<!-- TODO 条件変更リンク -->
+<!-- TODO 条件変更リンク、ローカルストレージからjsonをパースしてindex画面に返す -->
 <!-- TODO 左寄せ表示 -->
 <table>
     <?php if(isset($params['name']) && !empty($params['name'])):?>

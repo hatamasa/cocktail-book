@@ -51,6 +51,7 @@ class CocktailsController extends AppController
         }
 
         $this->Flash->set(count($results) . "件ヒットしました");
+        // TODO ローカルストレージに検索条件をjsonで保存する
     }
 
     /**
@@ -70,6 +71,7 @@ class CocktailsController extends AppController
 
     /**
      * カクテル編集
+     * TODO 画像をリサイズしてS3へ保存
      * GET|PUT /cocktails/:id/edit
      * @param  $id
      */
@@ -127,6 +129,7 @@ class CocktailsController extends AppController
 
     /**
      * カクテル作成
+     *  TODO 画像をリサイズしてS3へ保存
      *  GET|POST /cocktails/add
      */
     public function add()
@@ -167,6 +170,9 @@ class CocktailsController extends AppController
         $this->set(compact('params', 'errors'));
     }
 
+    /**
+     * TODO 管理者のみカクテル削除実装
+     */
     public function delete()
     {
     }

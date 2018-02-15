@@ -7,6 +7,7 @@
     </ul>
     <?php endif;?>
 </div>
+<!-- TODO 元画像を表示 -->
 <div class="cocktail__wrapper">
     <table class="detail-table">
         <tr>
