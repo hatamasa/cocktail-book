@@ -45,5 +45,10 @@
 *.7z binary
 *.zip binary
 
-webroot/css/* linguist-vendored
-webroot/js/* linguist-vendored
+webroot/css/base.css linguist-vendored
+webroot/css/cake.css linguist-vendored
+webroot/css/home.css linguist-vendored
+webroot/css/bootstrap*.css linguist-vendored
+webroot/css/boottest.css linguist-vendored
+webroot/js/*.js linguist-vendored
+webroot/js/*.map linguist-vendored
