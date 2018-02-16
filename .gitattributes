@@ -44,3 +44,6 @@
 *.bz2 binary
 *.7z binary
 *.zip binary
+
+webroot/css/* linguist-vendored
+webroot/js/* linguist-vendored
