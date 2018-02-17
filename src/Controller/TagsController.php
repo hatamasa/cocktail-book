@@ -64,8 +64,7 @@ class TagsController extends AppController
             }
             $this->Flash->error(__(MessageUtil::getMsg(MessageUtil::SAVE_ERROR)));
         }
-        $cocktails = $this->Tags->Cocktails->find('list', ['limit' => 200]);
-        $this->set(compact('tag', 'cocktails'));
+        $this->set(compact('tag'));
     }
 
     /**
@@ -87,8 +86,7 @@ class TagsController extends AppController
             }
             $this->Flash->error(__(MessageUtil::getMsg(MessageUtil::SAVE_ERROR)));
         }
-        $cocktails = $this->Tags->Cocktails->find('list', ['limit' => 200]);
-        $this->set(compact('tag', 'cocktails'));
+        $this->set(compact('tag'));
     }
 
     /**

@@ -62,8 +62,7 @@ class ElementsController extends AppController
             }
             $this->Flash->error(__(MessageUtil::getMsg(MessageUtil::SAVE_ERROR)));
         }
-        $cocktails = $this->Elements->Cocktails->find('list', ['limit' => 200]);
-        $this->set(compact('element', 'cocktails'));
+        $this->set(compact('element'));
     }
 
     /**
@@ -75,9 +74,7 @@ class ElementsController extends AppController
      */
     public function edit($id = null)
     {
-        $element = $this->Elements->get($id, [
-            'contain' => ['Cocktails']
-        ]);
+        $element = $this->Elements->get($id);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $element = $this->Elements->patchEntity($element, $this->request->getData());
             if ($this->Elements->save($element)) {
@@ -87,8 +84,7 @@ class ElementsController extends AppController
             }
             $this->Flash->error(__(MessageUtil::getMsg(MessageUtil::SAVE_ERROR)));
         }
-        $cocktails = $this->Elements->Cocktails->find('list', ['limit' => 200]);
-        $this->set(compact('element', 'cocktails'));
+        $this->set(compact('element'));
     }
 
     /**
