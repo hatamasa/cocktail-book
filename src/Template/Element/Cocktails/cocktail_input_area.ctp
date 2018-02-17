@@ -1,5 +1,9 @@
 <input type="hidden" name="id" value="<?= $params['id']??'' ?>" />
 <div class="createCocktail__block">
+    <h2>画像をアップロード</h2>
+    <div class="col-input-large">
+    <?= $this->Form->file('img'); ?>
+    </div>
     <table>
         <tr>
             <th class="table-header-md">名前</th>

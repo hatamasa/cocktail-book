@@ -23,6 +23,7 @@ create table cocktails (
   color varchar(20),
   taste varchar(2),
   processes varchar(500),
+  img_url varchar(200),
   dt_create timestamp DEFAULT CURRENT_TIMESTAMP,
   primary key (id)
 );
