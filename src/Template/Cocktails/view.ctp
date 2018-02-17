@@ -3,7 +3,8 @@
     <h1><?= $cocktail['name']?></h1>
     <?php if ($auth->user()): ?>
     <ul>
-        <li><a href="/cocktails/edit/<?=$cocktail['id']?>">編集する</a></li>
+        <li><?= $this->Html->link(__('編集する'), ['action' => 'edit', $cocktail['id']]) ?></li>
+        <li><?= $this->Form->postLink(__('削除する'), ['action' => 'delete', $cocktail['id']], ['confirm' => __('このカクテルを削除しますか？')]) ?></li>
     </ul>
     <?php endif;?>
 </div>

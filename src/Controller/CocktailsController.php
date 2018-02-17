@@ -171,10 +171,19 @@ class CocktailsController extends AppController
     }
 
     /**
-     * TODO 管理者のみカクテル削除実装
+     * カクテル削除
      */
-    public function delete()
+    public function delete($id = null)
     {
+        $this->request->allowMethod(['post', 'delete']);
+        $cocktails = $this->Cocktails->get($id);
+        if ($this->Cocktails->delete($cocktails)) {
+            $this->Flash->success(__('カクテルを削除しました。'));
+        } else {
+            $this->Flash->error(__(MessageUtil::getMsg(MessageUtil::SAVE_ERROR)));
+        }
+
+        return $this->redirect(['action' => 'index']);
     }
 
     /**
