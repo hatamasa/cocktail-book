@@ -100,10 +100,11 @@ class Cocktails
 
     /**
      * カクテルを登録する
-     * TODO 画像をS3へアップロードする
      * @param $params
      */
     public function saveCocktail(){
+
+        // TODO S3にアップロードしてアップロード先のURLをセットする取得
 
         // カクテルの配列作成
         $data = [
@@ -116,7 +117,6 @@ class Cocktails
             'taste' => $this->params['taste'],
             'processes' => $this->params['processes'],
         ];
-
         // カクテル要素の配列作成
         for ($i = 0; $i < count($this->params['element_id_selected']); $i++){
             $data['cocktails_elements'][] = [
@@ -126,7 +126,6 @@ class Cocktails
                 'amount' => $this->params['amount_selected'][$i],
             ];
         }
-
         // カクテルタグの配列作成
         if(isset($this->params['tag_id'])){
             foreach ($this->params['tag_id'] as $tag_id){
@@ -137,7 +136,6 @@ class Cocktails
                 ];
             }
         }
-
         // エンティティとアソシエーションを作成
         $cocktailsTable = TableRegistry::get('Cocktails');
         $cocktailsElementsTable = TableRegistry::get('CocktailsElements');
