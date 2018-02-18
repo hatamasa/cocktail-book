@@ -37,6 +37,8 @@ class Cocktails
     {
         $validator = new Validator();
         $validator
+            ->allowEmpty('img')
+
             ->requirePresence('name', true, 'グラスの入力は必須です')
             ->notEmpty('name', '名前の入力は必須です')
             ->add('name', 'length', [
@@ -62,6 +64,20 @@ class Cocktails
             ->requirePresence('element_id_selected', true, '材料は少なくとも一つ以上入力してください')
                 ;
 
+         $imgValidater = new Validator();
+         $imgValidater
+             ->add('type', ['list' => [
+                 'rule' => ['inList', ['image/jpg', 'image/png', 'image/gif']],
+                 'message' => 'jpg, png, gif のみアップロード可能です.',
+             ]])
+            ->add('size', 'comparison', [
+                    'rule' => ['comparison', '<', 10485760],
+                    'message' => '画像サイズは10Mまでです'
+                ])
+            ;
+
+            $validator->addNested('img', $imgValidater);
+
         return $validator->errors($this->params);
     }
 
@@ -84,6 +100,7 @@ class Cocktails
 
     /**
      * カクテルを登録する
+     * TODO 画像をS3へアップロードする
      * @param $params
      */
     public function saveCocktail(){

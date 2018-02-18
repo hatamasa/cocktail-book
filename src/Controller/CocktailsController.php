@@ -131,7 +131,7 @@ class CocktailsController extends AppController
                 $params['tag_id'][] = $cocktails_tag['tag_id'];
             }
 
-        } else if ($this->request->is('PUT')){
+        } else if ($this->request->is('POST')){
 
             $params = $this->request->getData();
             // 登録時処理

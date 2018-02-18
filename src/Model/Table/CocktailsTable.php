@@ -8,6 +8,8 @@ use Cake\ORM\TableRegistry;
 class CocktailsTable extends Table
 {
     public function initialize(array $config){
+
+        $this->setTable('cocktails');
         $this->hasMany('CocktailsElements')
         ->setForeignKey('cocktail_id');
 

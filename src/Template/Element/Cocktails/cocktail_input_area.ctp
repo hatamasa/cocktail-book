@@ -2,6 +2,7 @@
 <div class="createCocktail__block">
     <h2>画像をアップロード</h2>
     <div class="col-input-large">
+    <?= $this->element('input_errors', ['name' => 'img']); ?>
     <?= $this->Form->file('img'); ?>
     </div>
     <table>
