@@ -471,3 +471,9 @@ input[type="radio"]:checked + label {
     }
 }
 
+.preview {
+    max-width: 500px;
+    max-height: 350px;
+    margin-bottom: 20px;
+    margin-left: 20px;
+}

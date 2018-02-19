@@ -1,10 +1,9 @@
 <input type="hidden" name="id" value="<?= $params['id']??'' ?>" />
 <div class="createCocktail__block">
     <h2>画像をアップロード</h2>
-    <div class="col-input-large">
     <?= $this->element('input_errors', ['name' => 'img']); ?>
-    <?= $this->Form->file('img'); ?>
-    </div>
+    <?= $this->Form->file('img', ['class' => 'img']); ?>
+    <span class="preview-area"><img class="preview" width="225" src="/img/no_image.jpg"/></span><!-- プレビューエリア -->
     <table>
         <tr>
             <th class="table-header-md">名前</th>
@@ -71,13 +70,13 @@
 <div class="createCocktail__block">
     <div class="form-group">
         <h2>作成手順</h2>
-        <div class="col-input-large">
+        <div>
             <textarea name="processes" cols="70" rows="5" ><?= $params['processes']??'' ?></textarea>
         </div>
     </div>
     <div class="form-group">
         <h2>タグ</h2>
-        <div class="col-input-large">
+        <div>
             <ul class="form-input-check display-inline-ul">
             <?php foreach ($tags_master as $tag):?>
             <li>

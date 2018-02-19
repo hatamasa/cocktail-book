@@ -134,6 +134,9 @@ class CocktailsController extends AppController
         } else if ($this->request->is('POST')){
 
             $params = $this->request->getData();
+//             echo '<pre>';
+//             var_dump($params['img']);
+//             echo '</pre>';
             // 登録時処理
             $cocktails = new Cocktails($params);
             $errors = $cocktails->valudateForCreate();

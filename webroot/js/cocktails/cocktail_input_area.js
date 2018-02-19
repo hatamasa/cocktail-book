@@ -62,6 +62,24 @@ $(function(){
         });
     });
 
+    // 画像アップロード時のイベント
+    $('.img').on('change', function(){
+        var strFileInfo = $('.img')[0].files[0];
+        $('.preview').remove();
+
+        if(strFileInfo && strFileInfo.type.match('image.*')){
+          $('.preview-area').append('<img class="preview"/>');
+
+          fileReader = new FileReader();
+          fileReader.onload = function(event){
+            $('.preview').attr('src', event.target.result);
+          }
+          fileReader.readAsDataURL(strFileInfo);
+        } else {
+            $('.preview-area').append('<label class="error preview">プレビューできません。不正な画像ファイルがアップロードされました</label>');
+        }
+      });
+
 });
 
 // 材料追加ボタンのバリデーション
@@ -82,7 +100,7 @@ function validate(){
         },
 
         //エラーメッセージ出力箇所調整
-        errorPlacement: function(error, element){
+        errorPlacement: function(error){
             error.appendTo('.elements-title');
             },
     });
