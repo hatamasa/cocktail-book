@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Model\Cocktails\Cocktails;
+use App\Model\Common\FileUploadException;
 use App\Model\Common\MessageUtil;
 
 /**
@@ -109,7 +110,6 @@ class CocktailsController extends AppController
 
     /**
      * カクテル編集
-     * TODO 画像をリサイズしてS3へ保存
      * GET|PUT /cocktails/:id/edit
      * @param  $id
      */
@@ -134,9 +134,6 @@ class CocktailsController extends AppController
         } else if ($this->request->is('POST')){
 
             $params = $this->request->getData();
-//             echo '<pre>';
-//             var_dump($params['img']);
-//             echo '</pre>';
             // 登録時処理
             $cocktails = new Cocktails($params);
             $errors = $cocktails->valudateForCreate();
@@ -148,6 +145,9 @@ class CocktailsController extends AppController
                     // 登録完了した場合、詳細画面を表示する
                     return $this->redirect('cocktails/view/' . $id);
 
+                } catch (FileUploadException $e){
+                    $this->logger->log($e->getMessage(), LOG_ERR);
+                    $this->Flash->error(__('ファイルのアップロードができませんでした.'));
                 } catch (\Exception $e) {
                     $this->logger->log($e->getMessage(), LOG_ERR);
                     $this->Flash->error(MessageUtil::getMsg(MessageUtil::SAVE_ERROR));

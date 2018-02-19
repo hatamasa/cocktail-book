@@ -4,6 +4,8 @@ namespace App\Model\Cocktails;
 use Cake\Datasource\ConnectionManager;
 use Cake\ORM\TableRegistry;
 use Cake\Validation\Validator;
+use RuntimeException;
+use App\Model\Common\ImgUploader;
 
 class Cocktails
 {
@@ -104,8 +106,9 @@ class Cocktails
      */
     public function saveCocktail(){
 
-        // TODO S3にアップロードしてアップロード先のURLをセットする取得
-
+        // S3にアップロードしてアップロード先のURLをセットする取得
+        $uploader = new ImgUploader();
+        $img_url = $uploader->executeUpload();
         // カクテルの配列作成
         $data = [
             'id' => $this->params['id']??'',
@@ -116,6 +119,7 @@ class Cocktails
             'color' => $this->params['color'],
             'taste' => $this->params['taste'],
             'processes' => $this->params['processes'],
+            'img_url' => $img_url,
         ];
         // カクテル要素の配列作成
         for ($i = 0; $i < count($this->params['element_id_selected']); $i++){
