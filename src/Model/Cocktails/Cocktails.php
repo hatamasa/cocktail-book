@@ -69,7 +69,7 @@ class Cocktails
          $imgValidater = new Validator();
          $imgValidater
              ->add('type', ['list' => [
-                 'rule' => ['inList', ['image/jpg', 'image/png', 'image/gif']],
+                 'rule' => ['inList', ['image/jpg', 'image/jpeg', 'image/png', 'image/gif']],
                  'message' => 'jpg, png, gif のみアップロード可能です.',
              ]])
             ->add('size', 'comparison', [
@@ -107,8 +107,8 @@ class Cocktails
     public function saveCocktail(){
 
         // S3にアップロードしてアップロード先のURLをセットする取得
-        $uploader = new ImgUploader();
-        $img_url = $uploader->executeUpload();
+        $uploader = new ImgUploader($this->params);
+        $img_url = $uploader->execute();
         // カクテルの配列作成
         $data = [
             'id' => $this->params['id']??'',

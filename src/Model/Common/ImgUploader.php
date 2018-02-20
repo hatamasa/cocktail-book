@@ -1,10 +1,12 @@
 <?php
 namespace App\Model\Common;
 
+use Aws\S3\S3Client;
 use RuntimeException;
 
 class ImgUploader{
 
+    private $params;
     // アップロード時の画像名
     private $upload_img_prefix = 'cocktail';
     // 扱うファイルの拡張子
@@ -23,9 +25,14 @@ class ImgUploader{
     const DISP_IMG_WIDTH = '300';
     // S3への接続情報
     private $s3client;
-    const AWS_ACCESS_KEY_ID ='IAMユーザーのAccessKey';
-    const AWS_SECRET_ACCESS_KEY = 'IAMユーザーのSecretAccessKey';
-    const S3_BUCKET_NAME = '設定したS3バケット名';
+    const AWS_ACCESS_KEY_ID ='AKIAJIZW52G7CNJ6ABHQ';
+    const AWS_SECRET_ACCESS_KEY = '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';
+    const S3_BUCKET_NAME = 'cocktails-img-backet';
+
+    public function __construct($params)
+    {
+        $this->params = $params;
+    }
 
     /**
      * 画像をS3へアップロードする
@@ -35,16 +42,17 @@ class ImgUploader{
     {
         try {
             if(!file_exists($this->tmp_img_dir)){
-                throw new RuntimeException('指定のディレクトリがありません。');
+                throw new RuntimeException('Not Found tmp_img_dir.');
             }
             // 未定義、複数ファイル、破損攻撃のいずれかの場合は無効処理
-            if (!isset($this->params['img']['error']) || is_array($this->params['img']['error'])){
+            if (!isset($this->params['img']['error']) || !is_int($this->params['img']['error'])){
                 throw new RuntimeException('Invalid parameters.');
             }
             // ファイル拡張子を取得
-            if(!$this->ext = mime_content_type($this->params['img']['tmp_name'])){
+            if(!mime_content_type($this->params['img']['tmp_name'])){
                 throw new RuntimeException('Invalid file format.');
             }
+            $this->ext = pathinfo($this->params['img']['name'], PATHINFO_EXTENSION);
             // ファイル名を組み立て
             $this->to_file_name = $this->upload_img_prefix . '_' . date( "YmdHis", time()) . '.' . $this->ext;
             // サムネイルと表示用画像を作成
@@ -86,13 +94,13 @@ class ImgUploader{
         $height = round( $original_height * $width / $original_width );
         $image = imagecreatetruecolor($width, $height);
         // オリジナルコピー画像を空画像にマージ
-        if($this->ext === 'jpg') $original_image = imagecreatefromjpeg($original_file);
+        if($this->ext === 'jpg' || $this->ext === 'jpeg') $original_image = imagecreatefromjpeg($original_file);
         if($this->ext === 'png') $original_image = imagecreatefrompng($original_file);
         if($this->ext === 'gif') $original_image = imagecreatefromgif($original_file);
-        magecopyresized($image, $original_image, 0, 0, 0, 0,
+        imagecopyresized($image, $original_image, 0, 0, 0, 0,
             $width, $height, $original_width, $original_height);
         // ディレクトリに画像を保存
-        if($this->ext === 'jpg') imagejpeg($image, $to_file_path);
+        if($this->ext === 'jpg' || $this->ext === 'jpeg') imagejpeg($image, $to_file_path);
         if($this->ext === 'png') imagepng($image, $to_file_path);
         if($this->ext === 'gif') imagegif($image, $to_file_path);
     }
@@ -103,16 +111,15 @@ class ImgUploader{
      */
     private function upload()
     {
-        // TODO ファイルアップロードを実装
-        $this->s3client = new Aws\S3\S3Client([
+        $this->s3client = new S3Client([
             'credentials' => [
                 'key' => self::AWS_ACCESS_KEY_ID,
                 'secret' => self::AWS_SECRET_ACCESS_KEY,
             ],
-            'region' => 'us-east-2',
+            'region' => 'ap-northeast-1',
             'version' => 'latest',
         ]);
-        //画像のアップロード
+        //画像のアップロード TODO エラーを調査。ログにファイルを出力
         $this->s3PutObject(fopen($this->thumbnail_path,'rb'));
         $result = $this->s3PutObject(fopen($this->disp_img_path,'rb'));
 
