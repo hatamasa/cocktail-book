@@ -25,8 +25,6 @@ class ImgUploader{
     const DISP_IMG_WIDTH = '300';
     // S3への接続情報
     private $s3client;
-    const AWS_ACCESS_KEY_ID ='AKIAJIZW52G7CNJ6ABHQ';
-    const AWS_SECRET_ACCESS_KEY = '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';
     const S3_BUCKET_NAME = 'cocktails-img-backet';
 
     public function __construct($params)
@@ -113,8 +111,8 @@ class ImgUploader{
     {
         $this->s3client = new S3Client([
             'credentials' => [
-                'key' => self::AWS_ACCESS_KEY_ID,
-                'secret' => self::AWS_SECRET_ACCESS_KEY,
+                'key' => env('AWS_ACCESS_KEY_ID'),
+                'secret' => env('AWS_SECRET_ACCESS_KEY'),
             ],
             'region' => 'ap-northeast-1',
             'version' => 'latest',
