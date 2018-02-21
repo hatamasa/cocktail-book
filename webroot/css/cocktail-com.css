@@ -528,7 +528,25 @@ input[type="radio"]:checked + label {
     margin: auto;
 }
 
-.card-content ul{
+.card-content table{
     margin-left: 160px;
     padding: 0;
+}
+
+.card-table {
+    background: unset;
+}
+
+.card-table tr {
+    border-bottom: 1px solid #c9c6c5;
+}
+
+.card-table tr th {
+    padding: 3px 10px;
+    font-size: xx-small;
+}
+
+.card-table tr td {
+    padding: 3px 0px;
+    font-size: xx-small;
 }

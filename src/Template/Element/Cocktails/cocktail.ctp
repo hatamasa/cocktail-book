@@ -4,12 +4,18 @@
         <span class="card-title"><?= $row['name']?></span>
         <span class="card-content">
             <img src="<?=$row['img_url']??$no_img_url ?>">
-            <ul>
-                <li>グラス：<?= $glass_list[$row['glass']]?></li>
-                <li>強さ： <?= $percentage_list[$row['percentage']]?></li>
-                <li>色： <?= $row['color']?></li>
-                <li>味： <?= $taste_list[$row['taste']]?></li>
-            </ul>
+            <table class="card-table">
+                <tr><th>グラス</th><td><?= $glass_list[$row['glass']]?></td></tr>
+                <tr><th>強さ</th><td><?= $percentage_list[$row['percentage']]?></td></tr>
+                <tr><th>色</th><td><?= $row['color']?></td></tr>
+                <tr><th>味</th><td><?= $taste_list[$row['taste']]?></td></tr>
+                <!-- <tr><th>タグ</th>
+                <td>
+                <?php foreach ($row['CocktailsTags'] as $tag): ?>
+                   <?= $tag['name'] ?>
+                <?php endforeach;?>
+                </td></tr> -->
+            </table>
         </span>
     </span>
 </a>
