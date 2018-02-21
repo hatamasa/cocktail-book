@@ -112,6 +112,7 @@ class Cocktails
         // S3にアップロードしてアップロード先のURLをセットする取得
         $uploader = new ImgUploader($this->params);
         $img_url = $uploader->execute();
+        $this->logger->log('uploaded image: ' . $img_url);
         // カクテルの配列作成
         $data = [
             'id' => $this->params['id']??'',

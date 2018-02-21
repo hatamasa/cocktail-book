@@ -3,9 +3,7 @@ namespace App\Model\Common;
 
 use Aws\S3\S3Client;
 use RuntimeException;
-use Aws\Credentials\CredentialProvider;
 use Aws\Credentials\Credentials;
-use Cake\Test\Fixture\ThingsFixture;
 
 class ImgUploader{
 
