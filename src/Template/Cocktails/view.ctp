@@ -10,6 +10,7 @@
 </div>
 <!-- TODO 元画像を表示 -->
 <div class="cocktail__wrapper">
+    <img src="<?= $cocktail['img_url']??$no_img_url ?>"/>
     <table class="detail-table">
         <tr>
             <th class="table-header-md">グラスタイプ</th>

@@ -19,11 +19,13 @@ class ImgUploader{
     // 画像保存一時ディレクトリ
     private $tmp_img_dir = '/tmp/upload_img';
 
+    private $env_dir = 'dev';
+
     private $to_file_name;
 
-    private $thumbnail_path;
+    private $tmp_thumbnail_path;
 
-    private $disp_img_path;
+    private $tmp_disp_img_path;
     // 生成するサムネイルのサイズ
     const THUMBNAIL_WIDTH = '150';
     // 生成する表示用画像のサイズ
@@ -37,6 +39,10 @@ class ImgUploader{
     {
         $this->logger = new Logger();
         $this->params = $params;
+        $env = env('CAKE_ENV');
+        if(isset($env) && $env == 'heroku'){
+            $this->env_dir = 'prd';
+        }
     }
 
     /**
@@ -79,11 +85,11 @@ class ImgUploader{
     private function createDispAndThumb()
     {
         // 生成する画像のパスを生成
-        $this->thumbnail_path = $this->tmp_img_dir . '/thumbnail_' . $this->to_file_name;
-        $this->disp_img_path = $this->tmp_img_dir . '/' . $this->to_file_name;
+        $this->tmp_thumbnail_path = $this->tmp_img_dir . '/thumbnail_' . $this->to_file_name;
+        $this->tmp_disp_img_path = $this->tmp_img_dir . '/' . $this->to_file_name;
         // サムネイルと表示用画像を作成する
-        $this->resizeImg($this->params['img']["tmp_name"], $this->thumbnail_path, self::THUMBNAIL_WIDTH);
-        $this->resizeImg($this->params['img']["tmp_name"], $this->disp_img_path, self::DISP_IMG_WIDTH);
+        $this->resizeImg($this->params['img']["tmp_name"], $this->tmp_thumbnail_path, self::THUMBNAIL_WIDTH);
+        $this->resizeImg($this->params['img']["tmp_name"], $this->tmp_disp_img_path, self::DISP_IMG_WIDTH);
     }
 
     /**
@@ -116,28 +122,18 @@ class ImgUploader{
      */
     private function upload()
     {
-//         $provider = CredentialProvider::defaultProvider();
-//         echo '<pre>';
-//         var_dump(env('AWS_SECRET_ACCESS_KEY'));
-//         var_dump(env('AWS_ACCESS_KEY_ID'));
-//         echo '</pre>';
-//         $ini = '/Users/hatamasa/.aws/credentials';
-//         $iniProvider = CredentialProvider::ini('default', $ini);
-//         $iniProvider = CredentialProvider::memoize($iniProvider);
         $this->s3client = new S3Client([
             'credentials' => new Credentials(env('AWS_ACCESS_KEY_ID'), env('AWS_SECRET_ACCESS_KEY')),
-//             'crendentials' => $iniProvider,
             'region' => self::REGION,
             'version' => 'latest',
         ]);
-        $this->logger->log('thumbnail: ' . $this->thumbnail_path);
-        $this->logger->log('disp_img_path: ' . $this->disp_img_path);
+        $this->logger->log('file_name: ' . $this->to_file_name);
         //画像のアップロード
-        $this->s3PutObject($this->thumbnail_path, 'thumbnail_' . $this->to_file_name);
-        $result = $this->s3PutObject($this->disp_img_path, $this->to_file_name);
+        $this->s3PutObject($this->tmp_thumbnail_path, 'thumbnail_' . $this->to_file_name);
+        $result = $this->s3PutObject($this->tmp_disp_img_path, $this->to_file_name);
         // 成功したらディレクトリ配下を削除
-        unlink($this->thumbnail_path);
-        unlink($this->disp_img_path);
+        unlink($this->tmp_thumbnail_path);
+        unlink($this->tmp_disp_img_path);
         //読み取り用のパスを返す
         return $result['ObjectURL'];
     }
@@ -148,13 +144,13 @@ class ImgUploader{
      * @param $to_file_name 保存先画像パス
      * @return $result
      */
-    private function s3PutObject($image, $to_file_name)
+    private function s3PutObject($source_file, $to_file_name)
     {
         return $this->s3client->putObject([
                     'Bucket' => self::S3_BUCKET_NAME,
-                    'Key' => $to_file_name,
-                    'ContentType' => mime_content_type($image),
-                    'SourceFile' => $image,
+                    'Key' => $this->env_dir . '/' . $to_file_name,
+                    'ContentType' => mime_content_type($source_file),
+                    'SourceFile' => $source_file,
                     'ACL' => 'public-read',
                 ]);
     }

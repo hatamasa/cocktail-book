@@ -70,7 +70,6 @@ class CocktailsController extends AppController
 
     /**
      * カクテル作成
-     *  TODO 画像をリサイズしてS3へ保存
      *  GET|POST /cocktails/add
      */
     public function add()
@@ -92,6 +91,9 @@ class CocktailsController extends AppController
                     // 登録完了した場合、詳細画面を表示する
                     return $this->redirect('cocktails/view/' . $results['id']);
 
+                } catch (FileUploadException $e){
+                    $this->logger->log($e->getMessage(), LOG_ERR);
+                    $this->Flash->error(__('ファイルのアップロードができませんでした.'));
                 } catch (\Exception $e) {
                     $this->logger->log($e->getMessage(), LOG_ERR);
                     $this->Flash->error(MessageUtil::getMsg(MessageUtil::SAVE_ERROR));

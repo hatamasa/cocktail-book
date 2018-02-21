@@ -52,6 +52,7 @@ class AppView extends View
                 $this->set('percentage_list', Configure::read('percentage'));
                 $this->set('taste_list', Configure::read('taste'));
                 $this->set('category_list', Configure::read('category_kbn'));
+                $this->set('no_img_url', '/img/no_image.jpg');
 
                 // テンプレート別処理
                 switch ($this->template){

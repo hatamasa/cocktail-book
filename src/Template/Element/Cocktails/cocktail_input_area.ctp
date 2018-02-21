@@ -3,7 +3,7 @@
     <h2>画像をアップロード</h2>
     <?= $this->element('input_errors', ['name' => 'img']); ?>
     <?= $this->Form->file('img', ['class' => 'img']); ?>
-    <span class="preview-area"><img class="preview" width="225" src="/img/no_image.jpg"/></span><!-- プレビューエリア -->
+    <span class="preview-area"><img class="preview" width="225" src="<?=$no_img_url ?>"/></span><!-- プレビューエリア -->
     <table>
         <tr>
             <th class="table-header-md">名前</th>
