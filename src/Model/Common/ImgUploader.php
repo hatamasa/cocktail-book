@@ -3,8 +3,12 @@ namespace App\Model\Common;
 
 use Aws\S3\S3Client;
 use RuntimeException;
+use Aws\Credentials\CredentialProvider;
+use Aws\Credentials\Credentials;
 
 class ImgUploader{
+
+    private $logger;
 
     private $params;
     // アップロード時の画像名
@@ -25,10 +29,12 @@ class ImgUploader{
     const DISP_IMG_WIDTH = '300';
     // S3への接続情報
     private $s3client;
-    const S3_BUCKET_NAME = 'cocktails-img-backet';
+    const REGION = 'ap-northeast-1';
+    const S3_BUCKET_NAME = 'cocktails-img-bucket';
 
     public function __construct($params)
     {
+        $this->logger = new Logger();
         $this->params = $params;
     }
 
@@ -109,17 +115,25 @@ class ImgUploader{
      */
     private function upload()
     {
+//         $provider = CredentialProvider::defaultProvider();
+//         echo '<pre>';
+//         var_dump(env('AWS_SECRET_ACCESS_KEY'));
+//         var_dump(env('AWS_ACCESS_KEY_ID'));
+//         echo '</pre>';
+//         $ini = '/Users/hatamasa/.aws/credentials';
+//         $iniProvider = CredentialProvider::ini('default', $ini);
+//         $iniProvider = CredentialProvider::memoize($iniProvider);
         $this->s3client = new S3Client([
-            'credentials' => [
-                'key' => env('AWS_ACCESS_KEY_ID'),
-                'secret' => env('AWS_SECRET_ACCESS_KEY'),
-            ],
-            'region' => 'ap-northeast-1',
+            'credentials' => new Credentials(env('AWS_ACCESS_KEY_ID'), env('AWS_SECRET_ACCESS_KEY')),
+//             'crendentials' => $iniProvider,
+            'region' => self::REGION,
             'version' => 'latest',
         ]);
-        //画像のアップロード TODO エラーを調査。ログにファイルを出力
-        $this->s3PutObject(fopen($this->thumbnail_path,'rb'));
-        $result = $this->s3PutObject(fopen($this->disp_img_path,'rb'));
+        $this->logger->log('thumbnail: ' . $this->thumbnail_path);
+        $this->logger->log('disp_img_path: ' . $this->disp_img_path);
+        //画像のアップロード
+        $this->s3PutObject($this->thumbnail_path, 'thumbnail_' . $this->to_file_name);
+        $result = $this->s3PutObject($this->disp_img_path, $this->to_file_name);
 
         //読み取り用のパスを返す
         return $result['ObjectURL'];
@@ -127,14 +141,16 @@ class ImgUploader{
 
     /**
      * S3へファイルをPUTする
-     * @param $image 元画像パス
+     * @param $image 保存元画像パス
+     * @param $to_file_name 保存先画像パス
      * @return $result
      */
-    private function s3PutObject($image)
+    private function s3PutObject($image, $to_file_name)
     {
         return $this->s3client->putObject([
                     'Bucket' => self::S3_BUCKET_NAME,
-                    'Key' => $this->to_file_name,
+                    'Key' => $to_file_name,
+                    'ContentType' => mime_content_type($image),
                     'SourceFile' => $image,
                     'ACL' => 'public-read',
                 ]);

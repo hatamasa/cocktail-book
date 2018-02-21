@@ -6,15 +6,18 @@ use Cake\ORM\TableRegistry;
 use Cake\Validation\Validator;
 use RuntimeException;
 use App\Model\Common\ImgUploader;
+use App\Model\Common\Logger;
 
 class Cocktails
 {
+    private $logger;
 
     private $params;
 
     private $errors = [];
 
     public function __construct($params = null){
+        $this->logger = new Logger();
         $this->params = $params;
     }
 
