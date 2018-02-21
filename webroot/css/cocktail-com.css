@@ -484,12 +484,14 @@ input[type="radio"]:checked + label {
     margin-bottom: 20px;
     margin-left: 20px;
 }
+
 .cocktail-card {
     position: relative;
     display: inline-block;
     height: 170px;
+    width: 316px;
     margin-right: 10px;
-    margin-bottom: 25px;
+    margin-bottom: 30px;
     padding: 0.5em 0.5em;
     border: solid 3px #5e5b59;
 }
@@ -511,15 +513,22 @@ input[type="radio"]:checked + label {
     border-radius: 5px 5px 0 0;
 }
 
-.cocktail-card img {
-    max-width: 150px;
-    max-height: 150px;
-    float: left;
+.card-content {
 }
 
-.cocktail-card ul{
+.card-content img {
+    max-height: 150px;
+    max-width: 150px;
     float: left;
-    margin: 10px;
+    position: absolute;
+    top: 0;
+    right: 150px;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+}
+
+.card-content ul{
+    margin-left: 160px;
     padding: 0;
 }
-
