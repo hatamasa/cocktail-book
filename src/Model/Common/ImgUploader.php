@@ -5,6 +5,7 @@ use Aws\S3\S3Client;
 use RuntimeException;
 use Aws\Credentials\CredentialProvider;
 use Aws\Credentials\Credentials;
+use Cake\Test\Fixture\ThingsFixture;
 
 class ImgUploader{
 
@@ -134,7 +135,9 @@ class ImgUploader{
         //画像のアップロード
         $this->s3PutObject($this->thumbnail_path, 'thumbnail_' . $this->to_file_name);
         $result = $this->s3PutObject($this->disp_img_path, $this->to_file_name);
-
+        // 成功したらディレクトリ配下を削除
+        unlink($this->thumbnail_path);
+        unlink($this->disp_img_path);
         //読み取り用のパスを返す
         return $result['ObjectURL'];
     }
