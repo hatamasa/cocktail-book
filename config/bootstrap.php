@@ -77,6 +77,9 @@ try {
  * You can use a file like app_local.php to provide local overrides to your
  * shared configuration.
  */
+if(isset($_SERVER['CAKE_ENV'])){
+    Configure::load('app_' . $_SERVER['CAKE_ENV'], 'default');
+}
 if(isset($_ENV['CAKE_ENV'])){
     Configure::load('app_' . $_ENV['CAKE_ENV'], 'default');
 }
