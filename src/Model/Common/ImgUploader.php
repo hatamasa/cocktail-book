@@ -45,8 +45,8 @@ class ImgUploader{
     public function execute()
     {
         try {
-            if(!file_exists($this->tmp_img_dir)){
-                throw new RuntimeException('Not Found tmp_img_dir.');
+            if(!file_exists($this->tmp_img_dir) && !mkdir($this->tmp_img_dir, 0700)){
+                throw new RuntimeException('Not Found or Not Make tmp_img_dir.');
             }
             // 未定義、複数ファイル、破損攻撃のいずれかの場合は無効処理
             if (!isset($this->params['img']['error']) || !is_int($this->params['img']['error'])){
