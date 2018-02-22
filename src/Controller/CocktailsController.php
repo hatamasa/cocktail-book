@@ -88,12 +88,15 @@ class CocktailsController extends AppController
                 try {
                     $results = $cocktails->saveCocktail();
                     $this->Flash->success(MessageUtil::getMsg(MessageUtil::SAVE_SUCCESS));
+                    if($results['img_url']){
+                        $this->Flash->error(__('画像のアップロードができませんでした。画像以外の保存は問題ありません。'));
+                    }
                     // 登録完了した場合、詳細画面を表示する
                     return $this->redirect('cocktails/view/' . $results['id']);
 
                 } catch (FileUploadException $e){
                     $this->logger->log($e->getMessage(), LOG_ERR);
-                    $this->Flash->error(__('ファイルのアップロードができませんでした.'));
+                    $this->Flash->error(__('画像のアップロードができませんでした.'));
                 } catch (\Exception $e) {
                     $this->logger->log($e->getMessage(), LOG_ERR);
                     $this->Flash->error(MessageUtil::getMsg(MessageUtil::SAVE_ERROR));
@@ -144,12 +147,15 @@ class CocktailsController extends AppController
                 try {
                     $cocktails->saveCocktail();
                     $this->Flash->success(MessageUtil::getMsg(MessageUtil::SAVE_SUCCESS));
+                    if($results['img_url']){
+                        $this->Flash->error(__('画像のアップロードができませんでした。画像以外の保存は問題ありません。'));
+                    }
                     // 登録完了した場合、詳細画面を表示する
                     return $this->redirect('cocktails/view/' . $id);
 
                 } catch (FileUploadException $e){
                     $this->logger->log($e->getMessage(), LOG_ERR);
-                    $this->Flash->error(__('ファイルのアップロードができませんでした.'));
+                    $this->Flash->error(__('画像のアップロードができませんでした.'));
                 } catch (\Exception $e) {
                     $this->logger->log($e->getMessage(), LOG_ERR);
                     $this->Flash->error(MessageUtil::getMsg(MessageUtil::SAVE_ERROR));

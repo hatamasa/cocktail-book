@@ -41,6 +41,11 @@ class ImgUploader{
         if(isset($env) && $env == 'heroku'){
             $this->env_dir = 'prd';
         }
+        $this->s3client = new S3Client([
+            'credentials' => new Credentials(env('AWS_ACCESS_KEY_ID'), env('AWS_SECRET_ACCESS_KEY')),
+            'region' => self::REGION,
+            'version' => 'latest',
+        ]);
     }
 
     /**
@@ -119,20 +124,15 @@ class ImgUploader{
      */
     private function upload()
     {
-        $this->s3client = new S3Client([
-            'credentials' => new Credentials(env('AWS_ACCESS_KEY_ID'), env('AWS_SECRET_ACCESS_KEY')),
-            'region' => self::REGION,
-            'version' => 'latest',
-        ]);
         $this->logger->log('file_name: ' . $this->to_file_name);
         //画像のアップロード
         $this->s3PutObject($this->tmp_thumbnail_path, 'thumbnail_' . $this->to_file_name);
-        $result = $this->s3PutObject($this->tmp_disp_img_path, $this->to_file_name);
+        $img_url = $this->s3PutObject($this->tmp_disp_img_path, $this->to_file_name);
         // 成功したらディレクトリ配下を削除
         unlink($this->tmp_thumbnail_path);
         unlink($this->tmp_disp_img_path);
         //読み取り用のパスを返す
-        return $result['ObjectURL'];
+        return $img_url;
     }
 
     /**
@@ -143,13 +143,19 @@ class ImgUploader{
      */
     private function s3PutObject($source_file, $to_file_name)
     {
-        return $this->s3client->putObject([
+        $result = $this->s3client->putObject([
                     'Bucket' => self::S3_BUCKET_NAME,
                     'Key' => $this->env_dir . '/' . $to_file_name,
                     'ContentType' => mime_content_type($source_file),
                     'SourceFile' => $source_file,
                     'ACL' => 'public-read',
                 ]);
+
+        $statusCode = $result['@metadata']['statusCode'];
+        if ($statusCode !== 200) {
+            throw new \Exception('response error. [statusCode: '.$statusCode.']');
+        }
+        return $result['ObjectURL'];
     }
 
 }
