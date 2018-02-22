@@ -72,7 +72,6 @@ class ImgUploader{
         } catch (\Exception $e){
             throw new FileUploadException($e);
         }
-        return ;
     }
 
     /**

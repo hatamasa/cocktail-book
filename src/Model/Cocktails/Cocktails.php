@@ -4,9 +4,9 @@ namespace App\Model\Cocktails;
 use Cake\Datasource\ConnectionManager;
 use Cake\ORM\TableRegistry;
 use Cake\Validation\Validator;
-use RuntimeException;
 use App\Model\Common\ImgUploader;
 use App\Model\Common\Logger;
+use App\Model\Common\FileUploadException;
 
 class Cocktails
 {
@@ -109,9 +109,12 @@ class Cocktails
      */
     public function saveCocktail(){
 
-        // S3にアップロードしてアップロード先のURLをセットする取得
+        // S3にアップロードしてアップロード先のURLをセットする
         $uploader = new ImgUploader($this->params);
         $img_url = $uploader->execute();
+        if($img_url){
+            throw new FileUploadException('S3へのアップロードでエラーが発生しました');
+        }
         $this->logger->log('uploaded image: ' . $img_url);
         // カクテルの配列作成
         $data = [
