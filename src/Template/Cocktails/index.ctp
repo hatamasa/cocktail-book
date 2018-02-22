@@ -53,7 +53,7 @@
                 <li>
                     <label>
                         <input type="checkbox" class="checkbox-input" name="tag_id[]" value="<?= $tag['id']?>" <?php if(in_array($tag['id'], $params['tag_id']??[])): ?> checked="checked" <?php endif; ?> />
-                        <span class="checkbox-span"><?= $tag['name']?></span>
+                        <span class="checkbox-span">#<?= $tag['name']?></span>
                     </label>
                 </li>
                 <?php endforeach; ?>

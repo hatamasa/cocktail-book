@@ -2,50 +2,48 @@
     <h1>検索結果</h1>
 </div>
 <h2>検索条件</h2>
-<!-- TODO 条件変更リンク、ローカルストレージからjsonをパースしてindex画面に返す -->
-<!-- TODO 左寄せ表示 -->
-<table>
+<!-- TODO 条件変更リンク。条件はスマフォでは隠したい。ローカルストレージからjsonをパースしてindex画面に返す -->
+<table class="table-background-skeleton black-th groove-td">
+    <tr>
     <?php if(isset($params['name']) && !empty($params['name'])):?>
-    <tr><th>カクテルの名前</th>
+    <th>カクテルの名前</th>
         <td>「<?= $params['name'] ?>」</td>
-    </tr>
     <?php endif;?>
     <?php if(isset($params['glass'])):?>
-    <tr><th>グラスタイプ</th>
+    <th>グラスタイプ</th>
         <td>
         <?php foreach ($params['glass'] as $glass):?>
             <div><?= $glass_list[$glass]?></div>
         <?php endforeach;?>
         </td>
-    </tr>
     <?php endif;?>
     <?php if(isset($params['percentage'])):?>
-    <tr><th>強さ</th>
+    <th>強さ</th>
         <td>
         <?php foreach ($params['percentage'] as $percentage):?>
             <div><?= $percentage_list[$percentage]?></div>
         <?php endforeach;?>
         </td>
-    </tr>
     <?php endif;?>
     <?php if(isset($params['taste'])):?>
-    <tr><th>テイスト</th>
+    <th>テイスト</th>
         <td>
         <?php foreach ($params['taste'] as $taste):?>
             <div><?= $taste_list[$taste]?></div>
         <?php endforeach;?>
         </td>
-    </tr>
     <?php endif;?>
     <?php if(isset($params['tag_id'])):?>
-    <tr><th>タグ</th>
+    </tr>
+    <tr>
+    <th>タグ</th>
         <td>
         <?php foreach ($params['tag_id'] as $key => $value):?>
-            <div><?= $tags_master[$key]['name']?></div>
+            <div>#<?= $tags_master[$key]['name']?></div>
         <?php endforeach;?>
         </td>
-    </tr>
     <?php endif;?>
+    </tr>
 </table>
 <!-- 検索結果表示 -->
 <?= $this->element('_paginator');?>

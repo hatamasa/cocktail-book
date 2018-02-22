@@ -11,45 +11,42 @@
 <!-- TODO 元画像を表示 -->
 <div class="cocktail__wrapper">
     <img src="<?= $cocktail['img_url']??$no_img_url ?>"/>
-    <table class="detail-table">
+    <table class="table-background-skeleton black-th groove-td">
         <tr>
-            <th class="table-header-md">グラスタイプ</th>
-            <td class="table-data-md"><?= $glass_list[$cocktail['glass']]?></td>
+            <th id="table-header-md">グラスタイプ</th>
+            <td id="table-data-md"><?= $glass_list[$cocktail['glass']]?></td>
         </tr>
         <tr>
-            <th class="table-header-md">強さ</th>
-            <td class="table-data-md"><?= $percentage_list[$cocktail['percentage']]?></td>
+            <th id="table-header-md">強さ</th>
+            <td id="table-data-md"><?= $percentage_list[$cocktail['percentage']]?></td>
         </tr>
         <tr>
-            <th class="table-header-md">色</th>
-            <td class="table-data-md"><?= $cocktail['color']?></td>
+            <th id="table-header-md">色</th>
+            <td id="table-data-md"><?= $cocktail['color']?></td>
         </tr>
         <tr>
-            <th class="table-header-md">テイスト</th>
-            <td class="table-data-md"><?= $taste_list[$cocktail['taste']]?></td>
+            <th id="table-header-md">テイスト</th>
+            <td id="table-data-md"><?= $taste_list[$cocktail['taste']]?></td>
+        </tr>
+        <tr>
+            <th id="table-header-md">タグ</th>
+            <td>
+            <?php foreach ($tags as $tag): ?>
+                <div>#<?= $tag['name'] ?></div>
+            <?php endforeach;?>
+            </td>
         </tr>
     </table>
 </div>
 <div class="cocktailElements__wrapper">
     <h2>入れるもの</h2>
-    <table class="detail-elements-table">
+    <table class="table-background-skeleton black-th groove-td">
     <?php foreach ($cocktails_elements as $element): ?>
         <tr>
-            <th class="table-header-md"><?= $category_list[$element['category_kbn']]?></th>
-            <td class="table-data-md"><?= $element['name']?></td>
-            <td class="table-data-sm"><?= $element['amount']?></td>
+            <th id="table-header-md"><?= $category_list[$element['category_kbn']]?></th>
+            <td id="table-data-md"><?= $element['name']?> ( <?= $element['amount']?> )</td>
         </tr>
     <?php endforeach; ?>
-    </table>
-</div>
-<div>
-    <h2>タグ</h2>
-    <table>
-    <?php foreach ($tags as $tag): ?>
-        <tr>
-            <td><?= $tag['name'] ?></td>
-        </tr>
-    <?php endforeach;?>
     </table>
 </div>
 <div class="cocktail__wrapper">

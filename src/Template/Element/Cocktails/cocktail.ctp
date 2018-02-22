@@ -11,7 +11,7 @@
                 <tr><th>タグ</th>
                 <td>
                 <?php foreach ($row['tags'] as $tag): ?>
-                   <?= $tag['name'] ?>
+                   #<?= $tag['name'] ?>
                 <?php endforeach;?>
                 </td></tr>
             </table>
