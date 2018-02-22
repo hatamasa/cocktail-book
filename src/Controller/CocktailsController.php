@@ -2,7 +2,6 @@
 namespace App\Controller;
 
 use App\Model\Cocktails\Cocktails;
-use App\Model\Common\FileUploadException;
 use App\Model\Common\MessageUtil;
 
 /**
@@ -30,7 +29,6 @@ class CocktailsController extends AppController
      */
     public function search()
     {
-        $results = [];
         $params = $this->request->getQueryParams();
 
         $cocktails = new Cocktails($params);
@@ -92,15 +90,13 @@ class CocktailsController extends AppController
                 try {
                     $results = $cocktails->saveCocktail();
                     $this->Flash->success(MessageUtil::getMsg(MessageUtil::SAVE_SUCCESS));
-                    if($results['img_url']){
+                    // 画像を送ったのに、DBのURLが空ならエラー表示
+                    if(isset($params['img']) && empty($results['img_url'])){
                         $this->Flash->error(__('画像のアップロードができませんでした。画像以外の保存は問題ありません。'));
                     }
                     // 登録完了した場合、詳細画面を表示する
                     return $this->redirect('cocktails/view/' . $results['id']);
 
-                } catch (FileUploadException $e){
-                    $this->logger->log($e->getMessage(), LOG_ERR);
-                    $this->Flash->error(__('画像のアップロードができませんでした.'));
                 } catch (\Exception $e) {
                     $this->logger->log($e->getMessage(), LOG_ERR);
                     $this->Flash->error(MessageUtil::getMsg(MessageUtil::SAVE_ERROR));
@@ -151,15 +147,13 @@ class CocktailsController extends AppController
                 try {
                     $cocktails->saveCocktail();
                     $this->Flash->success(MessageUtil::getMsg(MessageUtil::SAVE_SUCCESS));
-                    if($results['img_url']){
+                    // 画像を送ったのに、DBのURLが空ならエラー表示
+                    if(isset($params['img']) && empty($results['img_url'])){
                         $this->Flash->error(__('画像のアップロードができませんでした。画像以外の保存は問題ありません。'));
                     }
                     // 登録完了した場合、詳細画面を表示する
                     return $this->redirect('cocktails/view/' . $id);
 
-                } catch (FileUploadException $e){
-                    $this->logger->log($e->getMessage(), LOG_ERR);
-                    $this->Flash->error(__('画像のアップロードができませんでした.'));
                 } catch (\Exception $e) {
                     $this->logger->log($e->getMessage(), LOG_ERR);
                     $this->Flash->error(MessageUtil::getMsg(MessageUtil::SAVE_ERROR));

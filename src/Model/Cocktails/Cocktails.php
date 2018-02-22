@@ -6,6 +6,7 @@ use Cake\ORM\TableRegistry;
 use Cake\Validation\Validator;
 use App\Model\Common\ImgUploader;
 use App\Model\Common\Logger;
+use App\Model\Common\FileUploadException;
 
 class Cocktails
 {
@@ -109,9 +110,15 @@ class Cocktails
     public function saveCocktail(){
 
         // S3にアップロードしてアップロード先のURLをセットする
-        $uploader = new ImgUploader($this->params);
-        $img_url = $uploader->execute();
-        $this->logger->log('uploaded image: ' . $img_url);
+        if(isset($this->params['img'])){
+            $uploader = new ImgUploader($this->params);
+            try{
+                $img_url = $uploader->execute();
+            } catch (FileUploadException $e) {
+                $this->logger->log('[ERROR] uploaded image is failed img_url:[ ' . $img_url . ']', LOG_ERR);
+            }
+            $this->logger->log('uploaded image: ' . $img_url);
+        }
         // カクテルの配列作成
         $data = [
             'id' => $this->params['id']??'',
@@ -122,7 +129,7 @@ class Cocktails
             'color' => $this->params['color'],
             'taste' => $this->params['taste'],
             'processes' => $this->params['processes'],
-            'img_url' => $img_url,
+            'img_url' => $img_url??'',
         ];
         // カクテル要素の配列作成
         for ($i = 0; $i < count($this->params['element_id_selected']); $i++){
