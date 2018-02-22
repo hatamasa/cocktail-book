@@ -110,7 +110,7 @@ class Cocktails
     public function saveCocktail(){
 
         // S3にアップロードしてアップロード先のURLをセットする
-        if(isset($this->params['img'])){
+        if(!empty($this->params['img']['name'])){
             $uploader = new ImgUploader($this->params);
             try{
                 $img_url = $uploader->execute();
