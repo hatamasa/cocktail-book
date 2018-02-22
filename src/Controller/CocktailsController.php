@@ -91,7 +91,7 @@ class CocktailsController extends AppController
                     $results = $cocktails->saveCocktail();
                     $this->Flash->success(MessageUtil::getMsg(MessageUtil::SAVE_SUCCESS));
                     // 画像を送ったのに、DBのURLが空ならエラー表示
-                    if(isset($params['img']) && empty($results['img_url'])){
+                    if(!empty($this->params['img']['name']) && empty($results['img_url'])){
                         $this->Flash->error(__('画像のアップロードができませんでした。画像以外の保存は問題ありません。'));
                     }
                     // 登録完了した場合、詳細画面を表示する
@@ -148,7 +148,7 @@ class CocktailsController extends AppController
                     $cocktails->saveCocktail();
                     $this->Flash->success(MessageUtil::getMsg(MessageUtil::SAVE_SUCCESS));
                     // 画像を送ったのに、DBのURLが空ならエラー表示
-                    if(isset($params['img']) && empty($results['img_url'])){
+                    if(!empty($this->params['img']['name']) && empty($results['img_url'])){
                         $this->Flash->error(__('画像のアップロードができませんでした。画像以外の保存は問題ありません。'));
                     }
                     // 登録完了した場合、詳細画面を表示する

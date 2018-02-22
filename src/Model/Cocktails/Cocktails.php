@@ -129,7 +129,7 @@ class Cocktails
             'color' => $this->params['color'],
             'taste' => $this->params['taste'],
             'processes' => $this->params['processes'],
-            'img_url' => $img_url??'',
+            'img_url' => $img_url??null,
         ];
         // カクテル要素の配列作成
         for ($i = 0; $i < count($this->params['element_id_selected']); $i++){
