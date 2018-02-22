@@ -26,7 +26,7 @@ class CocktailsTable extends Table
      */
     public function fetchAllCocktails($params){
 
-        $query = $this->query();
+        $query = $this->query()->contain(['Tags']);
 
         // 検索項目に合わせてSQLを作成
         $query->where(['1' => 1]);
@@ -55,7 +55,7 @@ class CocktailsTable extends Table
 
         $query->order(['name' => 'ASC']);
 
-        return $query->toArray();
+        return $query;
     }
 
     /**

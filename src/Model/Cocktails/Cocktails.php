@@ -6,7 +6,6 @@ use Cake\ORM\TableRegistry;
 use Cake\Validation\Validator;
 use App\Model\Common\ImgUploader;
 use App\Model\Common\Logger;
-use App\Model\Common\FileUploadException;
 
 class Cocktails
 {

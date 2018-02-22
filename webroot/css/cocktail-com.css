@@ -550,3 +550,6 @@ input[type="radio"]:checked + label {
     padding: 3px 0px;
     font-size: xx-small;
 }
+.pagination {
+    margin: 0;
+}

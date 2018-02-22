@@ -48,6 +48,7 @@
     <?php endif;?>
 </table>
 <!-- 検索結果表示 -->
+<?= $this->element('_paginator');?>
 <div class="results__wrapper">
 <?php if(isset($results)):?>
     <?php foreach ($results as $row): ?>
@@ -55,3 +56,4 @@
     <?php endforeach; ?>
 <?php endif;?>
 </div>
+<?= $this->element('_paginator');?>

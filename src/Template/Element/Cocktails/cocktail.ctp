@@ -9,12 +9,12 @@
                 <tr><th>強さ</th><td><?= $percentage_list[$row['percentage']]?></td></tr>
                 <tr><th>色</th><td><?= $row['color']?></td></tr>
                 <tr><th>味</th><td><?= $taste_list[$row['taste']]?></td></tr>
-                <!-- <tr><th>タグ</th>
+                <tr><th>タグ</th>
                 <td>
-                <?php foreach ($row['CocktailsTags'] as $tag): ?>
+                <?php foreach ($row['tags'] as $tag): ?>
                    <?= $tag['name'] ?>
                 <?php endforeach;?>
-                </td></tr> -->
+                </td></tr>
             </table>
         </span>
     </span>

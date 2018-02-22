@@ -11,6 +11,9 @@ use App\Model\Common\MessageUtil;
  */
 class CocktailsController extends AppController
 {
+    public $paginate = [
+        'limit' => 12,
+    ];
 
     /**
      * 初期表示
@@ -41,15 +44,16 @@ class CocktailsController extends AppController
             return $this->render('index');
         }
 
-        $results = $this->Cocktails->fetchAllCocktails($params);
-        $this->set(compact('results', 'params'));
+        $query = $this->Cocktails->fetchAllCocktails($params);
+        $this->set('results', $this->paginate($query));
+        $this->set(compact('params'));
         // 結果0件は元の画面へ
-        if (count($results) == 0) {
+        if ( 0 == $cnt = $query->count()) {
             $this->Flash->error("検索結果はありません");
             return $this->render('index');
         }
 
-        $this->Flash->set(count($results) . "件ヒットしました");
+        $this->Flash->set($cnt . "件ヒットしました");
         // TODO ローカルストレージに検索条件をjsonで保存する
     }
 
@@ -64,7 +68,7 @@ class CocktailsController extends AppController
         $results = $cocktails->fetchCocktailDetail($id);
 
         $this->set('cocktail', $results['cocktail']);
-        $this->set('cocktails_tags', $results['cocktail']['tags']??[] );
+        $this->set('tags', $results['cocktail']['tags']??[] );
         $this->set('cocktails_elements', $results['cocktails_elements']);
     }
 

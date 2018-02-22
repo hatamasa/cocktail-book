@@ -45,7 +45,7 @@
 <div>
     <h2>タグ</h2>
     <table>
-    <?php foreach ($cocktails_tags as $tag): ?>
+    <?php foreach ($tags as $tag): ?>
         <tr>
             <td><?= $tag['name'] ?></td>
         </tr>
