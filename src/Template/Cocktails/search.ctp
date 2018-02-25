@@ -62,8 +62,12 @@
     <tr>
     <th>タグ</th>
         <td>
-        <?php foreach ($params['tag_id'] as $key => $value):?>
-            <div>#<?= $tags_master[$key]['name']?></div>
+        <?php foreach ($params['tag_id'] as $tag_id):?>
+            <?php foreach ($tags_master as $tag):?>
+                <?php if($tag['id'] == $tag_id):?>
+                    <div>#<?= $tag['name']?></div>
+                <?php endif;?>
+            <?php endforeach;?>
         <?php endforeach;?>
         </td>
     <?php endif;?>
