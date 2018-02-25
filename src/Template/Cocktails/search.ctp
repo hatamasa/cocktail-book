@@ -1,13 +1,37 @@
 <div class="title__wrapper">
-    <h1>検索結果</h1>
+    <h1>カクテル一覧</h1>
 </div>
-<h2>検索条件</h2>
-<!-- TODO 条件変更リンク。条件はスマフォでは隠したい。ローカルストレージからjsonをパースしてindex画面に返す -->
+<div class="display-flex mb-10">
+    <h2>現在の検索条件</h2>
+    <button type="button" class="btn btn-default ml-10" data-toggle="modal" data-target="#sampleModal">検索条件変更</button>
+</div>
+<!-- モーダル・ダイアログ -->
+<div class="modal fade" id="sampleModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span>×</span></button>
+                <h4 class="modal-title">検索条件を変更する</h4>
+            </div>
+            <form action="<?= $this->Url->build('/cocktails/search') ?>" method="get">
+                <div class="modal-body">
+                    <?= $this->element('Cocktails/cocktail_conditions');?>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">閉じる</button>
+                    <button type="submit" class="btn btn-primary">この条件で再検索</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
 <table class="table-background-skeleton black-th groove-td">
     <tr>
     <?php if(isset($params['name']) && !empty($params['name'])):?>
     <th>カクテルの名前</th>
-        <td>「<?= $params['name'] ?>」</td>
+        <td>「<?= $params['name'] ?>」に一致するカクテル</td>
     <?php endif;?>
     <?php if(isset($params['glass'])):?>
     <th>グラスタイプ</th>

@@ -1,14 +1,13 @@
 <!-- 検索結果表示 -->
 <div class="title__wrapper">
-    <h1><?= $cocktail['name']?></h1>
+    <h1><?= $cocktail['name']?> のカクテル詳細</h1>
     <?php if ($auth->user()): ?>
     <ul>
-        <li><?= $this->Html->link(__('編集する'), ['action' => 'edit', $cocktail['id']]) ?></li>
-        <li><?= $this->Form->postLink(__('削除する'), ['action' => 'delete', $cocktail['id']], ['confirm' => __('このカクテルを削除しますか？')]) ?></li>
+        <li><?= $this->Html->link('編集する', ['action' => 'edit', $cocktail['id']]) ?></li>
+        <li><?= $this->Form->postLink('削除する', ['action' => 'delete', $cocktail['id']], ['confirm' => 'このカクテルを削除しますか？']) ?></li>
     </ul>
     <?php endif;?>
 </div>
-<!-- TODO 元画像を表示 -->
 <div class="cocktail__wrapper">
     <img src="<?= $cocktail['img_url']??$no_img_url ?>"/>
     <table class="table-background-skeleton black-th groove-td">
@@ -32,7 +31,7 @@
             <th id="table-header-md">タグ</th>
             <td>
             <?php foreach ($tags as $tag): ?>
-                <div>#<?= $tag['name'] ?></div>
+                <div><?= $this->Html->link('#'. $tag['name'], ['action' => 'search', '?' => ['tag_id' => [$tag['id']]]]) ?></div>
             <?php endforeach;?>
             </td>
         </tr>

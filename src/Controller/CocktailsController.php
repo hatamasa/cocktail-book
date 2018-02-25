@@ -52,7 +52,6 @@ class CocktailsController extends AppController
         }
 
         $this->Flash->set($cnt . "件ヒットしました");
-        // TODO ローカルストレージに検索条件をjsonで保存する
     }
 
     /**
@@ -92,7 +91,7 @@ class CocktailsController extends AppController
                     $this->Flash->success(MessageUtil::getMsg(MessageUtil::SAVE_SUCCESS));
                     // 画像を送ったのに、DBのURLが空ならエラー表示
                     if(!empty($this->params['img']['name']) && empty($results['img_url'])){
-                        $this->Flash->error(__('画像のアップロードができませんでした。画像以外の保存は問題ありません。'));
+                        $this->Flash->error('画像のアップロードができませんでした。画像以外の保存は問題ありません。');
                     }
                     // 登録完了した場合、詳細画面を表示する
                     return $this->redirect('cocktails/view/' . $results['id']);
@@ -149,7 +148,7 @@ class CocktailsController extends AppController
                     $this->Flash->success(MessageUtil::getMsg(MessageUtil::SAVE_SUCCESS));
                     // 画像を送ったのに、DBのURLが空ならエラー表示
                     if(!empty($this->params['img']['name']) && empty($results['img_url'])){
-                        $this->Flash->error(__('画像のアップロードができませんでした。画像以外の保存は問題ありません。'));
+                        $this->Flash->error('画像のアップロードができませんでした。画像以外の保存は問題ありません。');
                     }
                     // 登録完了した場合、詳細画面を表示する
                     return $this->redirect('cocktails/view/' . $id);

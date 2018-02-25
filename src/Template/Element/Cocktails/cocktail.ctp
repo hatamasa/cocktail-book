@@ -1,5 +1,5 @@
 <div>
-<a href="<?= $this->Url->build('/cocktails/view/') ?><?= $row['id']?>">
+<a href="<?= $this->Url->build('/cocktails/view/') ?><?= $row['id']?>" target="_blank" >
     <span class='cocktail-card'>
         <span class="card-title"><?= $row['name']?></span>
         <span class="card-content">

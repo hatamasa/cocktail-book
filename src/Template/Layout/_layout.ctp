@@ -22,13 +22,13 @@
 </head>
 <body>
     <?= $this->element('_header'); ?>
-    <div class="main">
-        <div class="container">
-            <?= $this->Flash->render() ?>
-            <?= $this->fetch('content') ?>
+    <div class="container">
+        <div class="main">
+        <?= $this->Flash->render() ?>
+        <?= $this->fetch('content') ?>
         </div>
-        <div class="push"></div>
     </div>
+    <div class="push"></div>
     <?= $this->element('_footer'); ?>
 </body>
 </html>

@@ -34,29 +34,18 @@ body {
     }
 }
 
-.main {
-    min-height: 100%;
-    margin-bottom: -100px;
-    position: relative;
-    z-index: -9999;
-}
-@media screen and (max-width:480px){
-    .main{
-        margin-bottom: -150px;
-    }
-}
-
 .container {
     min-height: calc(100vh - 185px);
     padding-bottom: 30px;
+    margin-bottom: -100px;
     background-color:#ffffffdb;
     position: relative;
-    z-index: -9999;
 }
 @media screen and (max-width:480px){
     .container{
         min-height: calc(100vh - 150px);
         padding-top: 50px;
+        margin-bottom: -150px;
     }
 }
 
@@ -71,11 +60,17 @@ header{
        position: fixed;
        height: 50px;
        padding: 8px;
+       z-index: 1;
     }
 }
 
 footer, .push {
     height: 100px;
+}
+
+.push {
+    position: relative;
+    z-index: -10000;
 }
 
 footer{
@@ -84,11 +79,11 @@ footer{
     padding: 10px;
     color: #fff;
     text-align: center;
+    z-index: -1;
 }
 @media screen and (max-width:480px){
     footer, .push {
        height: 150px;
-       z-index: -1;
     }
 }
 
@@ -421,7 +416,6 @@ input[type="radio"]:checked + label {
     position: relative;
     margin-right: 10px;
     color: #989898;
-    z-index: -1;
 }
 
 .checkbox-span::before{
@@ -468,11 +462,6 @@ input[type="radio"]:checked + label {
 
 .display-flex {
     display: inline-flex;
-}
-@media screen and (max-width:480px){
-    .display-flex {
-        margin-bottom: 15px;
-    }
 }
 
 .name-search-input {
@@ -574,4 +563,12 @@ input[type="radio"]:checked + label {
 }
 .pagination {
     margin: 0;
+}
+
+/* margin */
+.ml-10 {
+    margin-left: 10px;
+}
+.mb-10 {
+    margin-bottom: 10px
 }

@@ -7,7 +7,6 @@
             <ul>
                 <li class="nav-title">カクテル.com</li>
                 <a href="<?= $this->Url->build('/') ?>"><li>カクテルを検索</li></a>
-                <!-- TODO 管理者ログイン時のみ表示 -->
                 <?php if ($auth->user()): ?>
                 <li class="nav-title">管理者メニュー</li>
                 <a href="<?= $this->Url->build('/cocktails/add') ?>"><li>カクテルを作成</li></a>
