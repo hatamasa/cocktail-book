@@ -27,9 +27,18 @@ class Cocktails
      */
     public function validateForSearch(){
 
-        // nameパラメータがない、またはnameが空でパラメータが他にない場合
-        if(!isset($this->params['name']) ||(empty(trim(mb_convert_kana($this->params['name'], 's'))) && count($this->params) <= 1)){
+        // パラメータがない場合はエラー
+        if(count($this->params) == 0){
             $this->errors[] = "検索条件を入力してください";
+            return $this->errors;
+        }
+
+        // nameの空文字のみの検索はエラーとする
+        // 全角スペースはemptyと判断されないため半角に変換してtrimする
+        if(isset($this->params['name']) && count($this->params) == 1){
+            if(empty(trim(mb_convert_kana($this->params['name'], 's')))) {
+                $this->errors[] = "検索条件を入力してください";
+            }
         }
 
         return $this->errors;
