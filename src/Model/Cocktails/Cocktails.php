@@ -33,11 +33,15 @@ class Cocktails
             return $this->errors;
         }
 
-        // nameの空文字のみの検索はエラーとする
-        // 全角スペースはemptyと判断されないため半角に変換してtrimする
-        if(isset($this->params['name']) && count($this->params) == 1){
-            if(empty(trim(mb_convert_kana($this->params['name'], 's')))) {
+        if(isset($this->params['name'])){
+            // nameの空文字のみの検索はエラーとする
+            // 全角スペースはemptyと判断されないため半角に変換してtrimする
+            if(empty(trim(mb_convert_kana($this->params['name'], 's'))) && count($this->params, 1) === 1) {
                 $this->errors[] = "検索条件を入力してください";
+                return $this->errors;
+            }
+            if(mb_strlen(trim($this->params['name'])) > 30){
+                $this->errors[] = "カクテル名は30文字以内で入力してください。";
             }
         }
 
