@@ -1,9 +1,9 @@
 <div class="title__wrapper">
     <h1>カクテル一覧</h1>
 </div>
-<div class="display-flex mb-10">
-    <h2>現在の検索条件</h2>
-    <button type="button" class="btn btn-default ml-10" data-toggle="modal" data-target="#sampleModal">検索条件変更</button>
+<div class="display-flex sp-w100p mb-10">
+    <h2 class="sp-disable  mr-10">現在の検索条件</h2>
+    <button type="button" class="btn btn-default btn-full" data-toggle="modal" data-target="#sampleModal">検索条件変更</button>
 </div>
 <!-- モーダル・ダイアログ -->
 <div class="modal fade" id="sampleModal" tabindex="-1">
@@ -18,8 +18,8 @@
                     <?= $this->element('Cocktails/cocktail_conditions');?>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">閉じる</button>
-                    <button type="submit" class="btn btn-primary">この条件で再検索</button>
+                    <button type="button" class="btn btn-default btn-full" data-dismiss="modal">閉じる</button>
+                    <button type="submit" class="btn btn-primary btn-full">この条件で再検索</button>
                 </div>
             </form>
         </div>
@@ -27,7 +27,7 @@
 </div>
 
 
-<table class="table-background-skeleton black-th groove-td">
+<table class="table-background-skeleton black-th groove-td sp-disable">
     <tr>
     <?php if(isset($params['name']) && !empty($params['name'])):?>
     <th>カクテルの名前</th>
