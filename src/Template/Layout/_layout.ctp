@@ -26,8 +26,25 @@
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
     <?= $this->fetch('script') ?>
+    <!-- facebook -->
+    <meta property="og:url"           content="https://cocktail-com.herokuapp.com/" />
+    <meta property="og:type"          content="website" />
+    <meta property="og:title"         content="カクテル.com" />
+    <meta property="og:description"   content="タグや雰囲気からカクテルを探せるサイト!!" />
+    <meta property="og:image"         content="https://s3-ap-northeast-1.amazonaws.com/cocktails-img-bucket/main.jpg" />
 </head>
 <body>
+    <!-- facebook -->
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = 'https://connect.facebook.net/ja_JP/sdk.js#xfbml=1&version=v2.12';
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+    <!-- twitter -->
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
     <?= $this->element('_header'); ?>
     <div class="container">
         <div class="main">
