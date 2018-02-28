@@ -5,7 +5,7 @@ $(function(){
         var category = $('#category').val();
         var options = [];
         $('#elements').find('option').each(function(index, element){
-            var values = $(element).val().split(',')
+            var values = $(element).val().split(',');
             if(values[0] != category){
                 $(element).hide();
             }else{
@@ -29,7 +29,8 @@ $(function(){
         // 選択済み材料を取得
         obj = makeSelectedList(obj);
         // 新しく追加する材料を追加
-        obj['element_id'] = $('.elements').val();
+        var values = $('#elements').val().split(',');
+        obj['element_id'] = values[1];
         obj['amount'] = $('.amount-input').val();
 
         console.log(obj);
