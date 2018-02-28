@@ -186,23 +186,6 @@ class CocktailsController extends AppController
     }
 
     /**
-     * (Ajax用)エレメントのプルダウン制御用
-     * GET /cocktails/getElementsOptions/:id
-     */
-    public function getElementsOptions($category_kbn)
-    {
-        if (!$this->request->is('ajax')) {
-            return $this->redirect('/');
-        }
-
-        $cocktails = new Cocktails();
-        $elements_list = $cocktails->getElementsList($category_kbn);
-
-        $this->set(compact('elements_list'));
-        $this->render('/Element/Cocktails/ajax_elements_options','');
-    }
-
-    /**
      * (Ajax用)材料追加用
      * POST /cocktails/mergeElementsTable
      */

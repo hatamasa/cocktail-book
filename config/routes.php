@@ -13,11 +13,6 @@ Router::defaultRouteClass(DashedRoute::class);
 Router::scope('/', function (RouteBuilder $routes) {
     // 初期表示、検索画面表示
     $routes->get('/', ['controller' => 'Cocktails', 'action' => 'index']);
-
-    // ajax材料セレクトボックス取得
-    $routes->get('/cocktails/getElementsOptions/:id', ['controller' => 'Cocktails', 'action' => 'getElementsOptions'])
-    ->setPatterns(['id' => '\d+'])
-    ->setPass(['id']);
     // ajax材料テーブルを追加する
     $routes->post('/cocktails/mergeElementsTable', ['controller' => 'Cocktails', 'action' => 'mergeElementsTable']);
     // ajax材料テーブルから削除する

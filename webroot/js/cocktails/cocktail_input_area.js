@@ -11,9 +11,7 @@ $(function(){
             }else{
                 $(element).show();
             }
-            options.push(element);
         });
-        $('#elements').innerHTML = options.join("");
     });
 
     // セレクトボックスを未選択状態にする
