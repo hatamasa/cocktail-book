@@ -17,12 +17,17 @@ class CachesController extends AppController
     public function reloadMaster()
     {
         // タグマスタリロード
-        $tagsTable = TableRegistry::get('Tags');
-        $tags_master = $tagsTable->find('all', [
+        $tagsRepository = TableRegistry::get('Tags');
+        $tags_master = $tagsRepository->find('all', [
             'order' => ['Tags.id' => 'ASC']
         ])->toArray();
+        // エレメントマスタリロード
+        $elementsRepository = TableRegistry::get('Elements');
+        $elements_master = $elementsRepository->find('all', [
+            'all' => ['Elements.id' => 'ASC', 'Elements.name' => 'ASC']
+        ])->toArray();
 
-        if(Cache::write('tags_master', $tags_master)){
+        if(Cache::write('tags_master', $tags_master) && Cache::write('elements_master', $elements_master)){
             $this->Flash->success('リロードしました。');
         }else {
             $this->Flash->error(MessageUtil::getMsg(MessageUtil::SAVE_ERROR));

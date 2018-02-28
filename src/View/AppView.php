@@ -59,9 +59,12 @@ class AppView extends View
                     case 'index':
                     case 'search':
                     case 'add':
+                        // マスタキャッシュをセット
+                        $this->set('elements_master', Cache::read('elements_master'));
                     case 'edit':
                         // マスタキャッシュをセット
                         $this->set('tags_master', Cache::read('tags_master'));
+                        $this->set('elements_master', Cache::read('elements_master'));
                         break;
                 }
                 break;

@@ -1,13 +1,23 @@
 $(function(){
 
     // selectボックスの変更イベント
-    $('.category').on('change keyup', function() {
-        var id = $('.category').val();
-        $('.elements').load( '/cocktails/getElementsOptions/'+id);
+    $('#category').on('change', function() {
+        var category = $('#category').val();
+        var options = [];
+        $('#elements').find('option').each(function(index, element){
+            var values = $(element).val().split(',')
+            if(values[0] != category){
+                $(element).hide();
+            }else{
+                $(element).show();
+            }
+            options.push(element);
+        });
+        $('#elements').innerHTML = options.join("");
     });
 
     // セレクトボックスを未選択状態にする
-    $('.category').prop('selectedIndex', -1);
+    $('#category').prop('selectedIndex', -1);
 
     // 材料追加ボタン押下イベント
     $('.submit-elements').on('click', function() {
@@ -34,13 +44,13 @@ $(function(){
                 xhr.setRequestHeader('X-CSRF-Token', csrf);
             }
         }).done(function(data){
-            $('.elements-table').html(data);
+            $('#elements-table').html(data);
         });
     });
 
     // 材料削除ボタン押下イベント
-    // .elements-table自体を監視対象にしておいて、第二引数で指定した要素にhitしたら関数が呼ばれる仕組み。
-    $('.elements-table').on('click', '.delete-elements', function(){
+    // #elements-table自体を監視対象にしておいて、第二引数で指定した要素にhitしたら関数が呼ばれる仕組み。
+    $('#elements-table').on('click', '.delete-elements', function(){
 
         var obj = new Object();
         // 選択済み材料を取得
@@ -58,7 +68,7 @@ $(function(){
                 xhr.setRequestHeader('X-CSRF-Token', csrf);
             }
         }).done(function(data){
-            $('.elements-table').html(data);
+            $('#elements-table').html(data);
         });
     });
 
@@ -109,21 +119,21 @@ function validate(){
 function makeSelectedList(obj){
     // すでに追加されているidを取得
     var obj_id_list = new Object();
-    $('.elements-table').find('.saved_id').each(function(i){
+    $('#elements-table').find('.saved_id').each(function(i){
         obj_id_list[i] = $(this).val();
     });
     obj['saved_id'] = obj_id_list;
 
     // すでに追加されているelement_idを取得
     var obj_elements_list = new Object();
-    $('.elements-table').find('.element_id_selected').each(function(i){
+    $('#elements-table').find('.element_id_selected').each(function(i){
         obj_elements_list[i] = $(this).val();
     });
     obj['element_id_selected'] = obj_elements_list;
 
     // すでに追加されているamountを取得
     var obj_amount_list = new Object();
-    $('.elements-table').find('.amount_selected').each(function(i){
+    $('#elements-table').find('.amount_selected').each(function(i){
         obj_amount_list[i] = $(this).val();
     });
     obj['amount_selected'] = obj_amount_list;

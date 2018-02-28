@@ -47,14 +47,18 @@
     <h2 class="elements-title">材料を選択する</h2>
     <div class="elements-select__inner">
         <span>
-            <select class="category" name="category" size="5">
+            <select class="category" id="category" name="category" size="5">
             <?php foreach ($category_list as $key => $value):?>
                 <option value="<?=$key?>" <?php if (($params['category']??'') == $key):?>selected<?php endif;?> ><?=$value?></option>
             <?php endforeach;?>
             </select>
         </span>
         <span>
-            <select class="elements" name="elements" size="5"><!-- Ajaxで生成 --></select>
+            <select class="elements" id="elements" name="elements" size="5">
+            <?php foreach ($elements_master as $elements):?>
+                <option value="<?=$elements['category_kbn'] ?>,<?=$elements['id']?>" <?php if ($params['elements']??'' == $elements['id']):?>selected<?php endif;?> ><?=$elements['name']?></option>
+            <?php endforeach;?>
+            </select>
         </span>
         <div class="display-flex">
             <input type="text" class="amount-input" name="amount" value="<?= $params['amount'][0]??'' ?>" placeholder="量を入力..." />
@@ -63,7 +67,7 @@
     </div>
     <h3>材料一覧</h3>
     <?= $this->element('input_errors', ['name' => 'element_id_selected']); ?>
-    <table class="elements-table"><!-- Ajaxで生成 -->
+    <table id="elements-table"><!-- Ajaxで生成 -->
         <?= $this->element('Cocktails/ajax_elements_table'); ?>
     </table>
 </div>

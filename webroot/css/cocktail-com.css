@@ -314,11 +314,11 @@ select.elements {
 }
 
 /* table */
-.elements-table {
+#elements-table {
     width: 700px;
 }
 @media screen and (max-width:480px) {
-    .elements-table {
+    #elements-table {
         width: auto;
     }
 }
