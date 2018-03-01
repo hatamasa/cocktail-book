@@ -56,10 +56,19 @@ class Application extends BaseApplication
         // config/bootstrap.php を `require_once`  するために parent を呼びます。
         parent::bootstrap();
 
+        // エレメントマスタキャッシュがない場合はDBより読み込む
+        if(($elements_master = Cache::read('elements_master')) === false ){
+            $elementsRepository = TableRegistry::get('Elements');
+            $elements_master = $elementsRepository->find('all', [
+                'all' => ['Elements.id' => 'ASC', 'Elements.name' => 'ASC']
+            ])->toArray();
+            Cache::write('elements_master', $elements_master);
+        }
+
         // タグマスタキャッシュがない場合はDBより読み込む
         if(($tags_master = Cache::read('tags_master')) === false ){
-            $tagsTable = TableRegistry::get('Tags');
-            $tags_master = $tagsTable->find('all', [
+            $tagsRepository = TableRegistry::get('Tags');
+            $tags_master = $tagsRepository->find('all', [
                 'order' => ['Tags.id' => 'ASC']
             ])->toArray();
             Cache::write('tags_master', $tags_master);

@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Model\Common\MessageUtil;
+use Cake\Cache\Cache;
 
 /**
  * Elements Controller
@@ -56,6 +57,7 @@ class ElementsController extends AppController
         if ($this->request->is('post')) {
             $element = $this->Elements->patchEntity($element, $this->request->getData());
             if ($this->Elements->save($element)) {
+                $this->reloadCache();
                 $this->Flash->success(__('材料を追加しました。'));
 
                 return $this->redirect(['action' => 'index']);
@@ -78,6 +80,7 @@ class ElementsController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $element = $this->Elements->patchEntity($element, $this->request->getData());
             if ($this->Elements->save($element)) {
+                $this->reloadCache();
                 $this->Flash->success(__('材料を編集しました。'));
 
                 return $this->redirect(['action' => 'index']);
@@ -99,6 +102,7 @@ class ElementsController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $element = $this->Elements->get($id);
         if ($this->Elements->delete($element)) {
+            $this->reloadCache();
             $this->Flash->success(__('材料を削除しました。'));
         } else {
             $this->Flash->error(__(MessageUtil::getMsg(MessageUtil::SAVE_ERROR)));
@@ -119,5 +123,16 @@ class ElementsController extends AppController
             return true;
         }
         return false;
+    }
+
+    /**
+     * エレメントマスタのキャッシュリロード
+     */
+    private function reloadCache()
+    {
+        $elements_master = $this->Elements->find('all', [
+            'order' => ['Elements.id' => 'ASC']
+        ])->toArray();
+        Cache::write('elements_master', $elements_master);
     }
 }
