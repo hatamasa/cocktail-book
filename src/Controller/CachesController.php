@@ -19,12 +19,12 @@ class CachesController extends AppController
         // タグマスタリロード
         $tagsRepository = TableRegistry::get('Tags');
         $tags_master = $tagsRepository->find('all', [
-            'order' => ['Tags.id' => 'ASC']
+            'order' => ['Tags.name' => 'asc']
         ])->toArray();
         // エレメントマスタリロード
         $elementsRepository = TableRegistry::get('Elements');
         $elements_master = $elementsRepository->find('all', [
-            'all' => ['Elements.id' => 'ASC', 'Elements.name' => 'ASC']
+            'order' => ['Elements.name' => 'asc']
         ])->toArray();
 
         if(Cache::write('tags_master', $tags_master) && Cache::write('elements_master', $elements_master)){
