@@ -91,6 +91,9 @@ $(function(){
     $('.processes').on('click', function(){
         var text = String($('#processes').val());
         switch($(this).val()){
+            case 'soda':
+                $('#processes').val(text + 'ソーダ以外の');
+                break;
             case 'shake':
                 $('#processes').val(text + '材料をシェークして、');
                 break;
@@ -102,6 +105,9 @@ $(function(){
                 break;
             case 'cocktail-glass':
                 $('#processes').val(text + 'カクテルグラスに注ぐ');
+                break;
+            case 'sodain':
+                $('#processes').val(text + 'ソーダを注ぐ');
                 break;
         }
 
@@ -235,10 +241,12 @@ function makeSelectedList(obj){
 <div class="createCocktail__block">
     <div class="form-group">
         <h2>作成手順</h2>
+        <button type="button" class="btn btn-default btn-sm processes" value="soda" >ソーダ以外の</button>
         <button type="button" class="btn btn-default btn-sm processes" value="shake" >シェーク</button>
         <button type="button" class="btn btn-default btn-sm processes" value="stir">ステア</button>
         <button type="button" class="btn btn-default btn-sm processes" value="clash">クラッシュドアイス</button>
         <button type="button" class="btn btn-default btn-sm processes" value="cocktail-glass">カクテルグラスに注ぐ</button>
+        <button type="button" class="btn btn-default btn-sm processes" value="sodain" >ソーダを注ぐ</button>
         <div>
             <textarea name="processes" id="processes" cols="70" rows="5" ><?= $params['processes']??'' ?></textarea>
         </div>
