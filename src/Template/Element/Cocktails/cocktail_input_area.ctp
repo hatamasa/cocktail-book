@@ -100,6 +100,12 @@ $(function(){
             case 'stir':
                 $('#processes').val(text + '材料をステアして、');
                 break;
+            case 'mix':
+                $('#processes').val(text + 'ミキシンググラス');
+                break;
+            case 'ice':
+                $('#processes').val(text + '氷を入れた');
+                break;
             case 'clash':
                 $('#processes').val(text + 'クラッシュドアイスを詰めた');
                 break;
@@ -244,6 +250,8 @@ function makeSelectedList(obj){
         <button type="button" class="btn btn-default btn-sm processes" value="soda" >ソーダ以外の</button>
         <button type="button" class="btn btn-default btn-sm processes" value="shake" >シェーク</button>
         <button type="button" class="btn btn-default btn-sm processes" value="stir">ステア</button>
+        <button type="button" class="btn btn-default btn-sm processes" value="mix">ミキシンググラス</button>
+        <button type="button" class="btn btn-default btn-sm processes" value="ice">氷を入れた</button>
         <button type="button" class="btn btn-default btn-sm processes" value="clash">クラッシュドアイス</button>
         <button type="button" class="btn btn-default btn-sm processes" value="cocktail-glass">カクテルグラスに注ぐ</button>
         <button type="button" class="btn btn-default btn-sm processes" value="sodain" >ソーダを注ぐ</button>
