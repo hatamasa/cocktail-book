@@ -13,6 +13,12 @@ use App\Model\Common\MessageUtil;
  */
 class TagsController extends AppController
 {
+    public $paginate = [
+        'limit' => 20,
+        'order' => [
+            'Tags.name' => 'ASC'
+        ]
+    ];
 
     public function initialize()
     {

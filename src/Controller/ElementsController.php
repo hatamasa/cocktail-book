@@ -13,6 +13,13 @@ use Cake\Cache\Cache;
  */
 class ElementsController extends AppController
 {
+    public $paginate = [
+        'limit' => 20,
+        'order' => [
+            'Elements.name' => 'ASC'
+        ]
+    ];
+
     public function initialize()
     {
         parent::initialize();

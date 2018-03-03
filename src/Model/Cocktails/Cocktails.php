@@ -193,16 +193,6 @@ class Cocktails
     }
 
     /**
-     * カテゴリごとのエレメントのリストを取得する
-     * @param $category_kbn
-     */
-    public function getElementsList($category_kbn)
-    {
-        $elementsRepository = TableRegistry::get('Elements');
-        return $elementsRepository->findByCategoryKbn($category_kbn)->toArray();
-    }
-
-    /**
      * IDからエレメントを取得して表示用リストを作成する
      * @return array $elements
      */
