@@ -90,9 +90,23 @@ $(function(){
         $('#processes').text(text + '材料をシェークして、');
     });
 
-    $('.cocktail-glass').on('click', function(){
+    $('.processes').on('click', function(){
         var text = $('#processes').val();
-        $('#processes').text(text + 'カクテルグラスに注ぐ');
+        switch($(this).val()){
+            case 'shake':
+                $('#processes').text(text + '材料をシェークして、');
+                break;
+            case 'stir':
+                $('#processes').text(text + '材料をステアして、');
+                break;
+            case 'clash':
+                $('#processes').text(text + 'クラッシュドアイスを詰めた');
+                break;
+            case 'cocktail-glass':
+                $('#processes').text(text + 'カクテルグラスに注ぐ');
+                break;
+        }
+
     });
 
 });
@@ -223,8 +237,10 @@ function makeSelectedList(obj){
 <div class="createCocktail__block">
     <div class="form-group">
         <h2>作成手順</h2>
-        <button type="button" class="btn btn-default btn-sm shake" >シェーク</button>
-        <button type="button" class="btn btn-default btn-sm cocktail-glass" >カクテルグラスに注ぐ</button>
+        <button type="button" class="btn btn-default btn-sm processes" value="shake" >シェーク</button>
+        <button type="button" class="btn btn-default btn-sm processes" value="stir">ステア</button>
+        <button type="button" class="btn btn-default btn-sm processes" value="clash">クラッシュドアイス</button>
+        <button type="button" class="btn btn-default btn-sm processes" value="cocktail-glass">カクテルグラスに注ぐ</button>
         <div>
             <textarea name="processes" id="processes" cols="70" rows="5" ><?= $params['processes']??'' ?></textarea>
         </div>

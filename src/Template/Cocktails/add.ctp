@@ -1,4 +1,3 @@
-<script type="text/javascript" src="/js/cocktails/cocktail_input_area.js"></script>
 <!-- フォーム -->
 <div class="title__wrapper">
     <h1>カクテルを作成する</h1>
