@@ -16,7 +16,7 @@ class TagsController extends AppController
     public $paginate = [
         'limit' => 20,
         'order' => [
-            'Tags.name' => 'ASC'
+            'Tags.name' => 'asc'
         ]
     ];
 

@@ -60,7 +60,7 @@ class Application extends BaseApplication
         if(($elements_master = Cache::read('elements_master')) === false ){
             $elementsRepository = TableRegistry::get('Elements');
             $elements_master = $elementsRepository->find('all', [
-                'all' => ['Elements.name' => 'ASC']
+                'order' => ['Elements.name' => 'asc']
             ])->toArray();
             Cache::write('elements_master', $elements_master);
         }
@@ -69,7 +69,7 @@ class Application extends BaseApplication
         if(($tags_master = Cache::read('tags_master')) === false ){
             $tagsRepository = TableRegistry::get('Tags');
             $tags_master = $tagsRepository->find('all', [
-                'order' => ['Tags.name' => 'ASC']
+                'order' => ['Tags.name' => 'asc']
             ])->toArray();
             Cache::write('tags_master', $tags_master);
         }

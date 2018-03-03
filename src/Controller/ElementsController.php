@@ -16,7 +16,7 @@ class ElementsController extends AppController
     public $paginate = [
         'limit' => 20,
         'order' => [
-            'Elements.name' => 'ASC'
+            'Elements.name' => 'asc'
         ]
     ];
 
