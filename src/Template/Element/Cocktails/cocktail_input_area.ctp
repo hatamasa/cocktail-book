@@ -30,7 +30,6 @@ $(function(){
         obj['element_id'] = $('#elements').val();
         obj['amount'] = $('.amount-input').val();
 
-        console.log(obj);
         var csrf = $('input[name=_csrfToken]').val();
         $.ajax({
             url: '/cocktails/mergeElementsTable/',
@@ -53,7 +52,6 @@ $(function(){
         // 削除する材料
         obj['del_index'] = $(this).closest('tr').find('.index').val();
 
-        console.log(obj);
         var csrf = $('input[name=_csrfToken]').val();
         $.ajax({
             url: '/cocktails/deleteElementsTable/',
@@ -91,19 +89,19 @@ $(function(){
     });
 
     $('.processes').on('click', function(){
-        var text = $('#processes').val();
+        var text = String($('#processes').val());
         switch($(this).val()){
             case 'shake':
-                $('#processes').text(text + '材料をシェークして、');
+                $('#processes').val(text + '材料をシェークして、');
                 break;
             case 'stir':
-                $('#processes').text(text + '材料をステアして、');
+                $('#processes').val(text + '材料をステアして、');
                 break;
             case 'clash':
-                $('#processes').text(text + 'クラッシュドアイスを詰めた');
+                $('#processes').val(text + 'クラッシュドアイスを詰めた');
                 break;
             case 'cocktail-glass':
-                $('#processes').text(text + 'カクテルグラスに注ぐ');
+                $('#processes').val(text + 'カクテルグラスに注ぐ');
                 break;
         }
 
