@@ -31,7 +31,7 @@
     <meta property="og:type"          content="website" />
     <meta property="og:title"         content="カクテル.com" />
     <meta property="og:description"   content="タグや雰囲気からカクテルを探せるサイト!!" />
-    <meta property="og:image"         content="https://s3-ap-northeast-1.amazonaws.com/cocktails-img-bucket/main.jpg" />
+    <meta property="og:image"         content="https://s3-ap-northeast-1.amazonaws.com/cocktails-img-bucket/main.jpeg" />
 </head>
 <body>
     <!-- facebook -->
