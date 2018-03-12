@@ -64,7 +64,7 @@ header{
     }
 }
 
-footer, .push {
+.push {
     height: 100px;
 }
 
@@ -80,9 +80,10 @@ footer{
     color: #fff;
     text-align: center;
     z-index: -1;
+    height: auto;
 }
 @media screen and (max-width:480px){
-    footer, .push {
+    .push {
        height: 150px;
     }
 }
