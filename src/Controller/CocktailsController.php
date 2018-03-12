@@ -236,7 +236,7 @@ class CocktailsController extends AppController
     {
         $action = $this->request->getParam('action');
         // ログイン時に許可するアクション
-        if (in_array($action, ['edit', 'add', 'delete', 'getElementsOptions', 'mergeElementsTable', 'deleteElementsTable'])) {
+        if (in_array($action, ['edit', 'add', 'delete', 'mergeElementsTable', 'deleteElementsTable'])) {
             return true;
         }
         return false;
