@@ -239,7 +239,7 @@ function validate(){
             onsubmit: false
         },
         //エラーメッセージ出力箇所調整
-        errorPlacement: function(error){
+        errorPlacement: error => {
             error.appendTo('.elements-title');
         },
     });
@@ -248,23 +248,23 @@ function validate(){
 //選択済みの材料リストを取得
 function makeSelectedList(obj){
     // すでに追加されているidを取得
-    var obj_id_list = new Object();
-    $('#elements-table').find('.saved_id').each(function(i){
-        obj_id_list[i] = $(this).val();
+    let obj_id_list = new Object();
+    $('#elements-table').find('.saved_id').each( (i, elem) => {
+        obj_id_list[i] = $(elem).val();
     });
     obj['saved_id'] = obj_id_list;
 
     // すでに追加されているelement_idを取得
-    var obj_elements_list = new Object();
-    $('#elements-table').find('.element_id_selected').each(function(i){
-        obj_elements_list[i] = $(this).val();
+    let obj_elements_list = new Object();
+    $('#elements-table').find('.element_id_selected').each( (i, elem) => {
+        obj_elements_list[i] = $(elem).val();
     });
     obj['element_id_selected'] = obj_elements_list;
 
     // すでに追加されているamountを取得
-    var obj_amount_list = new Object();
-    $('#elements-table').find('.amount_selected').each(function(i){
-        obj_amount_list[i] = $(this).val();
+    let obj_amount_list = new Object();
+    $('#elements-table').find('.amount_selected').each( (i, elem) => {
+        obj_amount_list[i] = $(elem).val();
     });
     obj['amount_selected'] = obj_amount_list;
 
