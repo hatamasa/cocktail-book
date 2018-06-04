@@ -25,7 +25,6 @@
 
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
-    <?= $this->fetch('script') ?>
     <!-- facebook -->
     <meta property="og:url"           content="https://cocktail-com.herokuapp.com/" />
     <meta property="og:type"          content="website" />
@@ -54,5 +53,6 @@
     </div>
     <div class="push"></div>
     <?= $this->element('_footer'); ?>
+    <?= $this->fetch('script') ?>
 </body>
 </html>
