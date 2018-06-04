@@ -10,7 +10,7 @@ class CocktailsUtil
      */
     static public function escapeString($s) {
 
-        return "%" . mb_ereg_replace('([_%#])', '\\\1', $s) . "%";
+        return "%" . mb_ereg_replace('([_%])', '\\\1', $s) . "%";
     }
 
     /**
