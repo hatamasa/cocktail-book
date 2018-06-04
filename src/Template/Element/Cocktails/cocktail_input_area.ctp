@@ -8,7 +8,7 @@
         <tr>
             <th class="table-header-md">名前</th>
             <td><?= $this->element('input_errors', ['name' => 'name']); ?>
-            <input type="text" class="input-text-1" name="name" value="<?= $params['name']??'' ?>" /></td>
+            <input type="text" class="input-text-1" name="name" value="<?= h($params['name'])??'' ?>" /></td>
         </tr>
         <tr>
             <th class="table-header-md">グラスタイプ</th>
@@ -83,7 +83,7 @@
         <button type="button" class="btn btn-default btn-sm processes" value="cocktail-glass">カクテルグラスに注ぐ</button>
         <button type="button" class="btn btn-default btn-sm processes" value="sodain" >ソーダを注ぐ</button>
         <div>
-            <textarea name="processes" id="processes" cols="70" rows="5" ><?= $params['processes']??'' ?></textarea>
+            <textarea name="processes" id="processes" cols="70" rows="5" ><?= h($params['processes'])??'' ?></textarea>
         </div>
     </div>
     <div class="form-group">
@@ -94,7 +94,7 @@
             <li>
                 <label>
                     <input type="checkbox" class="checkbox-input" name="tag_id[]" value="<?= $tag['id']?>" <?php if(in_array($tag['id'], $params['tag_id']??[])): ?> checked="checked" <?php endif; ?> />
-                    <span class="checkbox-span"><?= $tag['name']?></span>
+                    <span class="checkbox-span"><?= h($tag['name'])?></span>
                 </label>
             </li>
             <?php endforeach; ?>
@@ -114,7 +114,7 @@ $(() => {
         let category = $('#category').val();
         <?php foreach ($elements_master as $elements):?>
         if("<?= $elements['category_kbn'] ?>" == category){
-            let option = $("<option>").val("<?= $elements['id'] ?>").text("<?= $elements['name'] ?>");
+            let option = $("<option>").val("<?= $elements['id'] ?>").text("<?= h($elements['name']) ?>");
             $("#elements").append(option);
         }
         <?php endforeach;?>

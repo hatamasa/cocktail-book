@@ -31,7 +31,7 @@
     <tr>
     <?php if(isset($params['name']) && !empty($params['name'])):?>
     <th>カクテルの名前</th>
-        <td>「<?= $params['name'] ?>」に一致するカクテル</td>
+        <td>「<?= h($params['name']) ?>」に一致するカクテル</td>
     <?php endif;?>
     <?php if(isset($params['glass'])):?>
     <th>グラスタイプ</th>
@@ -65,7 +65,7 @@
         <?php foreach ($params['tag_id'] as $tag_id):?>
             <?php foreach ($tags_master as $tag):?>
                 <?php if($tag['id'] == $tag_id):?>
-                    <div>#<?= $tag['name']?></div>
+                    <div>#<?= h($tag['name'])?></div>
                 <?php endif;?>
             <?php endforeach;?>
         <?php endforeach;?>

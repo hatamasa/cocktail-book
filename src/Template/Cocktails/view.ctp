@@ -1,6 +1,6 @@
 <!-- 検索結果表示 -->
 <div class="title__wrapper">
-    <h1><?= $cocktail['name']?> のカクテル詳細</h1>
+    <h1><?= h($cocktail['name'])?> のカクテル詳細</h1>
     <?php if ($auth->user()): ?>
     <ul>
         <li><?= $this->Html->link('編集する', ['action' => 'edit', $cocktail['id']]) ?></li>
@@ -9,7 +9,7 @@
     <?php endif;?>
 </div>
 <div class="cocktail__wrapper">
-    <img src="<?= $cocktail['img_url']??$no_img_url ?>"/>
+    <img src="<?= h($cocktail['img_url'])??$no_img_url ?>"/>
     <table class="table-background-skeleton black-th groove-td">
         <tr>
             <th id="table-header-md">グラスタイプ</th>
@@ -31,7 +31,7 @@
             <th id="table-header-md">タグ</th>
             <td>
             <?php foreach ($tags as $tag): ?>
-                <div><?= $this->Html->link('#'. $tag['name'], ['action' => 'search', '?' => ['tag_id' => [$tag['id']]]]) ?></div>
+                <div><?= $this->Html->link('#'. h($tag['name']), ['action' => 'search', '?' => ['tag_id' => [$tag['id']]]]) ?></div>
             <?php endforeach;?>
             </td>
         </tr>
@@ -43,7 +43,7 @@
     <?php foreach ($cocktails_elements as $element): ?>
         <tr>
             <th id="table-header-md"><?= $category_list[$element['category_kbn']]?></th>
-            <td id="table-data-md"><?= $element['name']?> ( <?= $element['amount']?> )</td>
+            <td id="table-data-md"><?= h($element['name'])?> ( <?= h($element['amount'])?> )</td>
         </tr>
     <?php endforeach; ?>
     </table>
